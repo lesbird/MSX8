@@ -1,6 +1,7 @@
 # MSX8
 MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
+<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: 
 [MSX8.ZIP - 30KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer. Copy these to a CP/M drive on your Heatkit computer.
 
 [MSXROMS.ZIP - 10MB](https://drive.google.com/file/d/1jMZHKzHdKzh-uVd8EpNnj2vCAhP1Kqdi/view?usp=sharing) all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
@@ -39,3 +40,13 @@ press L to launch the game. The game start address is retrieved from the beginni
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
 
 I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and more and they all work perfectly. Some ROMs will not run for whatever reason, which could potentially be that they are addressing the hardware directly instead of through the MSX BIOS.
+
+### CPU AND GRAPHICS MODIFICATIONS
+
+Disconnect the front panel interrupt from the CPU 5 pin connector. The reason is the interrupts are being injected 500 times per second which is too fast for MSX games which rely on an interrupt rate of 60 times per second (VDP refresh rate).
+
+![CPU](https://github.com/lesbird/MSX8/blob/main/MODCPU.JPG)
+
+Enable INT3 VDP interrupts on the graphics card so it will generate the 60Hz refresh rate that the games need in order to run properly.
+
+![GFX](https://github.com/lesbird/MSX8/blob/main/MODGFX.jpg)
