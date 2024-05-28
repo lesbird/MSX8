@@ -1,7 +1,8 @@
 # MSX8
 MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
-<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: 
+<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: [CPU and GFX MODS](https://github.com/lesbird/MSX8/blob/main/README.md#cpu-and-graphics-modifications)
+
 [MSX8.ZIP - 30KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer. Copy these to a CP/M drive on your Heatkit computer.
 
 [MSXROMS.ZIP - 10MB](https://drive.google.com/file/d/1jMZHKzHdKzh-uVd8EpNnj2vCAhP1Kqdi/view?usp=sharing) all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
