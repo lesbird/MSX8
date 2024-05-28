@@ -1,6 +1,8 @@
 # MSX8
 MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
+[MSX8.ZIP - 30KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer. Copy these to a CP/M drive on your Heatkit computer.
+
 [MSXROMS.ZIP - 10MB](https://drive.google.com/file/d/1jMZHKzHdKzh-uVd8EpNnj2vCAhP1Kqdi/view?usp=sharing) all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
 
 MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an HA8-3 Color Graphics Card (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K.
