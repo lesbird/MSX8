@@ -1,13 +1,13 @@
 # MSX8
 MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
-<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: [CPU and GFX MODS](https://github.com/lesbird/MSX8/blob/main/README.md#cpu-and-graphics-modifications) - <b>The standard Z80 CPU board will not run without front panele interrupts so you will need one of my [RomWBW CPU](https://github.com/sebhc/sebhc/wiki/H8-Z80-ROMWBW-V1.0) boards to use MSX8.</b>
+<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: [CPU and GFX MODS](https://github.com/lesbird/MSX8/blob/main/README.md#cpu-and-graphics-modifications) - <b>The standard Z80 CPU board will not run without front panel interrupts so you will need one of my [RomWBW CPU](https://github.com/sebhc/sebhc/wiki/H8-Z80-ROMWBW-V1.0) boards to use MSX8.</b>
 
 [MSX8.ZIP - 30KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer. Copy these to a CP/M drive on your Heatkit computer.
 
-[MSXROMS.ZIP - 10MB](https://drive.google.com/file/d/1jMZHKzHdKzh-uVd8EpNnj2vCAhP1Kqdi/view?usp=sharing) all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
+[MSXROMS.ZIP - 10MB](https://drive.google.com/file/d/1jMZHKzHdKzh-uVd8EpNnj2vCAhP1Kqdi/view?usp=sharing) almost 800 ROMs all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
 
-MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an HA8-3 Color Graphics Card (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K.
+MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an HA8-3 Color Graphics Card (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K (a clone of the HA8-3).
 
 This repository contains the source code for the CP/M program buildable with the standard CP/M ASM program as follows:
 
@@ -40,7 +40,9 @@ press L to launch the game. The game start address is retrieved from the beginni
 
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
 
-I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and more and they all work perfectly. Some ROMs will not run for whatever reason, which could potentially be that they are addressing the hardware directly instead of through the MSX BIOS.
+I've tried other similar projects on the NABU and have not been able to run PACMAN or BOSCONIAN or RALLY-X (and others) without issues (crashes/lock ups). I believe this is because they use crippled BIOS ROMs and only implement a small portion of functionality by poking code into the MSX BIOS memory locations. My approach is to use the full MSX BIOS and change only the I/O port addresses to work with the VDP and PSG in my system. I also wrote custom code to handle the joysticks for the Heathkit as the MSX has a different way of doing this. Still some games just won't run for whatever reason.
+
+I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and more and they all work perfectly.
 
 ### CPU AND GRAPHICS MODIFICATIONS
 
