@@ -1,7 +1,7 @@
 # MSX8
 MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
-<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: [CPU and GFX MODS](https://github.com/lesbird/MSX8/blob/main/README.md#cpu-and-graphics-modifications)
+<b>IMPORTANT NOTICE</b> you will need to disconnect the front panel interrupt line of the 5 pin connector on the CPU board and jumper the VDP interrupt to INT3 on the graphics card. Follow this link: [CPU and GFX MODS](https://github.com/lesbird/MSX8/blob/main/README.md#cpu-and-graphics-modifications) - The standard Z80 CPU board will not run without front panele interrupts so you will need one of my [RomWBW CPU](https://github.com/sebhc/sebhc/wiki/H8-Z80-ROMWBW-V1.0) boards to use MSX8.
 
 [MSX8.ZIP - 30KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer. Copy these to a CP/M drive on your Heatkit computer.
 
