@@ -33,3 +33,5 @@ press L to launch the game. The game start address is retrieved from the beginni
 ```
 
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
+
+I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and more and they all work perfectly. Some ROMs will not run for whatever reason, which could potentially be that they are addressing the hardware directly instead of through the MSX BIOS.
