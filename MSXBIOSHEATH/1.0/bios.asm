@@ -889,11 +889,19 @@ A046F:  in      a,($AA)
         ret
 ;
 A049D:  ld      a,$07
-        ld      e,$80
+;        ld      e,$80
+	ld	e,$00
         call    A1102
-        ld      a,$0F
-        ld      e,$CF
-        call    A1102
+;        ld      a,$0F
+	nop
+	nop
+;        ld      e,$CF
+	nop
+	nop
+;        call    A1102
+	nop
+	nop
+	nop
         ld      a,$0B
         ld      e,a
         call    A1102
@@ -942,7 +950,8 @@ A04D3:  push    hl
         cp      $03
         jr      c,A04D3
         ld      a,$07
-        ld      e,$B8
+;        ld      e,$B8
+	ld	e,$38
         call    A1102
         jp      A08DA
 ;
@@ -2365,9 +2374,13 @@ A1102:  di
         pop     af
         ret
 ;
-A110C:  ld      a,$0E
-A110E:  out     (PSGCTL),a
-        in      a,(PSGRIN)
+;A110C:  ld      a,$0E
+A110C:	nop
+	nop
+;A110E:  out     (PSGCTL),a
+;        in      a,(PSGRIN)
+A110E:	call	H8JSTK
+	nop
         ret
 ;
 A1113:  xor     a
@@ -2376,7 +2389,8 @@ A1113:  xor     a
         ld      e,a
         inc     a
         call    A1102
-        ld      e,$BE
+;        ld      e,$BE
+	ld	e,$3E
         ld      a,$07
         call    A1102
         ld      e,a
@@ -2541,11 +2555,18 @@ A121F:  out     (PSGDAT),a
         ret
 ;
 A1226:  di
-        in      a,($AA)
-        and     $F0
-        add     a,$08
-        out     ($AA),a
-        in      a,($A9)
+;        in      a,($AA)
+;        and     $F0
+;        add     a,$08
+;        out     ($AA),a
+;        in      a,($A9)
+	nop
+	nop
+	nop
+	nop
+	ld	a,'I'
+	call	CONOUT
+	xor	a
         ei
         ret
 ;
@@ -2748,11 +2769,17 @@ A1388:  jr      nz,A138D
         ld      a,$09
         defb    $C2
 A138D:  ld      a,$08
-        out     ($AB),a
+;        out     ($AB),a
+	nop
+	nop
         ret
 ;
-A1392:  in      a,($AA)
-        and     $10
+A1392:  nop
+	nop
+;	in      a,($AA)
+	nop
+	nop
+;        and     $10
         jr      A1388
 ;
 A1398:  call    H_NMI
@@ -2794,19 +2821,31 @@ T13A9:  db      "color ",0
 A1449:  in      a,(VDPCTL)
         ret
 ;
-A144C:  in      a,($A8)
+A144C:  nop
+	xor	a
+;	in      a,($A8)
         ret
 ;
-A144F:  out     ($A8),a
+A144F:  nop
+	nop
+;	out     ($A8),a
         ret
 ;
 A1452:  ld      c,a
         di
-        in      a,($AA)
-        and     $F0
-        add     a,c
-        out     ($AA),a
-        in      a,($A9)
+;        in      a,($AA)
+	nop
+	nop
+;        and     $F0
+	nop
+	nop
+;        add     a,c
+	nop
+;        out     ($AA),a
+	nop
+	nop
+;        in      a,($A9)
+	ld	a,$FF
         ei
         ret
 ;
@@ -4498,8 +4537,118 @@ A2686:  jp      C4666
 ;
 A2689:  jp      C5597
 ;
-;H8INT:	call    A0D4E
-;	ld	a,$D0
-;	out    ($F0),a		  	; clear the H8 front panel interrupt
-;	out    ($F1),a
-;	ret
+H8INT:	ld	a,$D0
+	out    ($F0),a		  	; clear the H8 front panel interrupt
+	out    ($F1),a
+	ret
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
+; H8 FORMAT: 15 - PLR4RG,PLR4LF,PLR3RG,PLR3LF,PLR2RG,PLR2LF,PLR1RG,PLR1LF
+; H8 FORMAT: 14 - 0x03=PLR1TRG,0x0C=PLR2TRG,0x30=PLR3TRG,0xC0=PLR4TRG
+H8JSTK:	push	bc
+	ld	a,'J'
+	call	CONOUT
+	ld	c,$FF			; everything off (1=off, 0=on)
+	ld	a,$0E
+	out	(PSGCTL),a
+	in	a,(PSGCTL)
+	ld	b,a
+	and	$03			; check trigger
+	jr	nz,H8JST2
+	ld	a,c
+	and	$EF			; TRGA on
+	ld	c,a
+	jr	H8JST4			; skip up/down if trigger pressed
+H8JST2:	ld	a,b
+	and	$01			; check up
+	jr	nz,H8JST3
+	ld	a,c
+	and	$FE			; UP on
+	ld	c,a
+H8JST3:	ld	a,b
+	and	$02			; check down
+	jr	nz,H8JST4
+	ld	a,c
+	and	$FD			; DWN on
+	ld	c,a
+H8JST4:	ld	a,$0F
+	out	(PSGCTL),a
+	in	a,(PSGCTL)
+	ld	b,a
+	and	$01			; check left
+	jr	nz,H8JST5
+	ld	a,c
+	and	$FB			; LFT on
+	ld	c,a
+H8JST5:	ld	a,b
+	and	$02			; check right
+	jr	nz,H8JSTX
+	ld	a,c
+	and	$F7
+	ld	c,a
+H8JSTX:	ld	a,c
+;	cpl
+	call	OUTHEX
+	call	CRLF
+	pop	bc
+	ret
+;
+CONOUT:	push	bc
+	ld	c,a
+	in	$F0
+	cp	$6F
+	jr	nz,CONOUX
+CONOUL:	in	a,($ED)
+	and	$20
+	jr	z,CONOUL
+	ld	a,c
+	out	($E8),a
+CONOUX:	pop	bc
+	ret
+;
+OUTHEX:	push	af
+	push	hl
+	push	de
+	push	af
+	and	$F0
+	rra
+	rra
+	rra
+	rra
+	ld	hl,HEXTBL
+	ld	e,a
+	ld	d,0
+	add	hl,de
+	ld	a,(hl)
+	call	CONOUT
+	pop	af
+	and	$0F
+	ld	hl,HEXTBL
+	ld	e,a
+	add	hl,de
+	ld	a,(hl)
+	call	CONOUT
+	pop	de
+	pop	hl
+	pop	af
+	ret	
+;
+CRLF:	push	af
+	ld	a,0DH
+	call	CONOUT
+	ld	a,0AH
+	call	CONOUT
+	pop	af
+	ret
+;
+CONIN:	ld	a,'I'
+	call	CONOUT
+	in	a,($ED)
+	and	$01
+	jr	z,CONINX
+	in	a,($E8)
+CONINX:	call	OUTHEX
+	call	CRLF
+	ret
+;
+HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
