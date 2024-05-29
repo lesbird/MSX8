@@ -30,8 +30,7 @@ When MSX8 is launched it jumps to high memory (0xC000) and then will look for an
 A0>MSX8 GALAGA.ROM
 ```
 
-The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M anymore) and MSX8 will wait until you
-press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
+The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M anymore) and MSX8 will wait until you press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
 
 ```
         LHLD    4002H
@@ -40,7 +39,7 @@ press L to launch the game. The game start address is retrieved from the beginni
 
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
 
-I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly.
+I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly. Some ROMs do not work. One in particular is FROGGER. I disassembled the FROGGER ROM and discovered it is doing direct writes to the VDP/PSG instead of going through the BIOS. I suspect many non-working games are doing this as well.
 
 ### CPU AND GRAPHICS MODIFICATIONS
 
