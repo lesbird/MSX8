@@ -40,9 +40,7 @@ press L to launch the game. The game start address is retrieved from the beginni
 
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
 
-I've tried other similar projects on the NABU and have not been able to run PACMAN or BOSCONIAN or RALLY-X (and others) without issues (crashes/lock ups). I believe this is because they use crippled BIOS ROMs and only implement a small portion of functionality by poking code into the MSX BIOS memory locations. My approach is to use the full MSX BIOS and change only the I/O port addresses to work with the VDP and PSG in my system. I also wrote custom code to handle the joysticks for the Heathkit as the MSX has a different way of doing this. Still some games just won't run for whatever reason.
-
-I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and more and they all work perfectly.
+I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly.
 
 ### CPU AND GRAPHICS MODIFICATIONS
 
