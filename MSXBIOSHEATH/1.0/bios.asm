@@ -2084,6 +2084,7 @@ A0C3C:  push    hl
         push    iy
         push    ix
         call    H_KEYI
+;	call	H8INT
         in      a,(VDPCTL)
         and     a                       ; vdp interrupt ?
         jp      p,A0D02                 ; nop, quit KEYINT
@@ -2133,10 +2134,15 @@ A0C82:  rr      c                       ; handle this channel ?
         pop     bc
         or      b
         push    af
+;	nop
         call    A1226                   ; read keyboard row 8
         and     $01                    ; only spacebar
+;	nop
+;	nop
         pop     bc
+;	nop
         or      b
+;	nop
         ld      c,a
         ld      hl,TRGFLG
         xor     (hl)
@@ -2172,6 +2178,7 @@ A0C82:  rr      c                       ; handle this channel ?
         ld      (hl),$FF
         ldir                            ; create a being pressed
 	call    A0D4E
+;A0D02:  call	H8INTC
 A0D02:  pop     ix
         pop     iy
         pop     af
@@ -4537,9 +4544,19 @@ A2686:  jp      C4666
 ;
 A2689:  jp      C5597
 ;
-H8INT:	ld	a,$D0
-	out    ($F0),a		  	; clear the H8 front panel interrupt
-	out    ($F1),a
+H8INT:	call	H8DLY
+        call    H_KEYI
+	ret
+H8INTC:	ld	a,$D0
+	out	($F0),a		  	; clear the H8 front panel interrupt
+	out	($F1),a
+	in	a,($F0)
+	ret
+H8DLY:	ld	bc,$0080
+H8DLYL:	dec	bc
+	ld	a,c
+	or	b
+	jr	nz,H8DLYL
 	ret
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 ; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
