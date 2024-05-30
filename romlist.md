@@ -54,11 +54,11 @@ RUNS SHORT NAME     LONG NAME (481 ROMS)
  N   BOGGY055.ROM   Boggy '84 (Japan).rom
  N   BOING056.ROM   Boing Boing (Spain).rom
  N   BOKOS057.ROM   Bokosuka Wars (Japan).rom
- N   BOMBE059.ROM   Bomber Man (Japan).rom
+ Y   BOMBE059.ROM   Bomber Man (Japan).rom
  N   BOMBE060.ROM   Bomber Man Special (Japan).rom
- N   BOOGI061.ROM   Boogie Woogi Jungle (Japan).rom
+ Y   BOOGI061.ROM   Boogie Woogi Jungle (Japan).rom
  N   BOOME062.ROM   Boomerang (Japan).rom
- N   BOSCO064.ROM   Bosconian (Japan).rom
+ Y   BOSCO064.ROM   Bosconian (Japan).rom
  N   BOUKE065.ROM   Bouken Roman - Dota (Japan).rom
  N   BOULD066.ROM   Boulder Dash (Japan).rom
  N   BOUNC067.ROM   Bouncing Block (Spain).rom
@@ -70,55 +70,55 @@ RUNS SHORT NAME     LONG NAME (481 ROMS)
  N   BURGE074.ROM   Burgertime (Japan).rom
  N   BURUT075.ROM   Buru To Marty Kikiippatsu - Inspecteur Z (Japan).rom
  N   BUTAM076.ROM   Butam Pants (Japan).rom
- N   CABBA078.ROM   Cabbage Patch Kids (Japan).rom
+ Y   CABBA078.ROM   Cabbage Patch Kids (Japan).rom
  N   CANDO079.ROM   Candoo Ninja (Japan).rom
- N   CANNO080.ROM   Cannon Ball (Japan).rom
+ Y   CANNO080.ROM   Cannon Ball (Japan).rom
  N   CANNO081.ROM   Cannon Fighter (Japan).rom
  N   CAPTA082.ROM   Captain Chef (Japan).rom
  N   CARFI083.ROM   Car Fighter (Japan).rom
- N   CARJA084.ROM   Car Jamboree (Japan).rom
- N   CARRA085.ROM   Car-Race (Japan).rom
+ Y   CARJA084.ROM   Car Jamboree (Japan).rom
+ Y   CARRA085.ROM   Car-Race (Japan).rom
  N   CASIO086.ROM   Casio Daishogai Keiba (Japan).rom
  N   CASIO087.ROM   Casio Pachinko-U.F.O. (Japan).rom
  N   CASIO088.ROM   Casio Ski Command (Japan).rom
  N   CASIO089.ROM   Casio Worldopen (Japan).rom
- N   CASTL090.ROM   Castle Excellent (Japan).rom
- N   CASTL091.ROM   Castle, The (Japan).rom
+ Y   CASTL090.ROM   Castle Excellent (Japan).rom
+ Y   CASTL091.ROM   Castle, The (Japan).rom
  N   CHACK092.ROM   Chack'n Pop (Japan).rom
- N   CHALL093.ROM   Challenge Derby (Japan).rom
- N   CHAMP094.ROM   Champion Boxing (Japan).rom
- N   CHAMP095.ROM   Champion Ice Hockey (Japan).rom
- N   CHAMP096.ROM   Champion Kendou (Japan).rom
- N   CHAMP097.ROM   Champion Pro Wrestling (Japan).rom
- N   CHAMP098.ROM   Champion Soccer (Japan).rom
- N   CHAMP099.ROM   Championship Lode Runner (Japan).rom
+ Y   CHALL093.ROM   Challenge Derby (Japan).rom
+ Y   CHAMP094.ROM   Champion Boxing (Japan).rom
+ Y   CHAMP095.ROM   Champion Ice Hockey (Japan).rom
+ Y   CHAMP096.ROM   Champion Kendou (Japan).rom
+ Y   CHAMP097.ROM   Champion Pro Wrestling (Japan).rom
+ Y   CHAMP098.ROM   Champion Soccer (Japan).rom
+ Y   CHAMP099.ROM   Championship Lode Runner (Japan).rom
  N   CHECK100.ROM   Checkers in Tantan Tanuki (Japan).rom
  N   CHESS101.ROM   Chess (Japan).rom
  N   CHESS102.ROM   Chess Game, The (Europe).rom
- N   CHOPL103.ROM   Choplifter (Japan).rom
+ Y   CHOPL103.ROM   Choplifter (Japan).rom
  N   CHORO104.ROM   Choro Q (Japan).rom
  N   CHUGA105.ROM   Chugaku Hisshu Eibunpo 1 (Japan).rom
- N   CIRCU106.ROM   Circus Charlie (Japan).rom
+ Y   CIRCU106.ROM   Circus Charlie (Japan).rom
  N   CITYC107.ROM   City Connection (Japan).rom
  N   COAST108.ROM   Coaster Race (Japan).rom
- N   COLOR109.ROM   Color Ball (Japan).rom
+ Y   COLOR109.ROM   Color Ball (Japan).rom
  N   COLUM110.ROM   Columns (Japan).rom
  N   COMEC112.ROM   Comecocos (Spain).rom
  N   COMEO111.ROM   Come On! Picot (Japan).rom
  N   COMET113.ROM   Comet Tail (Japan).rom
- N   COMIC114.ROM   Comic Bakery (Japan).rom
- N   COMPU115.ROM   Computer Billiards (Japan).rom
+ Y   COMIC114.ROM   Comic Bakery (Japan).rom
+ Y   COMPU115.ROM   Computer Billiards (Japan).rom
  N   COMPU116.ROM   Computer Nyuumon - Computer Lessons (Japan).rom
  N   COMPU117.ROM   Computer Othello (Japan).rom
  N   COMPU118.ROM   Computer Pachinko (Japan).rom
- N   CONDO119.ROM   Con-Dori (Japan).rom
+ Y   CONDO119.ROM   Con-Dori (Japan).rom
  N   COSMO121.ROM   Cosmo (Japan).rom
- N   COSMO122.ROM   Cosmo-Explorer (Japan).rom
+ Y   COSMO122.ROM   Cosmo-Explorer (Japan).rom
  N   COURA123.ROM   Courageous Perseus (Japan).rom
  N   CRAZY125.ROM   Crazy Bullet (Japan).rom
  N   CRAZY126.ROM   Crazy Cars (Europe).rom
  N   CRAZY127.ROM   Crazy Train (Japan).rom
- N   CRUSA129.ROM   Crusader (Japan).rom
+ Y   CRUSA129.ROM   Crusader (Japan).rom
  N   CSOJA077.ROM   C-So! (Japan).rom
  N   DAIDA131.ROM   D-Day (Japan).rom
  N   DAMBU133.ROM   Daidasso (Japan).rom
