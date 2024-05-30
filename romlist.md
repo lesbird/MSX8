@@ -31,22 +31,22 @@ RUNS SHORT NAME     LONG NAME (481 ROMS)
  Y   ATTAC030.ROM   Attack Four Volley Ball (Japan).rom
  N   BACKG032.ROM   Back Gammon (Japan).rom
  N   BACKG034.ROM   Backgammon (Europe).rom
- N   BACKT033.ROM   Back to the Future (Japan).rom
+ Y   BACKT033.ROM   Back to the Future (Japan).rom
  N   BALAN035.ROM   Balance (Japan).rom
- N   BANAN036.ROM   Banana (Japan).rom
+ Y   BANAN036.ROM   Banana (Japan).rom
  N   BANKP037.ROM   Bank Panic (Japan).rom
  N   BASIC038.ROM   Basic Lessons 1 (Japan).rom
  N   BASIC039.ROM   Basic Lessons 2 (Japan).rom
  N   BATTE041.ROM   Batten Tanuki no Daibouken (Japan) (v1.03).rom
  N   BATTL042.ROM   Battle Cross (Japan).rom
  N   BATTL043.ROM   Battleship Clapton II (Japan).rom
- N   BCSQU031.ROM   B.C.'s Quest (Japan).rom
+ Y   BCSQU031.ROM   B.C.'s Quest (Japan).rom
  N   BEACH044.ROM   Beach-Head (Europe).rom
  N   BEAMR045.ROM   Beam Rider (Japan).rom
- N   BECKY046.ROM   Becky (Japan).rom
- N   BEEFL047.ROM   Bee & Flower (Japan).rom
+ Y   BECKY046.ROM   Becky (Japan).rom
+ Y   BEEFL047.ROM   Bee & Flower (Japan).rom
  N   BIFAM048.ROM   Bifamu (Japan).rom
- N   BINAR049.ROM   Binary Land (Japan).rom
+ Y   BINAR049.ROM   Binary Land (Japan).rom
  N   BLACK051.ROM   Black Onyx, The (Japan).rom
  N   BLAGG052.ROM   Blagger MSX (Europe) (Converted From Tape).rom
  N   BLOCK053.ROM   Block Hole (Korea) (Unl).rom
