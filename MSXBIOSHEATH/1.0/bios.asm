@@ -889,8 +889,7 @@ A046F:  in      a,($AA)
         ret
 ;
 A049D:  ld      a,$07
-;        ld      e,$80
-	ld	e,$00
+        ld      e,$80
         call    A1102
 ;        ld      a,$0F
 	nop
@@ -950,8 +949,7 @@ A04D3:  push    hl
         cp      $03
         jr      c,A04D3
         ld      a,$07
-;        ld      e,$B8
-	ld	e,$38
+        ld      e,$B8
         call    A1102
         jp      A08DA
 ;
@@ -2373,10 +2371,14 @@ A10F9:  push    hl
         ret
 ;
 A1102:  di
-        out     (PSGCTL),a
-        push    af
-        ld      a,e
-        out     (PSGDAT),a
+	push	af
+	call	OUTPSG
+;        out     (PSGCTL),a
+;	push    af
+;        ld      a,e
+;        out     (PSGDAT),a
+	nop
+	nop
         ei
         pop     af
         ret
@@ -2396,8 +2398,7 @@ A1113:  xor     a
         ld      e,a
         inc     a
         call    A1102
-;        ld      e,$BE
-	ld	e,$3E
+        ld      e,$BE
         ld      a,$07
         call    A1102
         ld      e,a
@@ -2574,6 +2575,7 @@ A1226:  di
 	ld	a,'I'
 	call	CONOUT
 	xor	a
+	cpl
         ei
         ret
 ;
@@ -4544,6 +4546,16 @@ A2686:  jp      C4666
 ;
 A2689:  jp      C5597
 ;
+OUTPSG:	out     (PSGCTL),a
+	cp	$07
+	jr	nz,OUTPS1
+	ld	a,e
+	and	$3F			; H8 port config bits
+	ld	e,a
+OUTPS1:	ld      a,e
+	out     (PSGDAT),a
+	ret
+;
 H8INT:	call	H8DLY
         call    H_KEYI
 	ret
@@ -4565,10 +4577,11 @@ H8DLYL:	dec	bc
 H8JSTK:	push	bc
 	ld	a,'J'
 	call	CONOUT
-	ld	a,$07
-	in	a,(PSGRIN)
-	and	$3F
-	out	(PSGDAT),a		; make sure joystick ports are configured
+;	ld	a,$07
+;	out	(PSGCTL),a
+;	in	a,(PSGRIN)
+;	and	$3F
+;	out	(PSGDAT),a		; make sure joystick ports are configured
 	ld	c,$FF			; everything off (1=off, 0=on)
 	ld	a,$0E
 	out	(PSGCTL),a
