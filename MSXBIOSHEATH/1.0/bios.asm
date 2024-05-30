@@ -4565,6 +4565,10 @@ H8DLYL:	dec	bc
 H8JSTK:	push	bc
 	ld	a,'J'
 	call	CONOUT
+	ld	a,$07
+	in	a,(PSGRIN)
+	and	$3F
+	out	(PSGDAT),a		; make sure joystick ports are configured
 	ld	c,$FF			; everything off (1=off, 0=on)
 	ld	a,$0E
 	out	(PSGCTL),a

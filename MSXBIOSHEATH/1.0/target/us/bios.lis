@@ -2629,11 +2629,11 @@ bios.asm:
   2083  0c45  f5                        push    af
   2084  0c46  fde5                      push    iy
   2085  0c48  dde5                      push    ix
-  2086                          ;        call    H_KEYI
-  2087  0c4a  cd8c26            	call	H8INT
+  2086  0c4a  cd9afd                    call    H_KEYI
+  2087                          ;	call	H8INT
   2088  0c4d  dbb9                      in      a,(VDPCTL)
   2089  0c4f  a7                        and     a                       ; vdp interrupt ?
-  2090  0c50  f2ff0c                    jp      p,A0D02                 ; nop, quit KEYINT
+  2090  0c50  f2020d                    jp      p,A0D02                 ; nop, quit KEYINT
   2091  0c53  cd9ffd                    call    H_TIMI
   2092  0c56  fb                        ei
   2093  0c57  320000                    ld      (STATFL),a              ; save statusregister
@@ -2666,7 +2666,7 @@ bios.asm:
   2120  0c8e  38f2                      jr      c,A0C82                 ; all 3 channels
   2121  0c90  210000                    ld      hl,SCNCNT
   2122  0c93  35                        dec     (hl)                    ; do i have to scan ?
-  2123  0c94  2069                      jr      nz,A0D02                ; nop, quit KEYINT
+  2123  0c94  206c                      jr      nz,A0D02                ; nop, quit KEYINT
   2124  0c96  3603                      ld      (hl),$03               ; next scan after 3 ints
   2125  0c98  af                        xor     a
   2126  0c99  cd0c12                    call    A120C                   ; read joystick 0
@@ -2679,53 +2679,53 @@ bios.asm:
   2133  0ca7  07                        rlca
   2134  0ca8  c1                        pop     bc
   2135  0ca9  b0                        or      b
-  2136                          ;        push    af
-  2137  0caa  00                	nop
-  2138                          ;        call    A1226                   ; read keyboard row 8
-  2139                          ;        and     $01                    ; only spacebar
-  2140  0cab  00                	nop
-  2141  0cac  00                	nop
-  2142                          ;        pop     bc
-  2143  0cad  00                	nop
-  2144                          ;        or      b
-  2145  0cae  00                	nop
-  2146  0caf  4f                        ld      c,a
-  2147  0cb0  210000                    ld      hl,TRGFLG
-  2148  0cb3  ae                        xor     (hl)
-  2149  0cb4  a6                        and     (hl)
-  2150  0cb5  71                        ld      (hl),c                  ; save triggerflag
-  2151  0cb6  4f                        ld      c,a
-  2152  0cb7  0f                        rrca                            ; spacebar being pressed ?
-  2153  0cb8  2170fc                    ld      hl,TRPTBL+12*3
-  2154  0cbb  dcf10e                    call    c,C0EF1                 ; yep, set STRIG0 event
-  2155  0cbe  cb11                      rl      c                       ; firebutton 2 B being pressed ?
-  2156  0cc0  217cfc                    ld      hl,TRPTBL+16*3
-  2157  0cc3  dcf10e                    call    c,C0EF1                 ; yep, set STRIG4 event
-  2158  0cc6  cb11                      rl      c
-  2159  0cc8  2176fc                    ld      hl,TRPTBL+14*3
-  2160  0ccb  dcf10e                    call    c,C0EF1                 ; yep, set STRIG2 event
-  2161  0cce  cb11                      rl      c
-  2162  0cd0  2179fc                    ld      hl,TRPTBL+15*3
-  2163  0cd3  dcf10e                    call    c,C0EF1                 ; yep, set STRIG3 event
-  2164  0cd6  cb11                      rl      c
-  2165  0cd8  2173fc                    ld      hl,TRPTBL+13*3
-  2166  0cdb  dcf10e                    call    c,C0EF1                 ; yep, set STRIG1 event
-  2167  0cde  af                        xor     a
-  2168  0cdf  32d9fb                    ld      (CLIKFL),a
-  2169  0ce2  cd120d                    call    A0D12                   ; scan keyboard
-  2170  0ce5  2018                      jr      nz,A0D02                ; buffer not empty, quit KEYINT
-  2171  0ce7  210000                    ld      hl,REPCNT
-  2172  0cea  35                        dec     (hl)
-  2173  0ceb  2012                      jr      nz,A0D02
-  2174  0ced  3601                      ld      (hl),$01
-  2175  0cef  21dafb                    ld      hl,OLDKEY
-  2176  0cf2  11dbfb                    ld      de,OLDKEY+1
-  2177  0cf5  010a00                    ld      bc,11-1
-  2178  0cf8  36ff                      ld      (hl),$FF
-  2179  0cfa  edb0                      ldir                            ; create a being pressed
-  2180  0cfc  cd4e0d            	call    A0D4E
-  2181  0cff  cd9326            A0D02:  call	H8INTC
-  2182  0d02  dde1              	pop     ix
+  2136  0caa  f5                        push    af
+  2137                          ;	nop
+  2138  0cab  cd2612                    call    A1226                   ; read keyboard row 8
+  2139  0cae  e601                      and     $01                    ; only spacebar
+  2140                          ;	nop
+  2141                          ;	nop
+  2142  0cb0  c1                        pop     bc
+  2143                          ;	nop
+  2144  0cb1  b0                        or      b
+  2145                          ;	nop
+  2146  0cb2  4f                        ld      c,a
+  2147  0cb3  210000                    ld      hl,TRGFLG
+  2148  0cb6  ae                        xor     (hl)
+  2149  0cb7  a6                        and     (hl)
+  2150  0cb8  71                        ld      (hl),c                  ; save triggerflag
+  2151  0cb9  4f                        ld      c,a
+  2152  0cba  0f                        rrca                            ; spacebar being pressed ?
+  2153  0cbb  2170fc                    ld      hl,TRPTBL+12*3
+  2154  0cbe  dcf10e                    call    c,C0EF1                 ; yep, set STRIG0 event
+  2155  0cc1  cb11                      rl      c                       ; firebutton 2 B being pressed ?
+  2156  0cc3  217cfc                    ld      hl,TRPTBL+16*3
+  2157  0cc6  dcf10e                    call    c,C0EF1                 ; yep, set STRIG4 event
+  2158  0cc9  cb11                      rl      c
+  2159  0ccb  2176fc                    ld      hl,TRPTBL+14*3
+  2160  0cce  dcf10e                    call    c,C0EF1                 ; yep, set STRIG2 event
+  2161  0cd1  cb11                      rl      c
+  2162  0cd3  2179fc                    ld      hl,TRPTBL+15*3
+  2163  0cd6  dcf10e                    call    c,C0EF1                 ; yep, set STRIG3 event
+  2164  0cd9  cb11                      rl      c
+  2165  0cdb  2173fc                    ld      hl,TRPTBL+13*3
+  2166  0cde  dcf10e                    call    c,C0EF1                 ; yep, set STRIG1 event
+  2167  0ce1  af                        xor     a
+  2168  0ce2  32d9fb                    ld      (CLIKFL),a
+  2169  0ce5  cd120d                    call    A0D12                   ; scan keyboard
+  2170  0ce8  2018                      jr      nz,A0D02                ; buffer not empty, quit KEYINT
+  2171  0cea  210000                    ld      hl,REPCNT
+  2172  0ced  35                        dec     (hl)
+  2173  0cee  2012                      jr      nz,A0D02
+  2174  0cf0  3601                      ld      (hl),$01
+  2175  0cf2  21dafb                    ld      hl,OLDKEY
+  2176  0cf5  11dbfb                    ld      de,OLDKEY+1
+  2177  0cf8  010a00                    ld      bc,11-1
+  2178  0cfb  36ff                      ld      (hl),$FF
+  2179  0cfd  edb0                      ldir                            ; create a being pressed
+  2180  0cff  cd4e0d            	call    A0D4E
+  2181                          ;A0D02:  call	H8INTC
+  2182  0d02  dde1              A0D02:  pop     ix
   2183  0d04  fde1                      pop     iy
   2184  0d06  f1                        pop     af
   2185  0d07  c1                        pop     bc
@@ -3555,7 +3555,7 @@ bios.asm:
   2572  1229  00                	nop
   2573  122a  00                	nop
   2574  122b  3e49              	ld	a,'I'
-  2575  122d  cdf126            	call	CONOUT
+  2575  122d  cdf926            	call	CONOUT
   2576  1230  af                	xor	a
   2577  1231  fb                        ei
   2578  1232  c9                        ret
@@ -5844,110 +5844,114 @@ bios.asm:
   4564                          ; H8 FORMAT: 14 - 0x03=PLR1TRG,0x0C=PLR2TRG,0x30=PLR3TRG,0xC0=PLR4TRG
   4565  26a5  c5                H8JSTK:	push	bc
   4566  26a6  3e4a              	ld	a,'J'
-  4567  26a8  cdf126            	call	CONOUT
-  4568  26ab  0eff              	ld	c,$FF			; everything off (1=off, 0=on)
-  4569  26ad  3e0e              	ld	a,$0E
-  4570  26af  d3bb              	out	(PSGCTL),a
-  4571  26b1  dbbb              	in	a,(PSGCTL)
-  4572  26b3  47                	ld	b,a
-  4573  26b4  e603              	and	$03			; check trigger
-  4574  26b6  2006              	jr	nz,H8JST2
-  4575  26b8  79                	ld	a,c
-  4576  26b9  e6ef              	and	$EF			; TRGA on
-  4577  26bb  4f                	ld	c,a
-  4578  26bc  1812              	jr	H8JST4			; skip up/down if trigger pressed
-  4579  26be  78                H8JST2:	ld	a,b
-  4580  26bf  e601              	and	$01			; check up
-  4581  26c1  2004              	jr	nz,H8JST3
-  4582  26c3  79                	ld	a,c
-  4583  26c4  e6fe              	and	$FE			; UP on
-  4584  26c6  4f                	ld	c,a
-  4585  26c7  78                H8JST3:	ld	a,b
-  4586  26c8  e602              	and	$02			; check down
-  4587  26ca  2004              	jr	nz,H8JST4
-  4588  26cc  79                	ld	a,c
-  4589  26cd  e6fd              	and	$FD			; DWN on
-  4590  26cf  4f                	ld	c,a
-  4591  26d0  3e0f              H8JST4:	ld	a,$0F
-  4592  26d2  d3bb              	out	(PSGCTL),a
-  4593  26d4  dbbb              	in	a,(PSGCTL)
-  4594  26d6  47                	ld	b,a
-  4595  26d7  e601              	and	$01			; check left
-  4596  26d9  2004              	jr	nz,H8JST5
-  4597  26db  79                	ld	a,c
-  4598  26dc  e6fb              	and	$FB			; LFT on
-  4599  26de  4f                	ld	c,a
-  4600  26df  78                H8JST5:	ld	a,b
-  4601  26e0  e602              	and	$02			; check right
-  4602  26e2  2004              	jr	nz,H8JSTX
-  4603  26e4  79                	ld	a,c
-  4604  26e5  e6f7              	and	$F7
-  4605  26e7  4f                	ld	c,a
-  4606  26e8  79                H8JSTX:	ld	a,c
-  4607                          ;	cpl
-  4608  26e9  cd0427            	call	OUTHEX
-  4609  26ec  cd2927            	call	CRLF
-  4610  26ef  c1                	pop	bc
-  4611  26f0  c9                	ret
-  4612                          ;
-  4613  26f1  c5                CONOUT:	push	bc
-  4614  26f2  4f                	ld	c,a
-  4615  26f3  dbf0              	in	$F0
-  4616  26f5  fe6f              	cp	$6F
-  4617  26f7  2009              	jr	nz,CONOUX
-  4618  26f9  dbed              CONOUL:	in	a,($ED)
-  4619  26fb  e620              	and	$20
-  4620  26fd  28fa              	jr	z,CONOUL
-  4621  26ff  79                	ld	a,c
-  4622  2700  d3e8              	out	($E8),a
-  4623  2702  c1                CONOUX:	pop	bc
-  4624  2703  c9                	ret
-  4625                          ;
-  4626  2704  f5                OUTHEX:	push	af
-  4627  2705  e5                	push	hl
-  4628  2706  d5                	push	de
-  4629  2707  f5                	push	af
-  4630  2708  e6f0              	and	$F0
-  4631  270a  1f                	rra
-  4632  270b  1f                	rra
-  4633  270c  1f                	rra
-  4634  270d  1f                	rra
-  4635  270e  214a27            	ld	hl,HEXTBL
-  4636  2711  5f                	ld	e,a
-  4637  2712  1600              	ld	d,0
-  4638  2714  19                	add	hl,de
-  4639  2715  7e                	ld	a,(hl)
-  4640  2716  cdf126            	call	CONOUT
-  4641  2719  f1                	pop	af
-  4642  271a  e60f              	and	$0F
-  4643  271c  214a27            	ld	hl,HEXTBL
-  4644  271f  5f                	ld	e,a
-  4645  2720  19                	add	hl,de
-  4646  2721  7e                	ld	a,(hl)
-  4647  2722  cdf126            	call	CONOUT
-  4648  2725  d1                	pop	de
-  4649  2726  e1                	pop	hl
-  4650  2727  f1                	pop	af
-  4651  2728  c9                	ret
-  4652                          ;
-  4653  2729  f5                CRLF:	push	af
-  4654  272a  3e0d              	ld	a,0DH
-  4655  272c  cdf126            	call	CONOUT
-  4656  272f  3e0a              	ld	a,0AH
-  4657  2731  cdf126            	call	CONOUT
-  4658  2734  f1                	pop	af
-  4659  2735  c9                	ret
-  4660                          ;
-  4661  2736  3e49              CONIN:	ld	a,'I'
-  4662  2738  cdf126            	call	CONOUT
-  4663  273b  dbed              	in	a,($ED)
-  4664  273d  e601              	and	$01
-  4665  273f  2802              	jr	z,CONINX
-  4666  2741  dbe8              	in	a,($E8)
-  4667  2743  cd0427            CONINX:	call	OUTHEX
-  4668  2746  cd2927            	call	CRLF
-  4669  2749  c9                	ret
-  4670                          ;
-  4671  274a  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+  4567  26a8  cdf926            	call	CONOUT
+  4568  26ab  3e07              	ld	a,$07
+  4569  26ad  dbba              	in	a,(PSGRIN)
+  4570  26af  e63f              	and	$3F
+  4571  26b1  d3ba              	out	(PSGDAT),a		; make sure joystick ports are configured
+  4572  26b3  0eff              	ld	c,$FF			; everything off (1=off, 0=on)
+  4573  26b5  3e0e              	ld	a,$0E
+  4574  26b7  d3bb              	out	(PSGCTL),a
+  4575  26b9  dbbb              	in	a,(PSGCTL)
+  4576  26bb  47                	ld	b,a
+  4577  26bc  e603              	and	$03			; check trigger
+  4578  26be  2006              	jr	nz,H8JST2
+  4579  26c0  79                	ld	a,c
+  4580  26c1  e6ef              	and	$EF			; TRGA on
+  4581  26c3  4f                	ld	c,a
+  4582  26c4  1812              	jr	H8JST4			; skip up/down if trigger pressed
+  4583  26c6  78                H8JST2:	ld	a,b
+  4584  26c7  e601              	and	$01			; check up
+  4585  26c9  2004              	jr	nz,H8JST3
+  4586  26cb  79                	ld	a,c
+  4587  26cc  e6fe              	and	$FE			; UP on
+  4588  26ce  4f                	ld	c,a
+  4589  26cf  78                H8JST3:	ld	a,b
+  4590  26d0  e602              	and	$02			; check down
+  4591  26d2  2004              	jr	nz,H8JST4
+  4592  26d4  79                	ld	a,c
+  4593  26d5  e6fd              	and	$FD			; DWN on
+  4594  26d7  4f                	ld	c,a
+  4595  26d8  3e0f              H8JST4:	ld	a,$0F
+  4596  26da  d3bb              	out	(PSGCTL),a
+  4597  26dc  dbbb              	in	a,(PSGCTL)
+  4598  26de  47                	ld	b,a
+  4599  26df  e601              	and	$01			; check left
+  4600  26e1  2004              	jr	nz,H8JST5
+  4601  26e3  79                	ld	a,c
+  4602  26e4  e6fb              	and	$FB			; LFT on
+  4603  26e6  4f                	ld	c,a
+  4604  26e7  78                H8JST5:	ld	a,b
+  4605  26e8  e602              	and	$02			; check right
+  4606  26ea  2004              	jr	nz,H8JSTX
+  4607  26ec  79                	ld	a,c
+  4608  26ed  e6f7              	and	$F7
+  4609  26ef  4f                	ld	c,a
+  4610  26f0  79                H8JSTX:	ld	a,c
+  4611                          ;	cpl
+  4612  26f1  cd0c27            	call	OUTHEX
+  4613  26f4  cd3127            	call	CRLF
+  4614  26f7  c1                	pop	bc
+  4615  26f8  c9                	ret
+  4616                          ;
+  4617  26f9  c5                CONOUT:	push	bc
+  4618  26fa  4f                	ld	c,a
+  4619  26fb  dbf0              	in	$F0
+  4620  26fd  fe6f              	cp	$6F
+  4621  26ff  2009              	jr	nz,CONOUX
+  4622  2701  dbed              CONOUL:	in	a,($ED)
+  4623  2703  e620              	and	$20
+  4624  2705  28fa              	jr	z,CONOUL
+  4625  2707  79                	ld	a,c
+  4626  2708  d3e8              	out	($E8),a
+  4627  270a  c1                CONOUX:	pop	bc
+  4628  270b  c9                	ret
+  4629                          ;
+  4630  270c  f5                OUTHEX:	push	af
+  4631  270d  e5                	push	hl
+  4632  270e  d5                	push	de
+  4633  270f  f5                	push	af
+  4634  2710  e6f0              	and	$F0
+  4635  2712  1f                	rra
+  4636  2713  1f                	rra
+  4637  2714  1f                	rra
+  4638  2715  1f                	rra
+  4639  2716  215227            	ld	hl,HEXTBL
+  4640  2719  5f                	ld	e,a
+  4641  271a  1600              	ld	d,0
+  4642  271c  19                	add	hl,de
+  4643  271d  7e                	ld	a,(hl)
+  4644  271e  cdf926            	call	CONOUT
+  4645  2721  f1                	pop	af
+  4646  2722  e60f              	and	$0F
+  4647  2724  215227            	ld	hl,HEXTBL
+  4648  2727  5f                	ld	e,a
+  4649  2728  19                	add	hl,de
+  4650  2729  7e                	ld	a,(hl)
+  4651  272a  cdf926            	call	CONOUT
+  4652  272d  d1                	pop	de
+  4653  272e  e1                	pop	hl
+  4654  272f  f1                	pop	af
+  4655  2730  c9                	ret
+  4656                          ;
+  4657  2731  f5                CRLF:	push	af
+  4658  2732  3e0d              	ld	a,0DH
+  4659  2734  cdf926            	call	CONOUT
+  4660  2737  3e0a              	ld	a,0AH
+  4661  2739  cdf926            	call	CONOUT
+  4662  273c  f1                	pop	af
+  4663  273d  c9                	ret
+  4664                          ;
+  4665  273e  3e49              CONIN:	ld	a,'I'
+  4666  2740  cdf926            	call	CONOUT
+  4667  2743  dbed              	in	a,($ED)
+  4668  2745  e601              	and	$01
+  4669  2747  2802              	jr	z,CONINX
+  4670  2749  dbe8              	in	a,($E8)
+  4671  274b  cd0c27            CONINX:	call	OUTHEX
+  4672  274e  cd3127            	call	CRLF
+  4673  2751  c9                	ret
+  4674                          ;
+  4675  2752  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
               3839414243444546  
-  4672                          
+  4676                          
