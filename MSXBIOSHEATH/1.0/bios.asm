@@ -184,10 +184,7 @@ SYNCHR: jp      A2683                   ; $0008
 
         defs    $000C-$,0
 
-RDSLT:  cpl
-;	jp      A01B6                   ; $000C
-	nop
-	ret
+RDSLT: 	jp      A01B6                   ; $000C
 
         defs    $0010-$,0
 
