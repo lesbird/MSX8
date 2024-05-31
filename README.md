@@ -43,11 +43,7 @@ At this point all control is passed to the GAME ROM with the MSX BIOS in low mem
 
 I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly. Some ROMs do not work. One in particular is FROGGER. I disassembled the FROGGER ROM and discovered it is doing direct writes to the VDP/PSG instead of going through the BIOS. I suspect many non-working games are doing this as well.
 
-### CPU AND GRAPHICS MODIFICATIONS
-
-Disconnect the front panel interrupt from the CPU 5 pin connector. The reason is the interrupts are being injected 500 times per second which is too fast for MSX games which rely on an interrupt rate of 60 times per second (VDP refresh rate).
-
-![CPU](https://github.com/lesbird/MSX8/blob/main/MODCPU.JPG)
+### GRAPHICS BOARD SETUP
 
 Enable INT3 VDP interrupts on the graphics card so it will generate the 60Hz refresh rate that the games need in order to run properly.
 
