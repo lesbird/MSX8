@@ -184,7 +184,10 @@ SYNCHR: jp      A2683                   ; $0008
 
         defs    $000C-$,0
 
-RDSLT:  jp      A01B6                   ; $000C
+RDSLT:  cpl
+;	jp      A01B6                   ; $000C
+	nop
+	ret
 
         defs    $0010-$,0
 
@@ -4686,3 +4689,120 @@ CONINX:	call	OUTHEX
 	ret
 ;
 HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+;
+TOF380: RET
+;	OUT     ($A8),A
+	NOP
+        LD      E,(HL)
+;        JR      J7F2F
+	NOP
+	NOP
+
+	RET
+;	OUT     ($A8),A
+	NOP
+        LD      (HL),E
+	LD      A,D
+        OUT     ($A8),A
+        RET
+
+	RET
+;	OUT     ($A8),A
+	NOP
+        EX      AF,AF'
+;        CALL    CLPRM1
+	NOP
+	NOP
+	NOP
+        EX      AF,AF'
+        POP     AF
+        OUT     ($A8),A
+        EX      AF,AF'
+        RET
+
+        JP      (IX)
+
+	defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+
+	defb    37
+
+	defb    29
+
+	defb    29
+
+	defb    24
+
+	defb    14
+
+	defw    0
+	defw    0
+	defw    $0800
+	defw    0
+	defw    0
+
+	defw    $1800
+	defw    $2000
+	defw    0
+	defw    $1B00
+	defw    $3800
+
+	defw    $1800
+	defw    $2000
+	defw    0
+	defw    $1B00
+	defw    $3800
+
+	defw    $0800
+	defw    0
+	defw    0
+	defw    $1B00
+	defw    $3800
+
+	defb    1
+	defb    1
+	defb    1
+	defb    0
+
+	defb    $00
+	defb    $E0
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $FF
+	defb    15
+	defb    4
+
+	defb    4
+
+	jp      0
+	jp      0
+	defb    15
+	defw    QUETAB
+	defb    $FF
+	defb    1
+	defb    50
+	defw    KEYBUF
+	defw    KEYBUF
+	defb    $53,$5C,$26,$2D,$0F
+	defb    $25,$2D,$0E,$16,$1F
+        defb    $53,$5C
+        defb    $26,$2D
+        defb    $0F
+	defw    $0100
+	defw    $0100
+	defb    ':'
+ENF380: defb	0
+;
