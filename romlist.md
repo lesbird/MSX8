@@ -1,6 +1,10 @@
 ```
+Y = WORKS
+YP= USE MSX8P (PATCHER VERSION)
+Y?= RUNS BUT CONTROLLER ISSUES
+N = DOES NOT WORK (USUALLY START ADDRESS IS INVALID)
 
-RUNS SHORT NAME     LONG NAME (481 ROMS)
+STAT SHORT NAME     LONG NAME (481 ROMS)
 ==== ============   ============================================
  Y   10YAR000.ROM   10-Yard Fight (Japan).rom			
  N   3DGOL002.ROM   3-D Golf Simulation (Japan) (High Speed).rom
