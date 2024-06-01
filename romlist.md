@@ -266,16 +266,16 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   KUNGF310.ROM   Kung Fu Acho (Japan).rom
  N   KUNGF311.ROM   Kung Fu Master (Japan).rom
  Y?  KUNGF312.ROM   Kung Fu Taigun (Japan).rom
---- TESTED ALL ABOVE SO FAR
  N   LADDE313.ROM   Ladder Building (Japan).rom
- N   LAPTI314.ROM   Laptick 2 (Japan).rom
- N   LEMAN315.ROM   Le Mans 2 (Europe).rom
+ Y?  LAPTI314.ROM   Laptick 2 (Japan).rom
+ Y   LEMAN315.ROM   Le Mans 2 (Europe).rom
  N   LEONA317.ROM   Leonard (Spain).rom
  Y   LODER319.ROM   Lode Runner (Japan).rom
  Y   LODER320.ROM   Lode Runner II (Japan).rom
  N   LORDO321.ROM   Lord Over (Japan).rom
  N   LOTLO322.ROM   Lot Lot (Japan).rom
- N   LUNAR323.ROM   Lunar Ball (Japan).rom
+ Y   LUNAR323.ROM   Lunar Ball (Japan).rom
+--- TESTED ALL ABOVE SO FAR
  N   MACAT325.ROM   Mac Attack (Europe).rom
  N   MACHI326.ROM   Machinegun Joe vs The Mafia (Japan).rom
  N   MACRO327.ROM   Macross (Japan).rom
