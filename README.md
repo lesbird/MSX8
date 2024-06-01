@@ -49,6 +49,6 @@ I have tested this with some of the popular arcade conversions for the MSX compu
 
 ### GRAPHICS BOARD SETUP
 
-Enable INT3 VDP interrupts on the graphics card so it will generate the 60Hz refresh rate that the games need in order to run properly.
+Enable INT7 VDP interrupts on the graphics card so it will generate the 60Hz refresh rate that the games need in order to run properly.
 
-![GFX](https://github.com/lesbird/MSX8/blob/main/MODGFX.jpg)
+![GFX VDP](https://github.com/lesbird/MSX8/blob/main/HA83VDPIRQ7.JPG)
