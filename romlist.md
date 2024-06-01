@@ -11,26 +11,26 @@ RUNS SHORT NAME     LONG NAME (481 ROMS)
  Y   AEJAP005.ROM   A.E. (Japan).rom
  N   ALBAT009.ROM   Albatros (Japan).rom
  N   ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
- Y   ALIBA011.ROM   Alibaba and 40 Thieves (Japan).rom
+ YP  ALIBA011.ROM   Alibaba and 40 Thieves (Japan).rom
  Y   ALIEN012.ROM   Alien 8 (Japan).rom
- N   ALPHA014.ROM   Alpha Roid (Japan).rom
- Y   ALPHA015.ROM   Alpha Squadron (Japan).rom
+ YP  ALPHA014.ROM   Alpha Roid (Japan).rom
+ YP  ALPHA015.ROM   Alpha Squadron (Japan).rom
  Y   AMERI016.ROM   American Truck (Japan).rom
- Y   ANAZA017.ROM   Anaza - Kaleidoscope Special (Japan).rom
+ Y?  ANAZA017.ROM   Anaza - Kaleidoscope Special (Japan).rom
  N   ANGEL018.ROM   Angelo (Japan).rom
- Y   ANTAR020.ROM   Antarctic Adventure (Europe).rom
- Y   ANTAR021.ROM   Antarctic Adventure (Japan).rom
+ Y?  ANTAR020.ROM   Antarctic Adventure (Europe).rom
+ YP  ANTAR021.ROM   Antarctic Adventure (Japan).rom
  N   ANTYJ022.ROM   Anty (Japan).rom
  Y   AQUAP023.ROM   Aqua Polis SOS (Japan).rom
  N   AQUAT024.ROM   Aquattack (Japan).rom
- N   ARAMO025.ROM   Aramo (Japan).rom
- Y   ARKAN026.ROM   Arkanoid (Japan).rom
+ Y   ARAMO025.ROM   Aramo (Japan).rom
+ Y?  ARKAN026.ROM   Arkanoid (Japan).rom
  N   ATHLE027.ROM   Athletic Ball (Japan).rom
  N   ATHLE028.ROM   Athletic Land (Japan) (Beta).rom
- Y   ATHLE029.ROM   Athletic Land (Japan).rom
+ YP  ATHLE029.ROM   Athletic Land (Japan).rom
  Y   ATTAC030.ROM   Attack Four Volley Ball (Japan).rom
  N   BACKG032.ROM   Back Gammon (Japan).rom
- N   BACKG034.ROM   Backgammon (Europe).rom
+ Y   BACKG034.ROM   Backgammon (Europe).rom
  Y   BACKT033.ROM   Back to the Future (Japan).rom
  N   BALAN035.ROM   Balance (Japan).rom
  Y   BANAN036.ROM   Banana (Japan).rom
