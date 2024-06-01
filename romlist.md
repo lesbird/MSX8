@@ -41,35 +41,35 @@ RUNS SHORT NAME     LONG NAME (481 ROMS)
  N   BATTL042.ROM   Battle Cross (Japan).rom
  N   BATTL043.ROM   Battleship Clapton II (Japan).rom
  Y   BCSQU031.ROM   B.C.'s Quest (Japan).rom
- N   BEACH044.ROM   Beach-Head (Europe).rom
+ Y   BEACH044.ROM   Beach-Head (Europe).rom
  N   BEAMR045.ROM   Beam Rider (Japan).rom
  Y   BECKY046.ROM   Becky (Japan).rom
  Y   BEEFL047.ROM   Bee & Flower (Japan).rom
  N   BIFAM048.ROM   Bifamu (Japan).rom
  Y   BINAR049.ROM   Binary Land (Japan).rom
- N   BLACK051.ROM   Black Onyx, The (Japan).rom
+ Y   BLACK051.ROM   Black Onyx, The (Japan).rom
  N   BLAGG052.ROM   Blagger MSX (Europe) (Converted From Tape).rom
- N   BLOCK053.ROM   Block Hole (Korea) (Unl).rom
- N   BLOCK054.ROM   Blockade Runner (Japan).rom
+ YP  BLOCK053.ROM   Block Hole (Korea) (Unl).rom
+ Y   BLOCK054.ROM   Blockade Runner (Japan).rom
  N   BOGGY055.ROM   Boggy '84 (Japan).rom
- N   BOING056.ROM   Boing Boing (Spain).rom
+ Y   BOING056.ROM   Boing Boing (Spain).rom
  N   BOKOS057.ROM   Bokosuka Wars (Japan).rom
  Y   BOMBE059.ROM   Bomber Man (Japan).rom
- N   BOMBE060.ROM   Bomber Man Special (Japan).rom
+ Y   BOMBE060.ROM   Bomber Man Special (Japan).rom
  Y   BOOGI061.ROM   Boogie Woogi Jungle (Japan).rom
  N   BOOME062.ROM   Boomerang (Japan).rom
  Y   BOSCO064.ROM   Bosconian (Japan).rom
- N   BOUKE065.ROM   Bouken Roman - Dota (Japan).rom
- N   BOULD066.ROM   Boulder Dash (Japan).rom
- N   BOUNC067.ROM   Bouncing Block (Spain).rom
+ Y   BOUKE065.ROM   Bouken Roman - Dota (Japan).rom
+ Y?  BOULD066.ROM   Boulder Dash (Japan).rom
+ Y   BOUNC067.ROM   Bouncing Block (Spain).rom
  N   BRAIN068.ROM   Brain, The (Japan).rom
  N   BREAK070.ROM   Break Out (Japan).rom
- N   BROTH071.ROM   Brother Adventure (Korea) (Unl).rom
- N   BRUCE072.ROM   Bruce Lee (Japan).rom
- N   BUBBL073.ROM   Bubble Bobble (Korea) (Unl).rom
+ Y?  BROTH071.ROM   Brother Adventure (Korea) (Unl).rom
+ Y   BRUCE072.ROM   Bruce Lee (Japan).rom
+ YP  BUBBL073.ROM   Bubble Bobble (Korea) (Unl).rom
  N   BURGE074.ROM   Burgertime (Japan).rom
- N   BURUT075.ROM   Buru To Marty Kikiippatsu - Inspecteur Z (Japan).rom
- N   BUTAM076.ROM   Butam Pants (Japan).rom
+ Y   BURUT075.ROM   Buru To Marty Kikiippatsu - Inspecteur Z (Japan).rom
+ Y   BUTAM076.ROM   Butam Pants (Japan).rom
  Y   CABBA078.ROM   Cabbage Patch Kids (Japan).rom
  N   CANDO079.ROM   Candoo Ninja (Japan).rom
  Y   CANNO080.ROM   Cannon Ball (Japan).rom
