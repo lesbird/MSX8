@@ -243,30 +243,30 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   JYANF281.ROM   Jyan Friend (Japan).rom
  Y   JYANK282.ROM   Jyankyo (Japan).rom
  Y   JYANY283.ROM   Jyanyuu (Japan).rom
---- TESTED ALL ABOVE SO FAR
  N   KAGEN284.ROM   Kage no Densetsu - Legend of Kage, The (Japan).rom
  N   KARAM285.ROM   Karamaru (Japan).rom
  N   KEYST287.ROM   Keystone Kapers (Japan).rom
- N   KICKI288.ROM   Kick It (Japan).rom
- N   KINAS289.ROM   Kinasai (Japan) (Unl).rom
- N   KINGB290.ROM   King & Balloon (Japan).rom
+ YP  KICKI288.ROM   Kick It (Japan).rom
+ Y   KINAS289.ROM   Kinasai (Japan) (Unl).rom
+ Y   KINGB290.ROM   King & Balloon (Japan).rom
  N   KINGS292.ROM   King's Valley (Japan, Europe).rom
- N   KINNI294.ROM   Kinnikuman - Muscle Man (Japan).rom
- N   KNIGH295.ROM   Knight Lore (Japan).rom
+ Y   KINNI294.ROM   Kinnikuman - Muscle Man (Japan).rom
+ YP? KNIGH295.ROM   Knight Lore (Japan).rom
  N   KNIGH296.ROM   Knightmare - Majou Densetsu (Japan).rom
  Y   KONAM300.ROM   Konami's Baseball (Japan).rom
- N   KONAM301.ROM   Konami's Billiards (Europe).rom
- N   KONAM302.ROM   Konami's Boxing (Japan).rom
+ Y   KONAM301.ROM   Konami's Billiards (Europe).rom
+ Y   KONAM302.ROM   Konami's Boxing (Japan).rom
  N   KONAM303.ROM   Konami's Football (Europe).rom
  N   KONAM304.ROM   Konami's Golf (Japan).rom
- N   KONAM305.ROM   Konami's Mahjong (Japan).rom
- N   KONAM306.ROM   Konami's Ping-Pong (Japan).rom
+ Y?  KONAM305.ROM   Konami's Mahjong (Japan).rom
+ Y?  KONAM306.ROM   Konami's Ping-Pong (Japan).rom
  N   KONAM307.ROM   Konami's Soccer (Japan).rom
- N   KONAM308.ROM   Konami's Tennis (Japan).rom
- N   KONEK309.ROM   Koneko no Daibouken - Catboy (Japan).rom
- N   KUNGF310.ROM   Kung Fu Acho (Japan).rom
+ Y   KONAM308.ROM   Konami's Tennis (Japan).rom
+ Y   KONEK309.ROM   Koneko no Daibouken - Catboy (Japan).rom
+ Y   KUNGF310.ROM   Kung Fu Acho (Japan).rom
  N   KUNGF311.ROM   Kung Fu Master (Japan).rom
- N   KUNGF312.ROM   Kung Fu Taigun (Japan).rom
+ Y?  KUNGF312.ROM   Kung Fu Taigun (Japan).rom
+--- TESTED ALL ABOVE SO FAR
  N   LADDE313.ROM   Ladder Building (Japan).rom
  N   LAPTI314.ROM   Laptick 2 (Japan).rom
  N   LEMAN315.ROM   Le Mans 2 (Europe).rom
