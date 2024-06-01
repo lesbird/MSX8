@@ -135,25 +135,25 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   DIGDU143.ROM   Dig Dug (Japan).rom
  YP  DIPDI145.ROM   Dip Dip (Spain).rom
  Y   DOKID146.ROM   Doki Doki Penguin Land (Japan).rom
- N   DOORD147.ROM   Doordoor (Japan).rom
+ Y   DOORD147.ROM   Doordoor (Japan).rom
  N   DOROD148.ROM   Dorodon (Japan).rom
- N   DOUBL149.ROM   Double Dragon (Korea) (Unl).rom
- N   DRAGO151.ROM   Dr. Copy (Japan).rom
- N   DRAGO154.ROM   Dragon Attack (Japan).rom
- N   DRAIN158.ROM   Dragon Slayer (Japan).rom
- N   DRCOP150.ROM   Drainer (Japan).rom
- N   DRUAG159.ROM   Druaga no Tou (Japan).rom
- N   DUNGE161.ROM   Dungeon Master (Japan).rom
- N   DUNKS162.ROM   Dunk Shot (Japan).rom
+ Y?  DOUBL149.ROM   Double Dragon (Korea) (Unl).rom
+ Y?  DRCOP150.ROM   Dr. Copy (Japan).rom
+ Y?  DRAGO151.ROM   Dragon Attack (Japan).rom
+ Y?  DRAGO154.ROM   Dragon Slayer (Japan).rom
+ YP  DRAIN158.ROM   Drainer (Japan).rom
+ Y   DRUAG159.ROM   Druaga no Tou (Japan).rom
+ Y?  DUNGE161.ROM   Dungeon Master (Japan).rom
+ Y   DUNKS162.ROM   Dunk Shot (Japan).rom
  N   EAGLE164.ROM   Eagle Fighter (Japan).rom
  N   EGGER165.ROM   Eggerland Mystery (Japan).rom
- N   ELEVA166.ROM   Elevator Action (Japan).rom
- N   ERIKA167.ROM   Erika (Japan).rom
- N   EXAIN168.ROM   Exa Innova (Japan).rom
+ Y   ELEVA166.ROM   Elevator Action (Japan).rom
+ Y?  ERIKA167.ROM   Erika (Japan).rom
+ Y   EXAIN168.ROM   Exa Innova (Japan).rom
  N   EXCHA169.ROM   Exchanger (Japan).rom
- N   EXERI170.ROM   Exerion (Japan).rom
- N   EXERI171.ROM   Exerion II - Zorni (Japan).rom
- N   EXOID172.ROM   Exoide-Z (Japan).rom
+ Y   EXERI170.ROM   Exerion (Japan).rom
+ Y   EXERI171.ROM   Exerion II - Zorni (Japan).rom
+ YP  EXOID172.ROM   Exoide-Z (Japan).rom
  N   EXOID173.ROM   Exoide-Z Area 5 (Japan).rom
  N   F16FI175.ROM   F16 Fighting Falcon (Japan).rom
  N   FAIRY177.ROM   Fa Tetris (Korea) (Unl).rom
