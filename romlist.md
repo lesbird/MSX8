@@ -157,92 +157,92 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   EXOID173.ROM   Exoide-Z Area 5 (Japan).rom
  N   F16FI175.ROM   F16 Fighting Falcon (Japan).rom
  N   FAIRY177.ROM   Fa Tetris (Korea) (Unl).rom
- N   FATET176.ROM   Fairy (Japan).rom
- N   FATHO183.ROM   Fathom (Japan).rom
- N   FINAL184.ROM   Final Justice (Japan).rom
- N   FINAL185.ROM   Final Mahjong (Japan).rom
- N   FIRER187.ROM   Fire Rescue (Japan).rom
+ YP  FATET176.ROM   Fairy (Japan).rom
+ Y   FATHO183.ROM   Fathom (Japan).rom
+ Y   FINAL184.ROM   Final Justice (Japan).rom
+ Y   FINAL185.ROM   Final Mahjong (Japan).rom
+ Y   FIRER187.ROM   Fire Rescue (Japan).rom
  N   FLAPP188.ROM   Flappy (Japan).rom
- N   FLAPP189.ROM   Flappy - Limited 85 (Japan).rom
- N   FLASH190.ROM   Flash Point (Korea) (Unl).rom
+ Y   FLAPP189.ROM   Flappy - Limited 85 (Japan).rom
+ YP? FLASH190.ROM   Flash Point (Korea) (Unl).rom
  N   FLASH191.ROM   Flash Splash (Japan).rom
- N   FLICK192.ROM   Flicky (Japan).rom
- N   FLICS193.ROM   Flics, Les (France).rom
+ Y   FLICK192.ROM   Flicky (Japan).rom
+ Y?  FLICS193.ROM   Flics, Les (France).rom
  N   FLIPP196.ROM   Flipper Slipper (Japan).rom
- N   FORMA197.ROM   Formation Z (Japan).rom
- Y   FROGG198.ROM   Frogger (Japan).rom
+ Y   FORMA197.ROM   Formation Z (Japan).rom
+ Y?  FROGG198.ROM   Frogger (Japan).rom
  N   FRONT199.ROM   Front Line (Japan).rom
- N   FRUIT200.ROM   Fruit Search (Japan).rom
+ Y?  FRUIT200.ROM   Fruit Search (Japan).rom
  N   FUNKY201.ROM   Funky Mouse (Japan).rom
  N   FUTBO202.ROM   Futbol (Spain).rom
- N   FUUNT203.ROM   Fuun Takeshijyou (Japan).rom
+ Y   FUUNT203.ROM   Fuun Takeshijyou (Japan).rom
  Y   GALAG204.ROM   Galaga (Japan).rom
  Y   GALAX205.ROM   Galaxian (Japan).rom
  N   GAMEL208.ROM   Game Land (Japan).rom
- N   GAMEM209.ROM   Game Master (Europe).rom
- N   GAMEM210.ROM   Game Master (Japan).rom
+ Y?  GAMEM209.ROM   Game Master (Europe).rom
+ Y?  GAMEM210.ROM   Game Master (Japan).rom
  N   GANGM213.ROM   Gang Master (Japan).rom
  N   GHOST216.ROM   Ghostbusters (Europe).rom
  N   GLIDE217.ROM   Glider (Japan).rom
  N   GOKIB218.ROM   Gokiburi Daisakusen - Bug Bomb (Japan).rom
  N   GOLFG219.ROM   Golf Game (Japan).rom
- N   GOMOK221.ROM   Gomok Narabe - Omo Go (Japan).rom
+ YP? GOMOK221.ROM   Gomok Narabe - Omo Go (Japan).rom
  N   GOONI222.ROM   Goonies, The (Japan).rom
- N   GPWOR223.ROM   GP World (Japan).rom
+ Y   GPWOR223.ROM   GP World (Japan).rom
  N   GREEN224.ROM   Green Beret (Europe).rom
- N   GROGS225.ROM   Grog's Revenge (Japan).rom
+ Y?  GROGS225.ROM   Grog's Revenge (Japan).rom
  N   GUARD226.ROM   Guardic (Japan).rom
- N   GULKA227.ROM   Gulkave (Japan).rom
- N   GUNFR228.ROM   Gun Fright (Japan).rom
- N   GUNJI229.ROM   Gunjin Shougi Mars (Japan).rom
- N   GYROD230.ROM   Gyrodine (Japan).rom
- N   HADES232.ROM   Hades no Monsho (Japan).rom
- N   HAFAN233.ROM   Hafanuda Koi Koi - Gostop Godori (Japan).rom
- N   HANAF235.ROM   Hanafuta (Japan).rom
- N   HANGO236.ROM   Hang-On (Japan).rom
- N   HARAP237.ROM   Harapeko Pakkun (Japan).rom
- N   HAUNT240.ROM   Haunted Boynight (Japan).rom
- N   HEAVY241.ROM   Heavy Boxing (Japan).rom
- N   HEIST242.ROM   Heist, The (Japan).rom
- N   HELIT243.ROM   Helitank (Japan).rom
+ Y   GULKA227.ROM   Gulkave (Japan).rom
+ YP? GUNFR228.ROM   Gun Fright (Japan).rom
+ Y   GUNJI229.ROM   Gunjin Shougi Mars (Japan).rom
+ YP  GYROD230.ROM   Gyrodine (Japan).rom
  N   HEROJ231.ROM   H.E.R.O. (Japan).rom
+ Y   HADES232.ROM   Hades no Monsho (Japan).rom
+ Y?  HAFAN233.ROM   Hafanuda Koi Koi - Gostop Godori (Japan).rom
+ N   HANAF235.ROM   Hanafuta (Japan).rom
+ Y?  HANGO236.ROM   Hang-On (Japan).rom
+ N   HARAP237.ROM   Harapeko Pakkun (Japan).rom
+ Y   HAUNT240.ROM   Haunted Boynight (Japan).rom
+ Y   HEAVY241.ROM   Heavy Boxing (Japan).rom
+ Y?  HEIST242.ROM   Heist, The (Japan).rom
+ Y   HELIT243.ROM   Helitank (Japan).rom
  N   HIGHW244.ROM   High Way Star (Japan).rom
  N   HIGHW245.ROM   High Way Star (Korea).rom
  N   HISYA246.ROM   Hisya (Japan).rom
- N   HITSU247.ROM   Hitsuji Yai - Preety Sheep (Japan).rom
+ Y   HITSU247.ROM   Hitsuji Yai - Preety Sheep (Japan).rom
  N   HOLEI248.ROM   Hole in One (Japan).rom
  N   HOLEI249.ROM   Hole in One Professional (Japan).rom
- N   HONKB250.ROM   Honkball (Japan).rom
- N   HOPPE251.ROM   Hopper (Europe).rom
- N   HUDSO252.ROM   Hudson 3D Golf (Japan).rom
- N   HUSTL253.ROM   Hustle! Chumy (Japan).rom
- N   HYDLI254.ROM   Hydlide (Japan).rom
+ Y   HONKB250.ROM   Honkball (Japan).rom
+ YP  HOPPE251.ROM   Hopper (Europe).rom
+ Y?  HUDSO252.ROM   Hudson 3D Golf (Japan).rom
+ Y   HUSTL253.ROM   Hustle! Chumy (Japan).rom
+ Y?  HYDLI254.ROM   Hydlide (Japan).rom
  Y   HYPER257.ROM   Hyper Olympic 1 (Japan).rom
- N   HYPER258.ROM   Hyper Olympic 2 (Japan).rom
- N   HYPER259.ROM   Hyper Rally (Japan).rom
- N   HYPER260.ROM   Hyper Sports 1 (Japan).rom
- N   HYPER261.ROM   Hyper Sports 2 (Japan).rom
+ Y   HYPER258.ROM   Hyper Olympic 2 (Japan).rom
+ Y?  HYPER259.ROM   Hyper Rally (Japan).rom
+ Y   HYPER260.ROM   Hyper Sports 1 (Japan).rom
+ Y   HYPER261.ROM   Hyper Sports 2 (Japan).rom
  N   HYPER262.ROM   Hyper Sports 3 (Japan).rom
  N   ICEWO263.ROM   Ice World (Japan).rom
  N   IGANI264.ROM   Iga Ninpouten - Small Ninja (Japan).rom
- N   IGANI265.ROM   Iga Ninpouten 2 - Small Ninja 2 (Japan).rom
- N   INDIA266.ROM   Indian no Bouken (Japan).rom
+ Y   IGANI265.ROM   Iga Ninpouten 2 - Small Ninja 2 (Japan).rom
+ Y   INDIA266.ROM   Indian no Bouken (Japan).rom
  N   IRIEG267.ROM   Iriegas (Japan).rom
  N   IRIEG268.ROM   Iriegas - Theseus (Japan).rom
- N   ISSUN269.ROM   Issunhoushi No Donnamondai (Japan).rom
+ Y   ISSUN269.ROM   Issunhoushi No Donnamondai (Japan).rom
+ Y   JPWIN270.ROM   J.P. Winkle (Japan).rom
  N   JANKA272.ROM   Janka (Japan).rom
  N   JETSE273.ROM   Jet Set Willy (Japan).rom
  N   JIGSA274.ROM   Jigsaw Set (Japan).rom
  N   JISSE275.ROM   Jissen - 4-nin Mahjong (Japan).rom
- N   JPWIN270.ROM   J.P. Winkle (Japan).rom
- N   JUMPC277.ROM   Jump (Japan).rom
- N   JUMPI279.ROM   Jump Coaster (Japan).rom
- N   JUMPJ276.ROM   Jump Land (Japan).rom
- N   JUMPL278.ROM   Jumping Rabbit (Japan).rom
+ N   JUMPJ276.ROM   Jump (Japan).rom
+ N   JUMPC277.ROM   Jump Coaster (Japan).rom
+ N   JUMPL278.ROM   Jump Land (Japan).rom
+ Y   JUMPI279.ROM   Jumping Rabbit (Japan).rom
  N   JUNOF280.ROM   Juno First (Japan).rom
  N   JYANF281.ROM   Jyan Friend (Japan).rom
- N   JYANK282.ROM   Jyankyo (Japan).rom
- N   JYANY283.ROM   Jyanyuu (Japan).rom
+ Y   JYANK282.ROM   Jyankyo (Japan).rom
+ Y   JYANY283.ROM   Jyanyuu (Japan).rom
  N   KAGEN284.ROM   Kage no Densetsu - Legend of Kage, The (Japan).rom
  N   KARAM285.ROM   Karamaru (Japan).rom
  N   KEYST287.ROM   Keystone Kapers (Japan).rom
