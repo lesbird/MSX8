@@ -482,8 +482,8 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   YIEAR563.ROM   Yie Ar Kung-Fu II - The Emperor Yie-Gah (Japan).rom
  N   YOKAI564.ROM   Yokai Tanken Chimachima (Japan).rom
  N   ZAIDE566.ROM   Zaider - Battle of Peguss (Japan).rom
- N   ZANAC567.ROM   Zanac (Japan) (v2).rom
- N   ZANAC568.ROM   Zanac (Japan).rom
+ Y   ZANAC567.ROM   Zanac (Japan) (v2).rom
+ Y   ZANAC568.ROM   Zanac (Japan).rom
  Y   ZAXXO569.ROM   Zaxxon (Japan).rom
  N   ZENJI570.ROM   Zenji (Japan).rom
  N   ZEXAS571.ROM   Zexas Limited (Japan).rom
