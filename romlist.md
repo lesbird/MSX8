@@ -243,6 +243,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   JYANF281.ROM   Jyan Friend (Japan).rom
  Y   JYANK282.ROM   Jyankyo (Japan).rom
  Y   JYANY283.ROM   Jyanyuu (Japan).rom
+--- TESTED ALL ABOVE SO FAR
  N   KAGEN284.ROM   Kage no Densetsu - Legend of Kage, The (Japan).rom
  N   KARAM285.ROM   Karamaru (Japan).rom
  N   KEYST287.ROM   Keystone Kapers (Japan).rom
