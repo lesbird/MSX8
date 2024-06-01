@@ -28,22 +28,24 @@ Also included in this repo is a customized FULL MSX BIOS rom that addresses the 
 >make TARGETS=us
 ```
 
-When MSX8 is launched it jumps to high memory (0xC000) and then will look for and load the custom MSX BIOS called "msx-us.rom". This custom BIOS is loaded to a temporary address 0x0100 up to 0x3100 (12K). MSX8 will then load the GAME ROM that is passed as a parameter on the CP/M command line as follows:
+When MSX8 is launched it jumps to high memory (0xC000) and then will look for and load the custom MSX BIOS called "msx-us.rom". This custom BIOS is loaded to a temporary address at 0x0100 up to 0x3FFF (16K). MSX8 will then load the GAME ROM that is passed as a parameter on the CP/M command line as follows:
 
 ```
 A0>MSX8 GALAGA.ROM
 ```
 
-The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M anymore) and MSX8 will wait until you press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
+The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). MSX8 also patches high memory with default values that some games need. When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M anymore) and MSX8 will wait until you press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
 
 ```
-        LHLD    4002H
-        PCHL
+        LHLD    4002H  ; HL=START ADDRESS
+        PCHL           ; JUMP TO START ADDRESS TO LAUNCH THE GAME
 ```
 
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
 
-I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly. Some ROMs do not work. One in particular is FROGGER. I disassembled the FROGGER ROM and discovered it is doing direct writes to the VDP/PSG instead of going through the BIOS. I suspect many non-working games are doing this as well.
+Some game ROMs do not have valid start addresses. Some will jump to 0x0000 and some will jump to 0x8010, etc. I think when the game jumps to 0x8010 that it is a game written in MSX BASIC, which would normally occupy 0x8000 and up, and since I do not load the BASIC ROM these games will not work - this is just a guess though.
+
+I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly. Some ROMs do not work. One in particular is FROGGER. I disassembled the FROGGER ROM and discovered it is doing direct writes to the VDP/PSG instead of going through the BIOS. I suspect many non-working games are doing this as well. I wrote a patcher which is a separate MSX8 launcher called MSX8P. You use it just like MSX8 except it will search the ROM code for IN/OUT/OUTI and replace MSX I/O port addresses with Heathkit I/O addresses. This fixes FROGGER but controller code doesn't work exactly right just yet (I am still perfecting the patcher). The patcher is not perfect because it is almost impossible to distinguish code from data so it may be patching data by accident. Also it is possible that some I/O port addresses are being read from a table and in this case the patcher will not work.
 
 ### GRAPHICS BOARD SETUP
 
