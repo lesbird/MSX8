@@ -154,7 +154,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   EXERI170.ROM   Exerion (Japan).rom
  Y   EXERI171.ROM   Exerion II - Zorni (Japan).rom
  YP  EXOID172.ROM   Exoide-Z (Japan).rom
- N   EXOID173.ROM   Exoide-Z Area 5 (Japan).rom
+ Y   EXOID173.ROM   Exoide-Z Area 5 (Japan).rom
  N   F16FI175.ROM   F16 Fighting Falcon (Japan).rom
  N   FAIRY177.ROM   Fa Tetris (Korea) (Unl).rom
  N   FATET176.ROM   Fairy (Japan).rom
