@@ -339,7 +339,7 @@ PATCH	EQU	$
 	STA	PATCNT
 	LHLD	ROMCNT
 	XCHG		; DE=ROM BYTES READ
-	LXI	H,04000H
+	LHLD	GAMADR
 PATCH0	EQU	$
 	MOV	A,M
 	INX	H
@@ -613,4 +613,4 @@ FCBGAME DB	0
 STACK	EQU	$
 *
 	END	START
-
+
