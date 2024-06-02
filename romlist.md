@@ -10,26 +10,26 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   3DGOL002.ROM   3-D Golf Simulation (Japan) (High Speed).rom
  N   3DGOL003.ROM   3-D Golf Simulation (Japan).rom
  N   3DTEN004.ROM   3D Tennis (Japan).rom
- N   ACTMA007.ROM   Actman (Japan).rom
+ Y   ACTMA007.ROM   Actman (Japan).rom
  N   ADVEN008.ROM   Adven' Chuta! (Japan).rom
  Y   AEJAP005.ROM   A.E. (Japan).rom
  N   ALBAT009.ROM   Albatros (Japan).rom
- N   ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
+ N8  ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
  YP  ALIBA011.ROM   Alibaba and 40 Thieves (Japan).rom
  Y   ALIEN012.ROM   Alien 8 (Japan).rom
  YP  ALPHA014.ROM   Alpha Roid (Japan).rom
  YP  ALPHA015.ROM   Alpha Squadron (Japan).rom
  Y   AMERI016.ROM   American Truck (Japan).rom
  Y?  ANAZA017.ROM   Anaza - Kaleidoscope Special (Japan).rom
- N   ANGEL018.ROM   Angelo (Japan).rom
+ Y?  ANGEL018.ROM   Angelo (Japan).rom
  Y?  ANTAR020.ROM   Antarctic Adventure (Europe).rom
  YP  ANTAR021.ROM   Antarctic Adventure (Japan).rom
- N   ANTYJ022.ROM   Anty (Japan).rom
+ N8  ANTYJ022.ROM   Anty (Japan).rom
  Y   AQUAP023.ROM   Aqua Polis SOS (Japan).rom
  N   AQUAT024.ROM   Aquattack (Japan).rom
  Y   ARAMO025.ROM   Aramo (Japan).rom
  Y?  ARKAN026.ROM   Arkanoid (Japan).rom
- N   ATHLE027.ROM   Athletic Ball (Japan).rom
+ Y   ATHLE027.ROM   Athletic Ball (Japan).rom
  N   ATHLE028.ROM   Athletic Land (Japan) (Beta).rom
  YP  ATHLE029.ROM   Athletic Land (Japan).rom
  Y   ATTAC030.ROM   Attack Four Volley Ball (Japan).rom
@@ -43,25 +43,25 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   BASIC039.ROM   Basic Lessons 2 (Japan).rom
  N   BATTE041.ROM   Batten Tanuki no Daibouken (Japan) (v1.03).rom
  N   BATTL042.ROM   Battle Cross (Japan).rom
- N   BATTL043.ROM   Battleship Clapton II (Japan).rom
+ Y   BATTL043.ROM   Battleship Clapton II (Japan).rom
  Y   BCSQU031.ROM   B.C.'s Quest (Japan).rom
  Y   BEACH044.ROM   Beach-Head (Europe).rom
  N   BEAMR045.ROM   Beam Rider (Japan).rom
  Y   BECKY046.ROM   Becky (Japan).rom
  Y   BEEFL047.ROM   Bee & Flower (Japan).rom
- N   BIFAM048.ROM   Bifamu (Japan).rom
+ Y   BIFAM048.ROM   Bifamu (Japan).rom
  Y   BINAR049.ROM   Binary Land (Japan).rom
  Y   BLACK051.ROM   Black Onyx, The (Japan).rom
- N   BLAGG052.ROM   Blagger MSX (Europe) (Converted From Tape).rom
+ Y?  BLAGG052.ROM   Blagger MSX (Europe) (Converted From Tape).rom
  YP  BLOCK053.ROM   Block Hole (Korea) (Unl).rom
  Y   BLOCK054.ROM   Blockade Runner (Japan).rom
- N   BOGGY055.ROM   Boggy '84 (Japan).rom
+ Y   BOGGY055.ROM   Boggy '84 (Japan).rom
  Y   BOING056.ROM   Boing Boing (Spain).rom
  N   BOKOS057.ROM   Bokosuka Wars (Japan).rom
  Y   BOMBE059.ROM   Bomber Man (Japan).rom
  Y   BOMBE060.ROM   Bomber Man Special (Japan).rom
  Y   BOOGI061.ROM   Boogie Woogi Jungle (Japan).rom
- N   BOOME062.ROM   Boomerang (Japan).rom
+ Y?  BOOME062.ROM   Boomerang (Japan).rom
  Y   BOSCO064.ROM   Bosconian (Japan).rom
  Y   BOUKE065.ROM   Bouken Roman - Dota (Japan).rom
  Y?  BOULD066.ROM   Boulder Dash (Japan).rom
@@ -77,18 +77,18 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   CABBA078.ROM   Cabbage Patch Kids (Japan).rom
  N   CANDO079.ROM   Candoo Ninja (Japan).rom
  Y   CANNO080.ROM   Cannon Ball (Japan).rom
- N   CANNO081.ROM   Cannon Fighter (Japan).rom
+ Y   CANNO081.ROM   Cannon Fighter (Japan).rom
  Y   CAPTA082.ROM   Captain Chef (Japan).rom
- N   CARFI083.ROM   Car Fighter (Japan).rom
+ Y   CARFI083.ROM   Car Fighter (Japan).rom
  N   CARJA084.ROM   Car Jamboree (Japan).rom
  Y   CARRA085.ROM   Car-Race (Japan).rom
- N   CASIO086.ROM   Casio Daishogai Keiba (Japan).rom
- N   CASIO087.ROM   Casio Pachinko-U.F.O. (Japan).rom
- N   CASIO088.ROM   Casio Ski Command (Japan).rom
+ Y?  CASIO086.ROM   Casio Daishogai Keiba (Japan).rom
+ Y   CASIO087.ROM   Casio Pachinko-U.F.O. (Japan).rom
+ Y   CASIO088.ROM   Casio Ski Command (Japan).rom
  Y   CASIO089.ROM   Casio Worldopen (Japan).rom
  Y   CASTL090.ROM   Castle Excellent (Japan).rom
  Y   CASTL091.ROM   Castle, The (Japan).rom
- N   CHACK092.ROM   Chack'n Pop (Japan).rom
+ Y   CHACK092.ROM   Chack'n Pop (Japan).rom
  Y?  CHALL093.ROM   Challenge Derby (Japan).rom
  Y   CHAMP094.ROM   Champion Boxing (Japan).rom
  Y?  CHAMP095.ROM   Champion Ice Hockey (Japan).rom
@@ -96,20 +96,20 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   CHAMP097.ROM   Champion Pro Wrestling (Japan).rom
  Y   CHAMP098.ROM   Champion Soccer (Japan).rom
  Y?  CHAMP099.ROM   Championship Lode Runner (Japan).rom
- N   CHECK100.ROM   Checkers in Tantan Tanuki (Japan).rom
+ Y?  CHECK100.ROM   Checkers in Tantan Tanuki (Japan).rom
  YP  CHESS101.ROM   Chess (Japan).rom
  N   CHESS102.ROM   Chess Game, The (Europe).rom
  Y   CHOPL103.ROM   Choplifter (Japan).rom
- N   CHORO104.ROM   Choro Q (Japan).rom
+ YP  CHORO104.ROM   Choro Q (Japan).rom
  N   CHUGA105.ROM   Chugaku Hisshu Eibunpo 1 (Japan).rom
  Y   CIRCU106.ROM   Circus Charlie (Japan).rom
  Y   CITYC107.ROM   City Connection (Japan).rom
  YP  COAST108.ROM   Coaster Race (Japan).rom
  Y   COLOR109.ROM   Color Ball (Japan).rom
- N   COLUM110.ROM   Columns (Japan).rom
+ N0  COLUM110.ROM   Columns (Japan).rom
  N   COMEC112.ROM   Comecocos (Spain).rom
  YP  COMEO111.ROM   Come On! Picot (Japan).rom
- N   COMET113.ROM   Comet Tail (Japan).rom
+ N0  COMET113.ROM   Comet Tail (Japan).rom
  Y   COMIC114.ROM   Comic Bakery (Japan).rom
  YP  COMPU115.ROM   Computer Billiards (Japan).rom
  N   COMPU116.ROM   Computer Nyuumon - Computer Lessons (Japan).rom
@@ -126,7 +126,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   CSOJA077.ROM   C-So! (Japan).rom
  N   DAIDA131.ROM   Daidasso (Japan).rom
  Y?  DAMBU133.ROM   Dam Busters, The (Japan).rom
- N   DANGE134.ROM   Danger X4 (Japan).rom
+ N0  DANGE134.ROM   Danger X4 (Japan).rom
  Y   DAVID135.ROM   David II (Japan).rom
  Y?  DDAYJ130.ROM   D-Day (Japan).rom
  N   DECAT137.ROM   Decathlon (Japan).rom
@@ -401,7 +401,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   SNAKE471.ROM   Snake It (Europe).rom
  N   SOUKO473.ROM   Soukoban (Japan).rom
  N   SPACE474.ROM   Space Camp (Japan).rom
- N   SPACE475.ROM   Space Invaders (Japan).rom
+ Y   SPACE475.ROM   Space Invaders (Japan).rom
  N   SPACE476.ROM   Space Maze Attack (Japan).rom
  N   SPACE477.ROM   Space Trouble (Japan).rom
  N   SPACE478.ROM   Space Walk (Europe).rom
