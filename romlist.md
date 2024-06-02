@@ -315,17 +315,17 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   MSXDE368.ROM   MSX Derby (Japan).rom
  N   MSXRU369.ROM   MSX Rugby (Japan).rom
  Y   MSXSO370.ROM   MSX Soccer (Japan).rom
---- TESTED ALL ABOVE SO FAR
  N   NAUSI372.ROM   Nausicaa (Japan).rom
  N   NESSE378.ROM   Nessen Koushiyen (Japan).rom
- N   NIGHT379.ROM   Night Shade (Japan).rom
- N   NINJA380.ROM   Ninja Jajamaru-kun (Japan).rom
+ YP? NIGHT379.ROM   Night Shade (Japan).rom
+ Y   NINJA380.ROM   Ninja Jajamaru-kun (Japan).rom
  N   NINJA381.ROM   Ninja Princess (Japan).rom
  N   NINJA382.ROM   Ninjakun (Japan).rom
- N   NINJA383.ROM   Ninjakun Majou (Japan).rom
- N   NINJY384.ROM   Ninjya Kage (Japan).rom
- N   NYANN386.ROM   Nyan Nyan Pro Wrestling (Japan).rom
- N   NYORO387.ROM   Nyorols (Japan).rom
+ Y?  NINJA383.ROM   Ninjakun Majou (Japan).rom
+ Y   NINJY384.ROM   Ninjya Kage (Japan).rom
+ Y?  NYANN386.ROM   Nyan Nyan Pro Wrestling (Japan).rom
+ Y?  NYORO387.ROM   Nyorols (Japan).rom
+--- TESTED ALL ABOVE SO FAR
  Y   OILSW389.ROM   Oil's Well (Japan).rom
  N   OKAMI390.ROM   Okami no Su (Japan).rom
  N   OMACF388.ROM   O'Mac Farmer (Japan).rom
