@@ -330,7 +330,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  OMACF388.ROM   O'Mac Farmer (Japan).rom
  Y   OTHEL391.ROM   Othello (Japan).rom
  Y   OYOID392.ROM   Oyoide Tango (Japan).rom
-<b>--- TESTED ALL ABOVE SO FAR</b>
+================= TESTED ALL ABOVE SO FAR =================
  N   PACHI394.ROM   Pachi Com (Japan).rom
  Y   PACMA393.ROM   Pac-Man (Japan).rom
  N   PAIPA395.ROM   Pai Panic (Japan).rom
