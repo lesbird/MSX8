@@ -363,21 +363,21 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   PYRAM428.ROM   Pyramid Warp (Japan).rom
  Y   QBERT429.ROM   Q-bert (Japan).rom
  Y   QUEEN430.ROM   Queen's Golf (Japan).rom
-================= TESTED ALL ABOVE SO FAR =================
- N   RAIDO432.ROM   Raid on Bungeling Bay (Japan).rom
+ Y   RAIDO432.ROM   Raid on Bungeling Bay (Japan).rom
  Y   RALLY433.ROM   Rally-X (Japan).rom
- N   RAMBO434.ROM   Rambo (Japan).rom
- N   REALT435.ROM   Real Tennis (Japan).rom
- N   REDZO436.ROM   Red Zone (Japan).rom
- N   RENJU438.ROM   Renju & Ojama Dogs (Japan).rom
- N   RISEO439.ROM   Rise Out from Dungeons (Japan).rom
- N   RIVER440.ROM   River Raid (Japan).rom
- N   ROADF441.ROM   Road Fighter (Japan).rom
- N   ROBOF443.ROM   Robofrog (Japan).rom
- N   ROCKN444.ROM   Rock'n Bolt (Japan).rom
- N   ROGER445.ROM   Roger Rubbish (Europe).rom
- N   ROLLE446.ROM   Roller Ball (Japan).rom
- N   ROTOR447.ROM   Rotors (Japan).rom
+ Y?  RAMBO434.ROM   Rambo (Japan).rom
+ YP? REALT435.ROM   Real Tennis (Japan).rom
+ Y   REDZO436.ROM   Red Zone (Japan).rom
+ N0  RENJU438.ROM   Renju & Ojama Dogs (Japan).rom
+ Y   RISEO439.ROM   Rise Out from Dungeons (Japan).rom
+ N0  RIVER440.ROM   River Raid (Japan).rom
+ Y   ROADF441.ROM   Road Fighter (Japan).rom
+ Y   ROBOF443.ROM   Robofrog (Japan).rom
+ YP? ROCKN444.ROM   Rock'n Bolt (Japan).rom
+ Y   ROGER445.ROM   Roger Rubbish (Europe).rom
+ Y?  ROLLE446.ROM   Roller Ball (Japan).rom
+ N0  ROTOR447.ROM   Rotors (Japan).rom
+================= TESTED ALL ABOVE SO FAR =================
  N   SASAJ450.ROM   Sasa (Japan).rom
  N   SAURU451.ROM   Saurus Land (Japan).rom
  N   SCARL452.ROM   Scarlet 7 - The Mightiest Women (Japan).rom
