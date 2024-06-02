@@ -325,12 +325,12 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   NINJY384.ROM   Ninjya Kage (Japan).rom
  Y?  NYANN386.ROM   Nyan Nyan Pro Wrestling (Japan).rom
  Y?  NYORO387.ROM   Nyorols (Japan).rom
---- TESTED ALL ABOVE SO FAR
  Y   OILSW389.ROM   Oil's Well (Japan).rom
- N   OKAMI390.ROM   Okami no Su (Japan).rom
- N   OMACF388.ROM   O'Mac Farmer (Japan).rom
- N   OTHEL391.ROM   Othello (Japan).rom
- N   OYOID392.ROM   Oyoide Tango (Japan).rom
+ Y?  OKAMI390.ROM   Okami no Su (Japan).rom
+ Y?  OMACF388.ROM   O'Mac Farmer (Japan).rom
+ Y   OTHEL391.ROM   Othello (Japan).rom
+ Y   OYOID392.ROM   Oyoide Tango (Japan).rom
+--- TESTED ALL ABOVE SO FAR
  N   PACHI394.ROM   Pachi Com (Japan).rom
  Y   PACMA393.ROM   Pac-Man (Japan).rom
  N   PAIPA395.ROM   Pai Panic (Japan).rom
