@@ -330,40 +330,40 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  OMACF388.ROM   O'Mac Farmer (Japan).rom
  Y   OTHEL391.ROM   Othello (Japan).rom
  Y   OYOID392.ROM   Oyoide Tango (Japan).rom
-================= TESTED ALL ABOVE SO FAR =================
- N   PACHI394.ROM   Pachi Com (Japan).rom
+ Y?  PACHI394.ROM   Pachi Com (Japan).rom
  Y   PACMA393.ROM   Pac-Man (Japan).rom
- N   PAIPA395.ROM   Pai Panic (Japan).rom
- N   PAIRS396.ROM   Pairs (Japan).rom
- N   PANTH397.ROM   Panther (Japan).rom
- N   PASSB399.ROM   Pass Ball (Japan).rom
- N   PASTF400.ROM   Pastfinder (Japan).rom
- N   PAYLO401.ROM   Pay Load (Japan).rom
- N   PEETA402.ROM   Peetan (Japan).rom
- N   PEGAS403.ROM   Pegasus (Japan).rom
- N   PENGU405.ROM   Penguin-kun Wars (Japan).rom
- N   PICOP406.ROM   Pico Pico (Japan).rom
- N   PICTU407.ROM   Picture Puzzle (Japan).rom
- N   PILLB408.ROM   Pillbox (Japan).rom
- N   PINEA410.ROM   Pine Applin (Japan).rom
- N   PINGB411.ROM   Pingball Maker (Japan).rom
- N   PINKY412.ROM   Pinky Chase (Japan).rom
- N   PIPIJ413.ROM   Pipi (Japan).rom
- N   PIPPO414.ROM   Pippols (Japan).rom
- N   PITFA415.ROM   Pitfall II - Lost Caverns (Japan).rom
- N   PITFA416.ROM   Pitfall! (Japan).rom
- N   PLAYB417.ROM   Play Ball (Japan).rom
- N   POINY418.ROM   Poiny X Senryosakusen - Operation Thanksgiving (Japan).rom
- N   POLIC419.ROM   Police Story, The (Japan).rom
- N   POOYA420.ROM   Pooyan (Japan).rom
- N   POPPA421.ROM   Poppaq the Fish (Japan).rom
- N   PROFE423.ROM   Professional Baseball (Japan).rom
- N   PROFE424.ROM   Professional Mahjong (Japan).rom
- N   PROTE425.ROM   Protector, The (Japan).rom
- N   PUZZL427.ROM   Puzzle Panic (Japan).rom
- N   PYRAM428.ROM   Pyramid Warp (Japan).rom
- N   QBERT429.ROM   Q-bert (Japan).rom
- N   QUEEN430.ROM   Queen's Golf (Japan).rom
+ Y   PAIPA395.ROM   Pai Panic (Japan).rom
+ N0  PAIRS396.ROM   Pairs (Japan).rom
+ Y   PANTH397.ROM   Panther (Japan).rom
+ N0  PASSB399.ROM   Pass Ball (Japan).rom
+ N8  PASTF400.ROM   Pastfinder (Japan).rom
+ Y?  PAYLO401.ROM   Pay Load (Japan).rom
+ Y   PEETA402.ROM   Peetan (Japan).rom
+ Y   PEGAS403.ROM   Pegasus (Japan).rom
+ Y   PENGU405.ROM   Penguin-kun Wars (Japan).rom
+ YP? PICOP406.ROM   Pico Pico (Japan).rom
+ Y   PICTU407.ROM   Picture Puzzle (Japan).rom
+ Y?  PILLB408.ROM   Pillbox (Japan).rom
+ Y?  PINEA410.ROM   Pine Applin (Japan).rom
+ N4  PINGB411.ROM   Pingball Maker (Japan).rom
+ N8  PINKY412.ROM   Pinky Chase (Japan).rom
+ Y?  PIPIJ413.ROM   Pipi (Japan).rom
+ N4  PIPPO414.ROM   Pippols (Japan).rom
+ YP? PITFA415.ROM   Pitfall II - Lost Caverns (Japan).rom
+ N8  PITFA416.ROM   Pitfall! (Japan).rom
+ Y   PLAYB417.ROM   Play Ball (Japan).rom
+ N4  POINY418.ROM   Poiny X Senryosakusen - Operation Thanksgiving (Japan).rom
+ Y   POLIC419.ROM   Police Story, The (Japan).rom
+ YP  POOYA420.ROM   Pooyan (Japan).rom
+ Y?  POPPA421.ROM   Poppaq the Fish (Japan).rom
+ N4  PROFE423.ROM   Professional Baseball (Japan).rom
+ YP? PROFE424.ROM   Professional Mahjong (Japan).rom
+ Y   PROTE425.ROM   Protector, The (Japan).rom
+ Y   PUZZL427.ROM   Puzzle Panic (Japan).rom
+ Y   PYRAM428.ROM   Pyramid Warp (Japan).rom
+ Y   QBERT429.ROM   Q-bert (Japan).rom
+ Y   QUEEN430.ROM   Queen's Golf (Japan).rom
+================= TESTED ALL ABOVE SO FAR =================
  N   RAIDO432.ROM   Raid on Bungeling Bay (Japan).rom
  Y   RALLY433.ROM   Rally-X (Japan).rom
  N   RAMBO434.ROM   Rambo (Japan).rom
