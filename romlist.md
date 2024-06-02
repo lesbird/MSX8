@@ -275,47 +275,47 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   LORDO321.ROM   Lord Over (Japan).rom
  N   LOTLO322.ROM   Lot Lot (Japan).rom
  Y   LUNAR323.ROM   Lunar Ball (Japan).rom
---- TESTED ALL ABOVE SO FAR
  N   MACAT325.ROM   Mac Attack (Europe).rom
  N   MACHI326.ROM   Machinegun Joe vs The Mafia (Japan).rom
- N   MACRO327.ROM   Macross (Japan).rom
+ Y   MACRO327.ROM   Macross (Japan).rom
  N   MAGIC328.ROM   Magical Kid Wiz (Japan).rom
- N   MAGIC329.ROM   Magical Tree (Japan).rom
+ Y   MAGIC329.ROM   Magical Tree (Japan).rom
  N   MANES331.ROM   Manes (Japan).rom
  Y   MAPPY332.ROM   Mappy (Japan).rom
  N   MARIN334.ROM   Marine Battle (Japan).rom
  N   MARSI335.ROM   Mars II (Japan).rom
- N   MASTE337.ROM   Master Chess (Europe).rom
- N   MEGAL338.ROM   Megalopolis SOS (Japan).rom
- N   MIDNI340.ROM   Midnight Brothers (Japan).rom
+ Y?  MASTE337.ROM   Master Chess (Europe).rom
+ Y   MEGAL338.ROM   Megalopolis SOS (Japan).rom
+ Y?  MIDNI340.ROM   Midnight Brothers (Japan).rom
  N   MIDNI341.ROM   Midnight Building (Japan).rom
  N   MIDWA342.ROM   Midway (Japan).rom
- N   MILCA343.ROM   Mil Caras (Spain).rom
- N   MINIG344.ROM   Mini Golf (Japan).rom
- N   MOAIN347.ROM   Moai no Hibou (Japan).rom
- N   MOBIL348.ROM   Mobile Planet Suthirus - Approach from the Westgate (Japan).rom
+ Y?  MILCA343.ROM   Mil Caras (Spain).rom
+ Y   MINIG344.ROM   Mini Golf (Japan).rom
+ Y   MOAIN347.ROM   Moai no Hibou (Japan).rom
+ Y   MOBIL348.ROM   Mobile Planet Suthirus - Approach from the Westgate (Japan).rom
  N   MOBIL349.ROM   Mobile-Suit Gundam - Last Shooting (Japan).rom
- N   MOKAR350.ROM   Mokarimakka (Japan).rom
+ YP? MOKAR350.ROM   Mokarimakka (Japan).rom
  N   MOLEJ351.ROM   Mole (Japan).rom
- N   MOLEM352.ROM   Mole Mole 2 (Japan).rom
- N   MONKE353.ROM   Monkey Academy (Japan).rom
- N   MONST354.ROM   Monster's Fair (Japan).rom
+ Y?  MOLEM352.ROM   Mole Mole 2 (Japan).rom
+ Y?  MONKE353.ROM   Monkey Academy (Japan).rom
+ Y   MONST354.ROM   Monster's Fair (Japan).rom
  N   MOONL355.ROM   Moon Landing (Japan).rom
  Y   MOONP356.ROM   Moon Patrol (Japan).rom
- N   MOONS357.ROM   Moonsweeper (Japan).rom
+ Y   MOONS357.ROM   Moonsweeper (Japan).rom
  N   MOPIR358.ROM   Mopiranger (Japan).rom
  N   MORIT359.ROM   Morita Kazuo no Othello (Japan).rom
- N   MOUSE360.ROM   Mouser (Japan).rom
+ Y?  MOUSE360.ROM   Mouser (Japan).rom
  N   MRCHI361.ROM   Mr. Chin (Japan).rom
- Y   MRDOJ362.ROM   Mr. Do (Japan).rom
- N   MRDOS364.ROM   Mr. Do's Wild Ride (Japan).rom
- N   MRDOV363.ROM   Mr. Do vs Unicorns (Japan).rom
+ N   MRDOJ362.ROM   Mr. Do (Japan).rom
+ Y?  MRDOS364.ROM   Mr. Do's Wild Ride (Japan).rom
+ Y   MRDOV363.ROM   Mr. Do vs Unicorns (Japan).rom
  N   MSX21365.ROM   MSX 21 (Japan).rom
  N   MSXBA366.ROM   MSX Baseball (Japan).rom
  N   MSXBA367.ROM   MSX Baseball II National (Japan).rom
  N   MSXDE368.ROM   MSX Derby (Japan).rom
  N   MSXRU369.ROM   MSX Rugby (Japan).rom
- N   MSXSO370.ROM   MSX Soccer (Japan).rom
+ Y   MSXSO370.ROM   MSX Soccer (Japan).rom
+--- TESTED ALL ABOVE SO FAR
  N   NAUSI372.ROM   Nausicaa (Japan).rom
  N   NESSE378.ROM   Nessen Koushiyen (Japan).rom
  N   NIGHT379.ROM   Night Shade (Japan).rom
