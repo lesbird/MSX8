@@ -377,42 +377,42 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   ROGER445.ROM   Roger Rubbish (Europe).rom
  Y?  ROLLE446.ROM   Roller Ball (Japan).rom
  N0  ROTOR447.ROM   Rotors (Japan).rom
-================= TESTED ALL ABOVE SO FAR =================
- N   SASAJ450.ROM   Sasa (Japan).rom
- N   SAURU451.ROM   Saurus Land (Japan).rom
- N   SCARL452.ROM   Scarlet 7 - The Mightiest Women (Japan).rom
- N   SCION453.ROM   Scion (Japan).rom
- N   SCOPE454.ROM   Scope On - Fight in Space (Japan).rom
- N   SCRAM455.ROM   Scramble Eggs (Japan).rom
- N   SEAHU456.ROM   Sea Hunter (Europe).rom
- N   SENJY458.ROM   Senjyo (Japan).rom
- N   SEWER459.ROM   Sewer Sam (Japan).rom
- N   SHOUG460.ROM   Shougi (Japan).rom
- N   SHOUG461.ROM   Shougi 2 (Japan).rom
- N   SHOUG462.ROM   Shougi Game (Japan).rom
- N   SHOUG463.ROM   Shougi Meijin (Japan).rom
- N   SHOUG464.ROM   Shougi Sinan 1 (Japan).rom
- N   SHOUT465.ROM   Shout Match (Japan).rom
- N   SINBA466.ROM   Sinbad (Japan).rom
- N   SKOOT467.ROM   Skooter (Japan).rom
- N   SKYGA468.ROM   Sky Galdo (Japan).rom
- N   SKYJA469.ROM   Sky Jaguar (Japan).rom
- N   SLAPS470.ROM   Slapshot (Spain).rom
- N   SNAKE471.ROM   Snake It (Europe).rom
- N   SOUKO473.ROM   Soukoban (Japan).rom
- N   SPACE474.ROM   Space Camp (Japan).rom
+ YP? SASAJ450.ROM   Sasa (Japan).rom
+ Y?  SAURU451.ROM   Saurus Land (Japan).rom
+ Y   SCARL452.ROM   Scarlet 7 - The Mightiest Women (Japan).rom
+ Y   SCION453.ROM   Scion (Japan).rom
+ N0  SCOPE454.ROM   Scope On - Fight in Space (Japan).rom
+ Y   SCRAM455.ROM   Scramble Eggs (Japan).rom
+ Y   SEAHU456.ROM   Sea Hunter (Europe).rom
+ Y   SENJY458.ROM   Senjyo (Japan).rom
+ N4  SEWER459.ROM   Sewer Sam (Japan).rom
+ Y   SHOUG460.ROM   Shougi (Japan).rom
+ N4  SHOUG461.ROM   Shougi 2 (Japan).rom
+ N0  SHOUG462.ROM   Shougi Game (Japan).rom
+ Y   SHOUG463.ROM   Shougi Meijin (Japan).rom
+ Y   SHOUG464.ROM   Shougi Sinan 1 (Japan).rom
+ YP  SHOUT465.ROM   Shout Match (Japan).rom
+ YP  SINBA466.ROM   Sinbad (Japan).rom
+ N7  SKOOT467.ROM   Skooter (Japan).rom
+ Y   SKYGA468.ROM   Sky Galdo (Japan).rom
+ Y   SKYJA469.ROM   Sky Jaguar (Japan).rom
+ N8  SLAPS470.ROM   Slapshot (Spain).rom
+ Y   SNAKE471.ROM   Snake It (Europe).rom
+ Y   SOUKO473.ROM   Soukoban (Japan).rom
+ Y   SPACE474.ROM   Space Camp (Japan).rom
  Y   SPACE475.ROM   Space Invaders (Japan).rom
- N   SPACE476.ROM   Space Maze Attack (Japan).rom
- N   SPACE477.ROM   Space Trouble (Japan).rom
- N   SPACE478.ROM   Space Walk (Europe).rom
- N   SPARK479.ROM   Sparkie (Japan).rom
- N   SPELU480.ROM   Spelunker (Japan).rom
- N   SPIDE481.ROM   Spider, The (Japan).rom
- N   SQUAR483.ROM   Square Dancer (Japan).rom
- N   SQUIS484.ROM   Squish'em (Japan).rom
- N   STARB485.ROM   Star Blazer (Japan).rom
- N   STARC486.ROM   Star Command (Japan).rom
- N   STARF487.ROM   Star Force (Japan).rom
+ Y   SPACE476.ROM   Space Maze Attack (Japan).rom
+ Y   SPACE477.ROM   Space Trouble (Japan).rom
+ Y   SPACE478.ROM   Space Walk (Europe).rom
+ N0  SPARK479.ROM   Sparkie (Japan).rom
+ Y   SPELU480.ROM   Spelunker (Japan).rom
+ N8  SPIDE481.ROM   Spider, The (Japan).rom
+ Y?  SQUAR483.ROM   Square Dancer (Japan).rom
+ Y   SQUIS484.ROM   Squish'em (Japan).rom
+ Y   STARB485.ROM   Star Blazer (Japan).rom
+ N0  STARC486.ROM   Star Command (Japan).rom
+ Y   STARF487.ROM   Star Force (Japan).rom
+================= TESTED ALL ABOVE SO FAR =================
  N   STARS488.ROM   Star Soldier (Japan).rom
  N   STARS490.ROM   Star Trap (Japan).rom
  N   START489.ROM   Starship Simulator (Japan).rom
