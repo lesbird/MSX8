@@ -300,7 +300,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  MONKE353.ROM   Monkey Academy (Japan).rom
  Y   MONST354.ROM   Monster's Fair (Japan).rom
  N   MOONL355.ROM   Moon Landing (Japan).rom
- Y   MOONP356.ROM   Moon Patrol (Japan).rom
+ Y?  MOONP356.ROM   Moon Patrol (Japan).rom
  Y   MOONS357.ROM   Moonsweeper (Japan).rom
  N   MOPIR358.ROM   Mopiranger (Japan).rom
  N   MORIT359.ROM   Morita Kazuo no Othello (Japan).rom
