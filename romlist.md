@@ -103,7 +103,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   CHAMP098.ROM   Champion Soccer (Japan).rom
  Y?  CHAMP099.ROM   Championship Lode Runner (Japan).rom
  Y?  CHECK100.ROM   Checkers in Tantan Tanuki (Japan).rom
- YP  CHESS101.ROM   Chess (Japan).rom
+ YP? CHESS101.ROM   Chess (Japan).rom
  N   CHESS102.ROM   Chess Game, The (Europe).rom
  Y   CHOPL103.ROM   Choplifter (Japan).rom
  YP  CHORO104.ROM   Choro Q (Japan).rom
