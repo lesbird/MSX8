@@ -176,7 +176,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  FLICS193.ROM   Flics, Les (France).rom
  Y?  FLIPP196.ROM   Flipper Slipper (Japan).rom
  Y   FORMA197.ROM   Formation Z (Japan).rom
- Y?  FROGG198.ROM   Frogger (Japan).rom
+ YP? FROGG198.ROM   Frogger (Japan).rom
  Y   FRONT199.ROM   Front Line (Japan).rom
  Y?  FRUIT200.ROM   Fruit Search (Japan).rom
  Y   FUNKY201.ROM   Funky Mouse (Japan).rom
