@@ -464,29 +464,29 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N4  TWINB544.ROM   Twin Bee (Japan).rom
  YP? TWINH545.ROM   Twin Hammer (Europe).rom
  Y   TZRGR546.ROM   TZR - Grand Prix Rider (Japan).rom
-================= TESTED ALL ABOVE SO FAR =================
- N   ULTRA547.ROM   Ultraman (Japan).rom
- N   VENUS549.ROM   Venus Fire (Japan).rom
- N   VIDEO550.ROM   Video Hustler (Japan).rom
- N   VOLGU551.ROM   Volguard (Japan).rom
- N   WARPW552.ROM   Warp & Warp (Japan).rom
- N   WARRO553.ROM   Warroid (Japan).rom
- N   WATER554.ROM   Water Driver (Japan).rom
- N   WONDE556.ROM   Wonder Boy (Japan).rom
- N   WRANG557.ROM   Wrangler (Spain).rom
- N   WRECK558.ROM   Wreck, The (Europe).rom
- N   XYXOL559.ROM   Xyxolog (Japan).rom
- N   YABYU560.ROM   Yab Yum (Netherlands).rom
- N   YELLO561.ROM   Yellow Submarine (Japan).rom
- N   YIEAR562.ROM   Yie Ar Kung-Fu (Japan).rom
- N   YIEAR563.ROM   Yie Ar Kung-Fu II - The Emperor Yie-Gah (Japan).rom
- N   YOKAI564.ROM   Yokai Tanken Chimachima (Japan).rom
- N   ZAIDE566.ROM   Zaider - Battle of Peguss (Japan).rom
+ Y   ULTRA547.ROM   Ultraman (Japan).rom
+ YP? VENUS549.ROM   Venus Fire (Japan).rom
+ YP? VIDEO550.ROM   Video Hustler (Japan).rom
+ Y?  VOLGU551.ROM   Volguard (Japan).rom
+ Y   WARPW552.ROM   Warp & Warp (Japan).rom
+ YP  WARRO553.ROM   Warroid (Japan).rom
+ Y?  WATER554.ROM   Water Driver (Japan).rom
+ Y   WONDE556.ROM   Wonder Boy (Japan).rom
+ Y?  WRANG557.ROM   Wrangler (Spain).rom
+ N4  WRECK558.ROM   Wreck, The (Europe).rom
+ YP? XYXOL559.ROM   Xyxolog (Japan).rom
+ N8  YABYU560.ROM   Yab Yum (Netherlands).rom
+ Y   YELLO561.ROM   Yellow Submarine (Japan).rom
+ Y   YIEAR562.ROM   Yie Ar Kung-Fu (Japan).rom
+ N4  YIEAR563.ROM   Yie Ar Kung-Fu II - The Emperor Yie-Gah (Japan).rom
+ YP  YOKAI564.ROM   Yokai Tanken Chimachima (Japan).rom
+ Y?  ZAIDE566.ROM   Zaider - Battle of Peguss (Japan).rom
  Y   ZANAC567.ROM   Zanac (Japan) (v2).rom
  Y   ZANAC568.ROM   Zanac (Japan).rom
  Y   ZAXXO569.ROM   Zaxxon (Japan).rom
- N   ZENJI570.ROM   Zenji (Japan).rom
- N   ZEXAS571.ROM   Zexas Limited (Japan).rom
- N   ZOOM9572.ROM   Zoom 909 (Japan).rom
+ N0  ZENJI570.ROM   Zenji (Japan).rom
+ Y   ZEXAS571.ROM   Zexas Limited (Japan).rom
+ Y   ZOOM9572.ROM   Zoom 909 (Japan).rom
+================= TESTED ALL ABOVE =================
 
 ```
