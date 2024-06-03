@@ -57,6 +57,8 @@ Be careful when modifying the BIOS.ASM code. Adding code could offset the memory
 	nop              ;
 ```
 
+Adding code to the END of BIOS.ASM is fine, as I did with the joystick code, it's code that preceeds label A2689 that needs to stay in alignment.
+
 When MSX8 is launched it jumps to high memory (0xC000) and then will look for and load the custom MSX BIOS called "msx-us.rom". This custom BIOS is loaded to a temporary address at 0x0100 up to 0x3FFF (16K). MSX8 will then load the GAME ROM that is passed as a parameter on the CP/M command line as follows:
 
 ```
