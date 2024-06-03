@@ -453,7 +453,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N8  TETRA525.ROM   Tetra Horror (Japan).rom
  Y?  TETRI526.ROM   Tetris (Korea) (Unl).rom
  N8  TETSU527.ROM   Tetsuman (Japan).rom
- N4  THEXD528.ROM   Thexder (Japan).rom
+ Y   THEXD528.ROM   Thexder (Japan).rom
  Y?  THUND529.ROM   Thunder Ball (Japan).rom
  N4  THUND530.ROM   Thunderbolt (Japan).rom
  YP? TIMEP531.ROM   Time Pilot (Japan).rom
