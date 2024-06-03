@@ -436,35 +436,35 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N4  SUPER513.ROM   Super Tripper (Spain).rom
  YP? SWEET514.ROM   Sweet Acorn (Japan).rom
  Y?  SWING515.ROM   Swing (Japan).rom
-================= TESTED ALL ABOVE SO FAR =================
- N   TANKB517.ROM   Tank Battalion (Japan).rom
- N   TATIC518.ROM   Tatica (Japan).rom
- N   TAWAR519.ROM   Tawara-kun (Japan).rom
- N   TEARO520.ROM   Tear of Nile (Japan).rom
- N   TELEB521.ROM   Telebunnie (Japan).rom
- N   TENSA522.ROM   Tensai Rabbian Daifunsen (Japan).rom
- N   TENSI523.ROM   Tensidachino Gogo (Japan).rom
- N   TENSI524.ROM   Tension (Spain).rom
- N   TETRA525.ROM   Tetra Horror (Japan).rom
- Y   TETRI526.ROM   Tetris (Korea) (Unl).rom
- N   TETSU527.ROM   Tetsuman (Japan).rom
- Y?  THEXD528.ROM   Thexder (Japan).rom
- N   THUND529.ROM   Thunder Ball (Japan).rom
- N   THUND530.ROM   Thunderbolt (Japan).rom
- Y   TIMEP531.ROM   Time Pilot (Japan).rom
- N   TOPPL534.ROM   Top Roller! (Japan).rom
- N   TOPRO533.ROM   Topple Zip (Japan).rom
+ Y   TANKB517.ROM   Tank Battalion (Japan).rom
+ Y   TATIC518.ROM   Tatica (Japan).rom
+ Y   TAWAR519.ROM   Tawara-kun (Japan).rom
+ Y?  TEARO520.ROM   Tear of Nile (Japan).rom
+ YP? TELEB521.ROM   Telebunnie (Japan).rom
+ Y   TENSA522.ROM   Tensai Rabbian Daifunsen (Japan).rom
+ Y?  TENSI523.ROM   Tensidachino Gogo (Japan).rom
+ N4  TENSI524.ROM   Tension (Spain).rom
+ N8  TETRA525.ROM   Tetra Horror (Japan).rom
+ Y?  TETRI526.ROM   Tetris (Korea) (Unl).rom
+ N8  TETSU527.ROM   Tetsuman (Japan).rom
+ N4  THEXD528.ROM   Thexder (Japan).rom
+ Y?  THUND529.ROM   Thunder Ball (Japan).rom
+ N4  THUND530.ROM   Thunderbolt (Japan).rom
+ YP? TIMEP531.ROM   Time Pilot (Japan).rom
+ YP  TOPPL534.ROM   Topple Zip (Japan).rom
+ Y   TOPRO533.ROM   Top Roller! (Japan).rom
  Y   TRACK535.ROM   Track & Field 1 (Europe).rom
  Y   TRACK536.ROM   Track & Field 2 (Europe).rom
- N   TRAFF537.ROM   Traffic (Japan).rom
- N   TRIAL538.ROM   Trial Ski (Japan).rom
- N   TRICK539.ROM   Trick Boy (Japan).rom
- N   TRITO540.ROM   Tritorn (Japan).rom
- N   TRUMP541.ROM   Trumpaid (Japan).rom
- N   TURBO543.ROM   Turboat (Japan).rom
- N   TWINB544.ROM   Twin Bee (Japan).rom
- N   TWINH545.ROM   Twin Hammer (Europe).rom
- N   TZRGR546.ROM   TZR - Grand Prix Rider (Japan).rom
+ Y   TRAFF537.ROM   Traffic (Japan).rom
+ N0  TRIAL538.ROM   Trial Ski (Japan).rom
+ Y?  TRICK539.ROM   Trick Boy (Japan).rom
+ YP  TRITO540.ROM   Tritorn (Japan).rom
+ N0  TRUMP541.ROM   Trumpaid (Japan).rom
+ YP? TURBO543.ROM   Turboat (Japan).rom
+ N4  TWINB544.ROM   Twin Bee (Japan).rom
+ YP? TWINH545.ROM   Twin Hammer (Europe).rom
+ Y   TZRGR546.ROM   TZR - Grand Prix Rider (Japan).rom
+================= TESTED ALL ABOVE SO FAR =================
  N   ULTRA547.ROM   Ultraman (Japan).rom
  N   VENUS549.ROM   Venus Fire (Japan).rom
  N   VIDEO550.ROM   Video Hustler (Japan).rom
