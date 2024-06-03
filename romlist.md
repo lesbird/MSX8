@@ -1,5 +1,7 @@
 # 352 WORKING GAMES
-Some require keyboard support
+Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
+Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
+Some don't work at all. They are marked with a 'N' in the list below<br>
 
 ```
 
