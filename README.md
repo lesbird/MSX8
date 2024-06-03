@@ -27,6 +27,36 @@ Also included in this repo is a customized FULL MSX BIOS rom that addresses the 
 >make TARGETS=us
 ```
 
+Porting the BIOS to other platforms requires changing the I/O addresses using these defines that I added at the top of BIOS.ASM
+
+```
+; Define VDP/PSG ports for Heathkit graphics board
+        DEFC    VDPDAT = $B8
+        DEFC    VDPCTL = $B9
+        DEFC    PSGCTL = $BB
+	DEFC	PSGDAT = $BA
+	DEFC	PSGRIN = $BA
+```
+
+And then modifying the platform joystick code in BIOS.ASM at this location:
+
+```
+; JOYSTICK CODE
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
+; H8 FORMAT: 15 - PLR4RG,PLR4LF,PLR3RG,PLR3LF,PLR2RG,PLR2LF,PLR1RG,PLR1LF
+; H8 FORMAT: 14 - 0x03=PLR1TRG,0x0C=PLR2TRG,0x30=PLR3TRG,0xC0=PLR4TRG
+H8JSTK:	push	bc
+```
+
+Be careful when modifying the BIOS.ASM code. Adding code could offset the memory locations and break things. If you change code make sure you do not throw off the alignment. For example, if you remove a line of code you need to offset it with the correct number of "NOP"s to keep the memory alignment the same:
+
+```
+;       ld      a,$0F    ; commented out code
+	nop              ; NOPs added to keep alignment
+	nop              ;
+```
+
 When MSX8 is launched it jumps to high memory (0xC000) and then will look for and load the custom MSX BIOS called "msx-us.rom". This custom BIOS is loaded to a temporary address at 0x0100 up to 0x3FFF (16K). MSX8 will then load the GAME ROM that is passed as a parameter on the CP/M command line as follows:
 
 ```
