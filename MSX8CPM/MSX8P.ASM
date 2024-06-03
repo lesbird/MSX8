@@ -340,6 +340,13 @@ PATCH	EQU	$
 	LHLD	ROMCNT
 	XCHG		; DE=ROM BYTES READ
 	LHLD	GAMADR
+	MOV	A,H
+	ANI	80H	; SLOT 2
+	JZ	PATCHL
+	LXI	H,8000H
+	JMP	PATCH0
+PATCHL	EQU	$
+	LXI	H,4000H
 PATCH0	EQU	$
 	MOV	A,M
 	INX	H
@@ -613,4 +620,7 @@ FCBGAME DB	0
 STACK	EQU	$
 *
 	END	START
-
+
+
+ÙÑá ÀÉ°°¨!0âÅå~·Ê×]W#^##{æG{ËËæø_P~=å!ã_ÍaYÍNUáÙÐâ!ŒãÅåÕÍÑ_Ò¦\> Í>KÒ¦\ÑáÁ##6#6åÍÄLáþ 6
+>ÄP Íõ

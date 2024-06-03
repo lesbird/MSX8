@@ -68,6 +68,7 @@ STARTH	EQU	$
 	CPI	0FFH
 	JZ	NOBIOSF
 *
+	CALL	CRLF
 	LXI	H,LOADB2
 	CALL	PRINTS
 *
@@ -251,7 +252,7 @@ FILLC9	EQU	$
 * TURN ON Z80 IM1 MODE
 	DB	0EDH,056H
 *
-	EI
+*	EI
 * WAIT FOR 'L' TO LAUNCH THE GAME
 STARTL	EQU	$
 	CALL	IN350
@@ -613,3 +614,4 @@ FCBGAME DB	0
 STACK	EQU	$
 *
 	END	START
+
