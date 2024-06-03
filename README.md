@@ -10,7 +10,7 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
 [ROM CROSS REFERENCE](https://github.com/lesbird/MSX8/blob/main/romlist.md) - list of game ROM status (working or not) along with long file names
 
-MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an HA8-3 Color Graphics Card (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K (a clone of the HA8-3).
+MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an [HA8-3 Color Graphics Card](https://github.com/sebhc/sebhc/wiki/HA-8-3) (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K (a clone of the HA8-3).
 
 This repository contains the source code for the CP/M program buildable with the standard CP/M ASM program as follows:
 
@@ -33,7 +33,7 @@ When MSX8 is launched it jumps to high memory (0xC000) and then will look for an
 A0>MSX8 GALAGA.ROM
 ```
 
-The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). MSX8 also patches high memory with default values that some games need. When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M anymore) and MSX8 will wait until you press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
+The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). MSX8 also patches high memory with default values that some games need as specified in the MSX Redbook. When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M for file I/O anymore) and MSX8 will wait until you press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
 
 ```
         LHLD    4002H  ; HL=START ADDRESS
@@ -42,9 +42,9 @@ The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The 
 
 At this point all control is passed to the GAME ROM with the MSX BIOS in low memory starting at 0x0000.
 
-Some game ROMs have varying start addresses. Most games start at 0x4000 but a few games like Space Invaders, for example, start at 0x8000. If this is detected the game is copied up to 0x8000 through 0xC000 (16K max) and launched.
+Some game ROMs have varying start addresses. Most games start at 0x40xx but a few games like Space Invaders, for example, start at 0x80xx. If this is detected the game is copied up to 0x8000 through 0xC000 (16K max) and launched.
 
-I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly. Some ROMs do not work. One in particular is FROGGER. I disassembled the FROGGER ROM and discovered it is doing direct writes to the VDP/PSG instead of going through the BIOS. I suspect many non-working games are doing this as well. I wrote a patcher version of MSX8 which called MSX8P. You use it just like MSX8 except it will search the ROM code for IN/OUT/OUTI and replace MSX I/O port addresses with Heathkit I/O addresses. This fixes FROGGER and most direct I/O games but controller code doesn't work exactly right just yet (this is a work in progrerss). The patcher is not perfect because it is almost impossible to distinguish code from data so it may be patching data by accident. Also it is possible that some I/O port addresses are being read from a table somewhere else in memory and in this case the patcher will not work.
+I have tested this with some of the popular arcade conversions for the MSX computer such as <b>PACMAN, GALAGA, GALAXIAN, DIGDUG, RALLYX, BOSCONIAN</b> and they all work perfectly. Some ROMs do not work. One in particular is FROGGER. I disassembled the FROGGER ROM and discovered it is doing direct writes to the VDP/PSG instead of going through the BIOS. I suspect many non-working games are doing this as well. I wrote a patcher version of MSX8 which is called MSX8P. You use it just like MSX8 except it will search the ROM code for IN/OUT/OUTI and replace MSX I/O port addresses with Heathkit I/O addresses. This fixes FROGGER and most direct I/O games but controller code doesn't work exactly right just yet for these patched games (this is a work in progress). The patcher is not perfect because it is almost impossible to distinguish code from data so it may be patching data by accident. Also it is possible that some I/O port addresses are being read from a table somewhere else in memory and in this case the patcher will not work.
 
 ### GRAPHICS BOARD SETUP
 
