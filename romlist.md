@@ -176,7 +176,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  FLICS193.ROM   Flics, Les (France).rom
  Y?  FLIPP196.ROM   Flipper Slipper (Japan).rom
  Y   FORMA197.ROM   Formation Z (Japan).rom
- Y?  FROGG198.ROM   Frogger (Japan).rom
+ YP? FROGG198.ROM   Frogger (Japan).rom
  Y   FRONT199.ROM   Front Line (Japan).rom
  Y?  FRUIT200.ROM   Fruit Search (Japan).rom
  Y   FUNKY201.ROM   Funky Mouse (Japan).rom
@@ -453,7 +453,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N8  TETRA525.ROM   Tetra Horror (Japan).rom
  Y?  TETRI526.ROM   Tetris (Korea) (Unl).rom
  N8  TETSU527.ROM   Tetsuman (Japan).rom
- N4  THEXD528.ROM   Thexder (Japan).rom
+ Y   THEXD528.ROM   Thexder (Japan).rom
  Y?  THUND529.ROM   Thunder Ball (Japan).rom
  N4  THUND530.ROM   Thunderbolt (Japan).rom
  YP? TIMEP531.ROM   Time Pilot (Japan).rom
