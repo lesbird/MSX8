@@ -20,7 +20,7 @@
         DEFC    PSGCTL = $BB
 	DEFC	PSGDAT = $BA
 	DEFC	PSGRIN = $BA
-
+	DEFC	CONPORT = $E8
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
         EXTERN  ASPCT2
@@ -1436,11 +1436,17 @@ A0861:  call    A046F
         jr      z,A0861
         pop     af
 A086C:  push    af
-        out     ($91),a
+;        out     ($91),a
+	nop
+	nop
         xor     a
-        out     ($90),a
+;        out     ($90),a
+	nop
+	nop
         dec     a
-        out     ($90),a
+;        out     ($90),a
+	nop
+	nop
         pop     af
         and     a
         ret
@@ -2198,8 +2204,12 @@ A0D12:  in      a,($AA)
         ld      b,11
         ld      hl,NEWKEY
 A0D1C:  ld      a,c
-        out     ($AA),a
-        in      a,($A9)
+;        out     ($AA),a
+	nop
+	nop
+;        in      a,($A9)
+	nop
+	nop
         ld      (hl),a
         inc     c
         inc     hl
@@ -3777,7 +3787,9 @@ A19E2:  dec     bc
 
 A19E9:  push    af
         ld      a,$09
-        out     ($AB),a
+;        out     ($AB),a
+	nop
+	nop
         pop     af
         ei
         ret
@@ -3785,7 +3797,9 @@ A19E9:  push    af
 A19F1:  or      a
         push    af                      ; flag for headerlength
         ld      a,$08
-        out     ($AB),a                ; cassettemotor on
+;        out     ($AB),a                ; cassettemotor on
+	nop
+	nop
         ld      hl,0
 A19FA:  dec     hl
         ld      a,h
@@ -3842,16 +3856,22 @@ A1A50:  push    af
 A1A51:  dec     l
         jp      nz,A1A51                ; wait low part
         ld      a,$0B
-        out     ($AB),a                ; high
+;        out     ($AB),a                ; high
+	nop
+	nop
 A1A59:  dec     h
         jp      nz,A1A59                ; wait high part
         ld      a,$0A
-        out     ($AB),a                ; low
+;        out     ($AB),a                ; low
+	nop
+	nop
         pop     af
         ret
 ;
 A1A63:  ld      a,$08
-        out     ($AB),a                ; cassettemotor on
+;        out     ($AB),a                ; cassettemotor on
+	nop
+	nop
         di
         ld      a,$0E
         out     (PSGCTL),a                ; select register 14 of PSG
@@ -4633,11 +4653,11 @@ CONOUT:	push	bc
 	in	$F0
 	cp	$6F
 	jr	nz,CONOUX
-CONOUL:	in	a,($ED)
+CONOUL:	in	a,(CONPORT+5)
 	and	$20
 	jr	z,CONOUL
 	ld	a,c
-	out	($E8),a
+	out	(CONPORT),a
 CONOUX:	pop	bc
 	ret
 ;
@@ -4678,10 +4698,10 @@ CRLF:	push	af
 ;
 CONIN:	ld	a,'I'
 	call	CONOUT
-	in	a,($ED)
+	in	a,(CONPORT+5)
 	and	$01
 	jr	z,CONINX
-	in	a,($E8)
+	in	a,(CONPORT)
 CONINX:	call	OUTHEX
 	call	CRLF
 	ret

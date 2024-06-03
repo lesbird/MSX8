@@ -4547,12 +4547,15 @@ A2686:  jp      C4666
 A2689:  jp      C5597
 ;
 OUTPSG:	out     (PSGCTL),a
-	cp	$07
+	cp	$07			; port config register
 	jr	nz,OUTPS1
 	ld	a,e
-	and	$3F			; H8 port config bits
+	and	$7F			; NABU port config bits (make sure A=out,B=in)
 	ld	e,a
-OUTPS1:	ld      a,e
+	jr	OUTPS2
+OUTPS1:	cp	$0E			; block port A writes
+	ret	z
+OUTPS2:	ld      a,e
 	out     (PSGDAT),a
 	ret
 ;
@@ -4578,15 +4581,11 @@ H8DLYL:	dec	bc
 H8JSTK:	push	bc
 	ld	a,'J'
 	call	CONOUT
-;	ld	a,$07
-;	out	(PSGCTL),a
-;	in	a,(PSGRIN)
-;	and	$3F
-;	out	(PSGDAT),a		; make sure joystick ports are configured
 	ld	c,$FF			; everything off (1=off, 0=on)
 	ld	a,$0E
-	out	(PSGCTL),a
-	in	a,(PSGCTL)
+;	out	(PSGCTL),a
+;	in	a,(PSGCTL)
+	ld	a,$FF			; for now just ignore joysticks
 	ld	b,a
 	and	$03			; check trigger
 	jr	nz,H8JST2
@@ -4607,8 +4606,9 @@ H8JST3:	ld	a,b
 	and	$FD			; DWN on
 	ld	c,a
 H8JST4:	ld	a,$0F
-	out	(PSGCTL),a
-	in	a,(PSGCTL)
+;	out	(PSGCTL),a
+;	in	a,(PSGCTL)
+	ld	a,$FF			; for now just ignore joysticks
 	ld	b,a
 	and	$01			; check left
 	jr	nz,H8JST5
@@ -4622,7 +4622,6 @@ H8JST5:	ld	a,b
 	and	$F7
 	ld	c,a
 H8JSTX:	ld	a,c
-;	cpl
 	call	OUTHEX
 	call	CRLF
 	pop	bc
