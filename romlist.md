@@ -412,31 +412,31 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   STARB485.ROM   Star Blazer (Japan).rom
  N0  STARC486.ROM   Star Command (Japan).rom
  Y   STARF487.ROM   Star Force (Japan).rom
+ Y   STARS488.ROM   Star Soldier (Japan).rom
+ Y?  START489.ROM   Star Trap (Japan).rom
+ Y?  STARS490.ROM   Starship Simulator (Japan).rom
+ Y   STEPU491.ROM   Step Up (Japan).rom
+ N8  STEPP492.ROM   Stepper (Japan).rom
+ Y   STONE493.ROM   Stone of Wisdom, The (Japan).rom
+ N4  STRAN494.ROM   Strange Loop (Japan).rom
+ Y   SUPAR495.ROM   Suparobo (Japan).rom
+ N0  SUPER496.ROM   Super Billiards (Japan).rom
+ N4  SUPER499.ROM   Super Boy I (Korea) (Unl).rom
+ N4  SUPER500.ROM   Super Boy II (Korea) (Unl).rom
+ YP? SUPER501.ROM   Super Bubble Bobble (Korea) (Unl).rom
+ N4  SUPER502.ROM   Super Cobra (Japan).rom
+ YP  SUPER503.ROM   Super Columns (Japan).rom
+ YP  SUPER504.ROM   Super Cross Force (Europe).rom
+ Y   SUPER505.ROM   Super Drinker (Japan).rom
+ N4  SUPER506.ROM   Super Golf (Japan).rom
+ Y?  SUPER508.ROM   Super Pachinko (Japan).rom
+ Y   SUPER510.ROM   Super Snake (Japan).rom
+ Y   SUPER511.ROM   Super Soccer (Japan).rom
+ Y   SUPER512.ROM   Super Tennis (Japan).rom
+ N4  SUPER513.ROM   Super Tripper (Spain).rom
+ YP? SWEET514.ROM   Sweet Acorn (Japan).rom
+ Y?  SWING515.ROM   Swing (Japan).rom
 ================= TESTED ALL ABOVE SO FAR =================
- N   STARS488.ROM   Star Soldier (Japan).rom
- N   STARS490.ROM   Star Trap (Japan).rom
- N   START489.ROM   Starship Simulator (Japan).rom
- N   STEPP492.ROM   Step Up (Japan).rom
- N   STEPU491.ROM   Stepper (Japan).rom
- N   STONE493.ROM   Stone of Wisdom, The (Japan).rom
- N   STRAN494.ROM   Strange Loop (Japan).rom
- N   SUPAR495.ROM   Suparobo (Japan).rom
- N   SUPER496.ROM   Super Billiards (Japan).rom
- N   SUPER499.ROM   Super Boy I (Korea) (Unl).rom
- N   SUPER500.ROM   Super Boy II (Korea) (Unl).rom
- N   SUPER501.ROM   Super Bubble Bobble (Korea) (Unl).rom
- N   SUPER502.ROM   Super Cobra (Japan).rom
- N   SUPER503.ROM   Super Columns (Japan).rom
- N   SUPER504.ROM   Super Cross Force (Europe).rom
- N   SUPER505.ROM   Super Drinker (Japan).rom
- N   SUPER506.ROM   Super Golf (Japan).rom
- N   SUPER508.ROM   Super Pachinko (Japan).rom
- N   SUPER510.ROM   Super Snake (Japan).rom
- N   SUPER511.ROM   Super Soccer (Japan).rom
- N   SUPER512.ROM   Super Tennis (Japan).rom
- N   SUPER513.ROM   Super Tripper (Spain).rom
- N   SWEET514.ROM   Sweet Acorn (Japan).rom
- N   SWING515.ROM   Swing (Japan).rom
  N   TANKB517.ROM   Tank Battalion (Japan).rom
  N   TATIC518.ROM   Tatica (Japan).rom
  N   TAWAR519.ROM   Tawara-kun (Japan).rom
