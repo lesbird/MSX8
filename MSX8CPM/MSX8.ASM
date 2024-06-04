@@ -631,4 +631,3 @@ FCBGAME DB	0
 STACK	EQU	$
 *
 	END	START
-C€ @   ƒ @  אאא      ׀׀׀ €€ @@ ננננפdddddddפפפפ4444ההה

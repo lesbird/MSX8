@@ -364,7 +364,9 @@ C017E:  CALL    C01AD
 J018D:  EX      (SP),HL
         PUSH    AF
         LD      A,L
-        OUT     ($A8),A
+;        OUT     ($A8),A
+	NOP
+	NOP
         LD      A,H
         LD      (D_FFFF),A
         POP     AF
@@ -380,7 +382,9 @@ C0199:  PUSH    AF
         IN      A,($A8)
         LD      L,A
         AND     $F3
-        OUT     ($A8),A
+;        OUT     ($A8),A
+	NOP
+	NOP
         POP     AF
         RET
 
@@ -446,11 +450,15 @@ A01EC:  pop     bc
         ld      a,b
         and     $3F
         or      c                       ; slot of sec. slotreg
-        out     ($A8),a
+;        out     ($A8),a
+	nop
+	nop
         ld      a,l
         ld      (D_FFFF),a              ; restore register
         ld      a,b
-        out     ($A8),a                ; restore prim. slotreg
+;        out     ($A8),a                ; restore prim. slotreg
+	nop
+	nop
         pop     af
         pop     hl
         ret
@@ -516,11 +524,15 @@ A022E:  call    A02A3
         and     $3F
         or      c
         di
-        out     ($A8),a
+;        out     ($A8),a
+	nop
+	nop
         ld      a,e
         ld      (D_FFFF),a
         ld      a,b
-        out     ($A8),a
+;        out     ($A8),a
+	nop
+	nop
         ld      (hl),e
         ex      af,af'
         exx
@@ -531,7 +543,9 @@ A025E:  call    A027E                   ; get masks
         in      a,($A8)
         and     c
         or      b
-        out     ($A8),a
+;        out     ($A8),a
+	nop
+	nop
         ret
 ;
 A026B:  push    hl
@@ -589,7 +603,9 @@ A02A3:  push    af
         ld      b,a
         and     $3F                    ; clear slot of page 3
         or      c                       ; set page 3 for sec. slotreg
-        out     ($A8),a                ; invoke
+;        out     ($A8),a                ; invoke
+	nop
+	nop
         ld      a,d
         rrca
         rrca
@@ -611,21 +627,32 @@ A02BB:  add     a,01010101b
         or      d                       ; set new slot
         ld      (D_FFFF),a
         ld      a,b
-        out     ($A8),a                ; restore primairy slot on page 3
+;        out     ($A8),a                ; restore primairy slot on page 3
+	nop
+	nop
         pop     af
         and     $03
         ret
 ;
 A02D7:	ld      a,$82
-        out     ($AB),a                ; initialize PPI (active, group A mode 0, group A output, upper port C output, group B mode 0, group B input, lower port C output)
+;        out     ($AB),a                ; initialize PPI (active, group A mode 0, group A output, upper port C output, group B mode 0, group B input, lower port C output)
+	nop
+	nop
         xor     a
-        out     ($A8),a                ; select primairy slot 0 on all pages
+;        out     ($A8),a                ; select primairy slot 0 on all pages
+	nop
+	nop
         ld      a,$50
-        out     ($AA),a                ; CAPS off, motor off, keyboard row 0
+;        out     ($AA),a                ; CAPS off, motor off, keyboard row 0
+	nop
+	nop
         ld      de,$FFFF               ; initialize lowest RAM address found (page 2)
         xor     a                       ; start with primairy slot 0
         ld      c,a                     ; initialize expanded slot flags
-A02E7:  out     ($A8),a                ; select primairy slot on page 2 and 3
+A02E7:  
+;	out     ($A8),a                ; select primairy slot on page 2 and 3
+	nop
+	nop
         sla     c                       ; shift expanded slot flags
         ld      b,0                     ; assume not expanded slot
         ld      hl,$FFFF
@@ -680,7 +707,9 @@ A0335:  in      a,($A8)
         ld      hl,0
         add     hl,sp
         ld      a,h
-        out     ($A8),a
+;        out     ($A8),a
+	nop
+	nop
         ld      a,l
         ld      (D_FFFF),a              ; select slot with lowest RAM address found (page 2)
         ld      a,c
@@ -692,7 +721,10 @@ A0335:  in      a,($A8)
         ld      de,$FFFF               ; initialize lowest RAM address found (page 3)
         in      a,($A8)
         and     $3F                    ; primairy slot 0 in page 3
-A0353:  out     ($A8),a                ; select new primairy slot in page 3
+A0353:  
+;	out     ($A8),a                ; select new primairy slot in page 3
+	nop
+	nop
         ld      b,0
         rlc     c                       ; slot expanded ?
         jr      nc,A0365                ; nope,
@@ -742,7 +774,9 @@ A0398:  in      a,($A8)
         ld      hl,0
         add     hl,sp
         ld      a,h
-        out     ($A8),a
+;        out     ($A8),a
+	nop
+	nop
         ld      a,l
         ld      (D_FFFF),a              ; select slot with lowest RAM address found (page 3)
         ld      a,c
@@ -763,27 +797,37 @@ A03BD:  rr      c
         in      a,($A8)
         ld      c,a                     ; save current primairy slot register
         xor     a
-        out     ($A8),a                ; select primairy slot 0 in page 0,1,2,3
+;        out     ($A8),a                ; select primairy slot 0 in page 0,1,2,3
+	nop
+	nop
         ld      a,(D_FFFF)
         cpl
         ld      l,a                     ; save current secundairy slot register slot 0
         ld      a,$40
-        out     ($A8),a                ; select primairy slot 0 in page 0,1,2 slot 1 in page 3
+;        out     ($A8),a                ; select primairy slot 0 in page 0,1,2 slot 1 in page 3
+	nop
+	nop
         ld      a,(D_FFFF)
         cpl
         ld      h,a                     ; save current secundairy slot register slot 1
         ld      a,$80
-        out     ($A8),a                ; select primairy slot 0 in page 0,1,2 slot 2 in page 3
+;        out     ($A8),a                ; select primairy slot 0 in page 0,1,2 slot 2 in page 3
+	nop
+	nop
         ld      a,(D_FFFF)
         cpl
         ld      e,a                     ; save current secundairy slot register slot 2
         ld      a,$C0
-        out     ($A8),a                ; select primairy slot 0 in page 0,1,2 slot 3 in page 3
+;        out     ($A8),a                ; select primairy slot 0 in page 0,1,2 slot 3 in page 3
+	nop
+	nop
         ld      a,(D_FFFF)
         cpl
         ld      d,a                     ; save current secundairy slot register slot 3
         ld      a,c
-        out     ($A8),a                ; restore primairy slot register
+;        out     ($A8),a                ; restore primairy slot register
+	nop
+	nop
         ld      (SLTTBL+0),hl
         ex      de,hl
         ld      (SLTTBL+2),hl           ; current secundairy slot registers saved in SLTTBL
@@ -866,13 +910,17 @@ A0468:  ld      hl,(PUTPNT)
 A046F:  in      a,($AA)
         and     $F0
         or      $07
-        out     ($AA),a
+;        out     ($AA),a
+	nop
+	nop
         in      a,($A9)
         and     $10
         ret     nz
         in      a,($AA)
         dec     a
-        out     ($AA),a
+;        out     ($AA),a
+	nop
+	nop
         in      a,($A9)
         and     $02
         ret     nz
@@ -908,7 +956,9 @@ A049D:  ld      a,$07
         and     $40
         ld      (KANAMD),a
         ld      a,$FF
-        out     ($90),a
+;        out     ($90),a
+	nop
+	nop
 A04BD:  push    hl
         push    de
         push    bc
