@@ -4620,11 +4620,14 @@ OUTPSG:	out     (PSGCTL),a
 	cp	$07			; port config register
 	jr	nz,OUTPS1
 	ld	a,e
-	and	$7F			; NABU port config bits (make sure A=out,B=in)
+	and	$3F			; NABU port config bits
+	or	$40			; make sure A=out,B=in 01xx.xxxx
 	ld	e,a
 	jr	OUTPS2
 OUTPS1:	cp	$0E			; block port A writes
-	ret	z
+	jr	nz,OUTPS2
+	ld	a,10H			; just enable VDP interrupts
+	ld	e,a
 OUTPS2:	ld      a,e
 	out     (PSGDAT),a
 	ret
