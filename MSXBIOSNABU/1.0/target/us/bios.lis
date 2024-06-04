@@ -3415,7 +3415,7 @@ bios.asm:
   2432                          ;
   2433  1102  f3                A1102:  di
   2434  1103  f5                	push	af
-  2435  1104  cd8c26            	call	OUTPSG
+  2435  1104  cd1e27            	call	OUTPSG
   2436                          ;        out     (PSGCTL),a
   2437                          ;	push    af
   2438                          ;        ld      a,e
@@ -3431,7 +3431,7 @@ bios.asm:
   2448  110d  00                	nop
   2449                          ;A110E:  out     (PSGCTL),a
   2450                          ;        in      a,(PSGRIN)
-  2451  110e  cdbe26            A110E:	call	H8JSTK
+  2451  110e  cd3727            A110E:	call	H8JSTK
   2452  1111  00                	nop
   2453  1112  c9                        ret
   2454                          ;
@@ -3616,7 +3616,7 @@ bios.asm:
   2633  1229  00                	nop
   2634  122a  00                	nop
   2635  122b  3e49              	ld	a,'I'
-  2636  122d  cd0627            	call	CONOUT
+  2636  122d  cd7f27            	call	CONOUT
   2637  1230  af                	xor	a
   2638  1231  2f                	cpl
   2639  1232  fb                        ei
@@ -5896,266 +5896,258 @@ bios.asm:
   4616                          ;
   4617  2689  c30000            A2689:  jp      C5597
   4618                          ;
-  4619  268c  d341              OUTPSG:	out     (PSGCTL),a
-  4620  268e  fe07              	cp	$07			; port config register
-  4621  2690  2008              	jr	nz,OUTPS1
-  4622  2692  7b                	ld	a,e
-  4623  2693  e63f              	and	$3F			; NABU port config bits
-  4624  2695  f640              	or	$40			; make sure A=out,B=in 01xx.xxxx
-  4625  2697  5f                	ld	e,a
-  4626  2698  1807              	jr	OUTPS2
-  4627  269a  fe0e              OUTPS1:	cp	$0E			; block port A writes
-  4628  269c  2003              	jr	nz,OUTPS2
-  4629  269e  3e10              	ld	a,10H			; just enable VDP interrupts
-  4630  26a0  5f                	ld	e,a
-  4631  26a1  7b                OUTPS2:	ld      a,e
-  4632  26a2  d340              	out     (PSGDAT),a
-  4633  26a4  c9                	ret
-  4634                          ;
-  4635  26a5  cdb526            H8INT:	call	H8DLY
-  4636  26a8  cd9afd                    call    H_KEYI
-  4637  26ab  c9                	ret
-  4638  26ac  3ed0              H8INTC:	ld	a,$D0
-  4639  26ae  d3f0              	out	($F0),a		  	; clear the H8 front panel interrupt
-  4640  26b0  d3f1              	out	($F1),a
-  4641  26b2  dbf0              	in	a,($F0)
-  4642  26b4  c9                	ret
-  4643  26b5  018000            H8DLY:	ld	bc,$0080
-  4644  26b8  0b                H8DLYL:	dec	bc
-  4645  26b9  79                	ld	a,c
-  4646  26ba  b0                	or	b
-  4647  26bb  20fb              	jr	nz,H8DLYL
-  4648  26bd  c9                	ret
-  4649                          ; JOYSTICK CODE
-  4650                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-  4651                          ; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
-  4652                          ; H8 FORMAT: 15 - PLR4RG,PLR4LF,PLR3RG,PLR3LF,PLR2RG,PLR2LF,PLR1RG,PLR1LF
-  4653                          ; H8 FORMAT: 14 - 0x03=PLR1TRG,0x0C=PLR2TRG,0x30=PLR3TRG,0xC0=PLR4TRG
-  4654  26be  c5                H8JSTK:	push	bc
-  4655  26bf  3e4a              	ld	a,'J'
-  4656  26c1  cd0627            	call	CONOUT
-  4657  26c4  0eff              	ld	c,$FF			; everything off (1=off, 0=on)
-  4658  26c6  3e0e              	ld	a,$0E
-  4659                          ;	out	(PSGCTL),a
-  4660                          ;	in	a,(PSGCTL)
-  4661  26c8  3eff              	ld	a,$FF			; for now just ignore joysticks
-  4662  26ca  47                	ld	b,a
-  4663  26cb  e603              	and	$03			; check trigger
-  4664  26cd  2006              	jr	nz,H8JST2
-  4665  26cf  79                	ld	a,c
-  4666  26d0  e6ef              	and	$EF			; TRGA on
-  4667  26d2  4f                	ld	c,a
-  4668  26d3  1812              	jr	H8JST4			; skip up/down if trigger pressed
-  4669  26d5  78                H8JST2:	ld	a,b
-  4670  26d6  e601              	and	$01			; check up
-  4671  26d8  2004              	jr	nz,H8JST3
-  4672  26da  79                	ld	a,c
-  4673  26db  e6fe              	and	$FE			; UP on
-  4674  26dd  4f                	ld	c,a
-  4675  26de  78                H8JST3:	ld	a,b
-  4676  26df  e602              	and	$02			; check down
-  4677  26e1  2004              	jr	nz,H8JST4
-  4678  26e3  79                	ld	a,c
-  4679  26e4  e6fd              	and	$FD			; DWN on
-  4680  26e6  4f                	ld	c,a
-  4681  26e7  3e0f              H8JST4:	ld	a,$0F
-  4682                          ;	out	(PSGCTL),a
-  4683                          ;	in	a,(PSGCTL)
-  4684  26e9  3eff              	ld	a,$FF			; for now just ignore joysticks
-  4685  26eb  47                	ld	b,a
-  4686  26ec  e601              	and	$01			; check left
-  4687  26ee  2004              	jr	nz,H8JST5
-  4688  26f0  79                	ld	a,c
-  4689  26f1  e6fb              	and	$FB			; LFT on
-  4690  26f3  4f                	ld	c,a
-  4691  26f4  78                H8JST5:	ld	a,b
-  4692  26f5  e602              	and	$02			; check right
-  4693  26f7  2004              	jr	nz,H8JSTX
-  4694  26f9  79                	ld	a,c
-  4695  26fa  e6f7              	and	$F7
-  4696  26fc  4f                	ld	c,a
-  4697  26fd  79                H8JSTX:	ld	a,c
-  4698                          ;	cpl
-  4699  26fe  cd1927            	call	OUTHEX
-  4700  2701  cd3e27            	call	CRLF
-  4701  2704  c1                	pop	bc
-  4702  2705  c9                	ret
-  4703                          ;
-  4704  2706  c5                CONOUT:	push	bc
-  4705  2707  4f                	ld	c,a
-  4706  2708  dbf0              	in	$F0
-  4707  270a  fe6f              	cp	$6F
-  4708  270c  2009              	jr	nz,CONOUX
-  4709  270e  db4d              CONOUL:	in	a,(CONPORT+5)
-  4710  2710  e620              	and	$20
-  4711  2712  28fa              	jr	z,CONOUL
-  4712  2714  79                	ld	a,c
-  4713  2715  d348              	out	(CONPORT),a
-  4714  2717  c1                CONOUX:	pop	bc
-  4715  2718  c9                	ret
-  4716                          ;
-  4717  2719  f5                OUTHEX:	push	af
-  4718  271a  e5                	push	hl
-  4719  271b  d5                	push	de
-  4720  271c  f5                	push	af
-  4721  271d  e6f0              	and	$F0
-  4722  271f  1f                	rra
-  4723  2720  1f                	rra
-  4724  2721  1f                	rra
-  4725  2722  1f                	rra
-  4726  2723  215f27            	ld	hl,HEXTBL
-  4727  2726  5f                	ld	e,a
-  4728  2727  1600              	ld	d,0
-  4729  2729  19                	add	hl,de
-  4730  272a  7e                	ld	a,(hl)
-  4731  272b  cd0627            	call	CONOUT
-  4732  272e  f1                	pop	af
-  4733  272f  e60f              	and	$0F
-  4734  2731  215f27            	ld	hl,HEXTBL
-  4735  2734  5f                	ld	e,a
-  4736  2735  19                	add	hl,de
-  4737  2736  7e                	ld	a,(hl)
-  4738  2737  cd0627            	call	CONOUT
-  4739  273a  d1                	pop	de
-  4740  273b  e1                	pop	hl
-  4741  273c  f1                	pop	af
-  4742  273d  c9                	ret
-  4743                          ;
-  4744  273e  f5                CRLF:	push	af
-  4745  273f  3e0d              	ld	a,0DH
-  4746  2741  cd0627            	call	CONOUT
-  4747  2744  3e0a              	ld	a,0AH
-  4748  2746  cd0627            	call	CONOUT
-  4749  2749  f1                	pop	af
-  4750  274a  c9                	ret
-  4751                          ;
-  4752  274b  3e49              CONIN:	ld	a,'I'
-  4753  274d  cd0627            	call	CONOUT
-  4754  2750  db4d              	in	a,(CONPORT+5)
-  4755  2752  e601              	and	$01
-  4756  2754  2802              	jr	z,CONINX
-  4757  2756  db48              	in	a,(CONPORT)
-  4758  2758  cd1927            CONINX:	call	OUTHEX
-  4759  275b  cd3e27            	call	CRLF
-  4760  275e  c9                	ret
-  4761                          ;
-  4762  275f  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+  4619                          TOF380:
+  4620                          	;OUT     ($A8),A
+  4621  268c  af                	XOR	A
+  4622  268d  c9                	RET
+  4623  268e  5e                        LD      E,(HL)
+  4624                          ;       JR      J7F2F
+  4625  268f  00                	NOP
+  4626  2690  00                	NOP
+  4627                          
+  4628                          ;	OUT     ($A8),A
+  4629  2691  c9                	RET
+  4630  2692  00                	NOP
+  4631  2693  73                        LD      (HL),E
+  4632  2694  7a                	LD      A,D
+  4633                          ;       OUT     ($A8),A
+  4634  2695  00                	NOP
+  4635  2696  00                	NOP
+  4636  2697  c9                        RET
+  4637                          
+  4638                          ;	OUT     ($A8),A
+  4639  2698  c9                	RET
+  4640  2699  00                	NOP
+  4641  269a  08                        EX      AF,AF'
+  4642                          ;        CALL    CLPRM1
+  4643  269b  00                	NOP
+  4644  269c  00                	NOP
+  4645  269d  00                	NOP
+  4646  269e  08                        EX      AF,AF'
+  4647  269f  f1                        POP     AF
+  4648                          ;       OUT     ($A8),A
+  4649  26a0  00                	NOP
+  4650  26a1  00                	NOP
+  4651  26a2  08                        EX      AF,AF'
+  4652  26a3  c9                        RET
+  4653                          
+  4654  26a4  dde9                      JP      (IX)
+  4655                          
+  4656  26a6  2c0e              	defw    $0E2C                   ; illegal function call
+  4657  26a8  2c0e                      defw    $0E2C                   ; illegal function call
+  4658  26aa  2c0e                      defw    $0E2C                   ; illegal function call
+  4659  26ac  2c0e                      defw    $0E2C                   ; illegal function call
+  4660  26ae  2c0e                      defw    $0E2C                   ; illegal function call
+  4661  26b0  2c0e                      defw    $0E2C                   ; illegal function call
+  4662  26b2  2c0e                      defw    $0E2C                   ; illegal function call
+  4663  26b4  2c0e                      defw    $0E2C                   ; illegal function call
+  4664  26b6  2c0e                      defw    $0E2C                   ; illegal function call
+  4665  26b8  2c0e                      defw    $0E2C                   ; illegal function call
+  4666                          
+  4667  26ba  25                        defb    37
+  4668                          
+  4669  26bb  1d                	defb    29
+  4670                          
+  4671  26bc  1d                	defb    29
+  4672                          
+  4673  26bd  18                	defb    24
+  4674                          
+  4675  26be  0e                	defb    14
+  4676                          
+  4677  26bf  0000              	defw    0
+  4678  26c1  0000              	defw    0
+  4679  26c3  0008              	defw    $0800
+  4680  26c5  0000              	defw    0
+  4681  26c7  0000              	defw    0
+  4682                          
+  4683  26c9  0018              	defw    $1800
+  4684  26cb  0020              	defw    $2000
+  4685  26cd  0000              	defw    0
+  4686  26cf  001b              	defw    $1B00
+  4687  26d1  0038              	defw    $3800
+  4688                          
+  4689  26d3  0018              	defw    $1800
+  4690  26d5  0020              	defw    $2000
+  4691  26d7  0000              	defw    0
+  4692  26d9  001b              	defw    $1B00
+  4693  26db  0038              	defw    $3800
+  4694                          
+  4695  26dd  0008              	defw    $0800
+  4696  26df  0000              	defw    0
+  4697  26e1  0000              	defw    0
+  4698  26e3  001b              	defw    $1B00
+  4699  26e5  0038              	defw    $3800
+  4700                          
+  4701  26e7  00                	defb	0	; ??
+  4702                          
+  4703  26e8  01                	defb    1
+  4704  26e9  01                	defb    1
+  4705  26ea  01                	defb    1
+  4706  26eb  00                	defb    0
+  4707                          
+  4708  26ec  00                	defb    $00
+  4709  26ed  e0                	defb    $E0
+  4710  26ee  00                	defb    $00
+  4711  26ef  00                	defb    $00
+  4712  26f0  00                	defb    $00
+  4713  26f1  00                	defb    $00
+  4714  26f2  00                	defb    $00
+  4715  26f3  00                	defb    $00
+  4716  26f4  00                	defb    $00
+  4717  26f5  ff                	defb    $FF
+  4718  26f6  0f                	defb    15
+  4719  26f7  04                	defb    4
+  4720                          
+  4721  26f8  04                        defb    4
+  4722                          
+  4723  26f9  c30000            	jp      0
+  4724  26fc  c30000            	jp      0
+  4725  26ff  0f                	defb    15
+  4726  2700  59f9              	defw    QUETAB
+  4727  2702  ff                	defb    $FF
+  4728  2703  01                	defb    1
+  4729  2704  32                	defb    50
+  4730  2705  f0fb              	defw    KEYBUF
+  4731  2707  f0fb              	defw    KEYBUF
+  4732  2709  535c262d0f        	defb    $53,$5C,$26,$2D,$0F
+  4733  270e  252d0e161f        	defb    $25,$2D,$0E,$16,$1F
+  4734  2713  535c                      defb    $53,$5C
+  4735  2715  262d                      defb    $26,$2D
+  4736  2717  0f                        defb    $0F
+  4737  2718  0001              	defw    $0100
+  4738  271a  0001              	defw    $0100
+  4739  271c  3a                	defb    ':'
+  4740  271d  00                ENF380:	defb	0
+  4741                          ;
+  4742  271e  d341              OUTPSG:	out     (PSGCTL),a
+  4743  2720  fe07              	cp	$07			; port config register
+  4744  2722  2008              	jr	nz,OUTPS1
+  4745  2724  7b                	ld	a,e
+  4746  2725  e63f              	and	$3F			; NABU port config bits
+  4747  2727  f640              	or	$40			; make sure A=out,B=in 01xx.xxxx
+  4748  2729  5f                	ld	e,a
+  4749  272a  1807              	jr	OUTPS2
+  4750  272c  fe0e              OUTPS1:	cp	$0E			; block port A writes
+  4751  272e  2003              	jr	nz,OUTPS2
+  4752  2730  3e10              	ld	a,10H			; just enable VDP interrupts
+  4753  2732  5f                	ld	e,a
+  4754  2733  7b                OUTPS2:	ld      a,e
+  4755  2734  d340              	out     (PSGDAT),a
+  4756  2736  c9                	ret
+  4757                          ;
+  4758                          ; JOYSTICK CODE
+  4759                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+  4760                          ; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
+  4761                          ; H8 FORMAT: 15 - PLR4RG,PLR4LF,PLR3RG,PLR3LF,PLR2RG,PLR2LF,PLR1RG,PLR1LF
+  4762                          ; H8 FORMAT: 14 - 0x03=PLR1TRG,0x0C=PLR2TRG,0x30=PLR3TRG,0xC0=PLR4TRG
+  4763  2737  c5                H8JSTK:	push	bc
+  4764  2738  3e4a              	ld	a,'J'
+  4765  273a  cd7f27            	call	CONOUT
+  4766  273d  0eff              	ld	c,$FF			; everything off (1=off, 0=on)
+  4767  273f  3e0e              	ld	a,$0E
+  4768                          ;	out	(PSGCTL),a
+  4769                          ;	in	a,(PSGCTL)
+  4770  2741  3eff              	ld	a,$FF			; for now just ignore joysticks
+  4771  2743  47                	ld	b,a
+  4772  2744  e603              	and	$03			; check trigger
+  4773  2746  2006              	jr	nz,H8JST2
+  4774  2748  79                	ld	a,c
+  4775  2749  e6ef              	and	$EF			; TRGA on
+  4776  274b  4f                	ld	c,a
+  4777  274c  1812              	jr	H8JST4			; skip up/down if trigger pressed
+  4778  274e  78                H8JST2:	ld	a,b
+  4779  274f  e601              	and	$01			; check up
+  4780  2751  2004              	jr	nz,H8JST3
+  4781  2753  79                	ld	a,c
+  4782  2754  e6fe              	and	$FE			; UP on
+  4783  2756  4f                	ld	c,a
+  4784  2757  78                H8JST3:	ld	a,b
+  4785  2758  e602              	and	$02			; check down
+  4786  275a  2004              	jr	nz,H8JST4
+  4787  275c  79                	ld	a,c
+  4788  275d  e6fd              	and	$FD			; DWN on
+  4789  275f  4f                	ld	c,a
+  4790  2760  3e0f              H8JST4:	ld	a,$0F
+  4791                          ;	out	(PSGCTL),a
+  4792                          ;	in	a,(PSGCTL)
+  4793  2762  3eff              	ld	a,$FF			; for now just ignore joysticks
+  4794  2764  47                	ld	b,a
+  4795  2765  e601              	and	$01			; check left
+  4796  2767  2004              	jr	nz,H8JST5
+  4797  2769  79                	ld	a,c
+  4798  276a  e6fb              	and	$FB			; LFT on
+  4799  276c  4f                	ld	c,a
+  4800  276d  78                H8JST5:	ld	a,b
+  4801  276e  e602              	and	$02			; check right
+  4802  2770  2004              	jr	nz,H8JSTX
+  4803  2772  79                	ld	a,c
+  4804  2773  e6f7              	and	$F7
+  4805  2775  4f                	ld	c,a
+  4806  2776  79                H8JSTX:	ld	a,c
+  4807                          ;	cpl
+  4808  2777  cd9227            	call	OUTHEX
+  4809  277a  cdb727            	call	CRLF
+  4810  277d  c1                	pop	bc
+  4811  277e  c9                	ret
+  4812                          ;
+  4813  277f  c5                CONOUT:	push	bc
+  4814  2780  4f                	ld	c,a
+  4815  2781  dbf0              	in	$F0
+  4816  2783  fe6f              	cp	$6F
+  4817  2785  2009              	jr	nz,CONOUX
+  4818  2787  db4d              CONOUL:	in	a,(CONPORT+5)
+  4819  2789  e620              	and	$20
+  4820  278b  28fa              	jr	z,CONOUL
+  4821  278d  79                	ld	a,c
+  4822  278e  d348              	out	(CONPORT),a
+  4823  2790  c1                CONOUX:	pop	bc
+  4824  2791  c9                	ret
+  4825                          ;
+  4826  2792  f5                OUTHEX:	push	af
+  4827  2793  e5                	push	hl
+  4828  2794  d5                	push	de
+  4829  2795  f5                	push	af
+  4830  2796  e6f0              	and	$F0
+  4831  2798  1f                	rra
+  4832  2799  1f                	rra
+  4833  279a  1f                	rra
+  4834  279b  1f                	rra
+  4835  279c  21d827            	ld	hl,HEXTBL
+  4836  279f  5f                	ld	e,a
+  4837  27a0  1600              	ld	d,0
+  4838  27a2  19                	add	hl,de
+  4839  27a3  7e                	ld	a,(hl)
+  4840  27a4  cd7f27            	call	CONOUT
+  4841  27a7  f1                	pop	af
+  4842  27a8  e60f              	and	$0F
+  4843  27aa  21d827            	ld	hl,HEXTBL
+  4844  27ad  5f                	ld	e,a
+  4845  27ae  19                	add	hl,de
+  4846  27af  7e                	ld	a,(hl)
+  4847  27b0  cd7f27            	call	CONOUT
+  4848  27b3  d1                	pop	de
+  4849  27b4  e1                	pop	hl
+  4850  27b5  f1                	pop	af
+  4851  27b6  c9                	ret
+  4852                          ;
+  4853  27b7  f5                CRLF:	push	af
+  4854  27b8  3e0d              	ld	a,0DH
+  4855  27ba  cd7f27            	call	CONOUT
+  4856  27bd  3e0a              	ld	a,0AH
+  4857  27bf  cd7f27            	call	CONOUT
+  4858  27c2  f1                	pop	af
+  4859  27c3  c9                	ret
+  4860                          ;
+  4861  27c4  3e49              CONIN:	ld	a,'I'
+  4862  27c6  cd7f27            	call	CONOUT
+  4863  27c9  db4d              	in	a,(CONPORT+5)
+  4864  27cb  e601              	and	$01
+  4865  27cd  2802              	jr	z,CONINX
+  4866  27cf  db48              	in	a,(CONPORT)
+  4867  27d1  cd9227            CONINX:	call	OUTHEX
+  4868  27d4  cdb727            	call	CRLF
+  4869  27d7  c9                	ret
+  4870                          ;
+  4871  27d8  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
               3839414243444546  
-  4763                          ; DEFAULT VALUES FOR WORKSPACE AREA
-  4764  276f  c9                TOF380: RET
-  4765                          ;	OUT     ($A8),A
-  4766  2770  00                	NOP
-  4767  2771  5e                        LD      E,(HL)
-  4768                          ;        JR      J7F2F
-  4769  2772  00                	NOP
-  4770  2773  00                	NOP
-  4771                          
-  4772  2774  c9                	RET
-  4773                          ;	OUT     ($A8),A
-  4774  2775  00                	NOP
-  4775  2776  73                        LD      (HL),E
-  4776  2777  7a                	LD      A,D
-  4777  2778  d3a8                      OUT     ($A8),A
-  4778  277a  c9                        RET
-  4779                          
-  4780  277b  c9                	RET
-  4781                          ;	OUT     ($A8),A
-  4782  277c  00                	NOP
-  4783  277d  08                        EX      AF,AF'
-  4784                          ;        CALL    CLPRM1
-  4785  277e  00                	NOP
-  4786  277f  00                	NOP
-  4787  2780  00                	NOP
-  4788  2781  08                        EX      AF,AF'
-  4789  2782  f1                        POP     AF
-  4790  2783  d3a8                      OUT     ($A8),A
-  4791  2785  08                        EX      AF,AF'
-  4792  2786  c9                        RET
-  4793                          
-  4794  2787  dde9                      JP      (IX)
-  4795                          
-  4796  2789  2c0e              	defw    $0E2C                   ; illegal function call
-  4797  278b  2c0e                      defw    $0E2C                   ; illegal function call
-  4798  278d  2c0e                      defw    $0E2C                   ; illegal function call
-  4799  278f  2c0e                      defw    $0E2C                   ; illegal function call
-  4800  2791  2c0e                      defw    $0E2C                   ; illegal function call
-  4801  2793  2c0e                      defw    $0E2C                   ; illegal function call
-  4802  2795  2c0e                      defw    $0E2C                   ; illegal function call
-  4803  2797  2c0e                      defw    $0E2C                   ; illegal function call
-  4804  2799  2c0e                      defw    $0E2C                   ; illegal function call
-  4805  279b  2c0e                      defw    $0E2C                   ; illegal function call
-  4806                          
-  4807  279d  25                	defb    37
-  4808                          
-  4809  279e  1d                	defb    29
-  4810                          
-  4811  279f  1d                	defb    29
-  4812                          
-  4813  27a0  18                	defb    24
-  4814                          
-  4815  27a1  0e                	defb    14
-  4816                          
-  4817  27a2  0000              	defw    0
-  4818  27a4  0000              	defw    0
-  4819  27a6  0008              	defw    $0800
-  4820  27a8  0000              	defw    0
-  4821  27aa  0000              	defw    0
-  4822                          
-  4823  27ac  0018              	defw    $1800
-  4824  27ae  0020              	defw    $2000
-  4825  27b0  0000              	defw    0
-  4826  27b2  001b              	defw    $1B00
-  4827  27b4  0038              	defw    $3800
-  4828                          
-  4829  27b6  0018              	defw    $1800
-  4830  27b8  0020              	defw    $2000
-  4831  27ba  0000              	defw    0
-  4832  27bc  001b              	defw    $1B00
-  4833  27be  0038              	defw    $3800
-  4834                          
-  4835  27c0  0008              	defw    $0800
-  4836  27c2  0000              	defw    0
-  4837  27c4  0000              	defw    0
-  4838  27c6  001b              	defw    $1B00
-  4839  27c8  0038              	defw    $3800
-  4840                          
-  4841  27ca  01                	defb    1
-  4842  27cb  01                	defb    1
-  4843  27cc  01                	defb    1
-  4844  27cd  00                	defb    0
-  4845                          
-  4846  27ce  00                	defb    $00
-  4847  27cf  e0                	defb    $E0
-  4848  27d0  00                	defb    $00
-  4849  27d1  00                	defb    $00
-  4850  27d2  00                	defb    $00
-  4851  27d3  00                	defb    $00
-  4852  27d4  00                	defb    $00
-  4853  27d5  00                	defb    $00
-  4854  27d6  00                	defb    $00
-  4855  27d7  ff                	defb    $FF
-  4856  27d8  0f                	defb    15
-  4857  27d9  04                	defb    4
-  4858                          
-  4859  27da  04                	defb    4
-  4860                          
-  4861  27db  c30000            	jp      0
-  4862  27de  c30000            	jp      0
-  4863  27e1  0f                	defb    15
-  4864  27e2  59f9              	defw    QUETAB
-  4865  27e4  ff                	defb    $FF
-  4866  27e5  01                	defb    1
-  4867  27e6  32                	defb    50
-  4868  27e7  f0fb              	defw    KEYBUF
-  4869  27e9  f0fb              	defw    KEYBUF
-  4870  27eb  535c262d0f        	defb    $53,$5C,$26,$2D,$0F
-  4871  27f0  252d0e161f        	defb    $25,$2D,$0E,$16,$1F
-  4872  27f5  535c                      defb    $53,$5C
-  4873  27f7  262d                      defb    $26,$2D
-  4874  27f9  0f                        defb    $0F
-  4875  27fa  0001              	defw    $0100
-  4876  27fc  0001              	defw    $0100
-  4877  27fe  3a                	defb    ':'
-  4878  27ff  00                ENF380: defb	0
-  4879                          ;
-  4880                          
+  4872                          

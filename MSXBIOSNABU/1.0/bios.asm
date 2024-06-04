@@ -4616,6 +4616,130 @@ A2686:  jp      C4666
 ;
 A2689:  jp      C5597
 ;
+; DEFAULT VALUES FOR WORKSPACE AREA
+TOF380:
+;	OUT     ($A8),A
+	XOR	A
+	RET
+        LD      E,(HL)
+;       JR      J7F2F
+	NOP
+	NOP
+
+;	OUT     ($A8),A
+	RET
+	NOP
+        LD      (HL),E
+	LD      A,D
+;       OUT     ($A8),A
+	NOP
+	NOP
+        RET
+
+;	OUT     ($A8),A
+	RET
+	NOP
+        EX      AF,AF'
+;        CALL    CLPRM1
+	NOP
+	NOP
+	NOP
+        EX      AF,AF'
+        POP     AF
+;       OUT     ($A8),A
+	NOP
+	NOP
+        EX      AF,AF'
+        RET
+
+        JP      (IX)
+
+	defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+        defw    $0E2C                   ; illegal function call
+
+        defb    37
+
+	defb    29
+
+	defb    29
+
+	defb    24
+
+	defb    14
+
+	defw    0
+	defw    0
+	defw    $0800
+	defw    0
+	defw    0
+
+	defw    $1800
+	defw    $2000
+	defw    0
+	defw    $1B00
+	defw    $3800
+
+	defw    $1800
+	defw    $2000
+	defw    0
+	defw    $1B00
+	defw    $3800
+
+	defw    $0800
+	defw    0
+	defw    0
+	defw    $1B00
+	defw    $3800
+
+	defb	0	; ??
+
+	defb    1
+	defb    1
+	defb    1
+	defb    0
+
+	defb    $00
+	defb    $E0
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $00
+	defb    $FF
+	defb    15
+	defb    4
+
+        defb    4
+
+	jp      0
+	jp      0
+	defb    15
+	defw    QUETAB
+	defb    $FF
+	defb    1
+	defb    50
+	defw    KEYBUF
+	defw    KEYBUF
+	defb    $53,$5C,$26,$2D,$0F
+	defb    $25,$2D,$0E,$16,$1F
+        defb    $53,$5C
+        defb    $26,$2D
+        defb    $0F
+	defw    $0100
+	defw    $0100
+	defb    ':'
+ENF380:	defb	0
+;
 OUTPSG:	out     (PSGCTL),a
 	cp	$07			; port config register
 	jr	nz,OUTPS1
@@ -4632,20 +4756,6 @@ OUTPS2:	ld      a,e
 	out     (PSGDAT),a
 	ret
 ;
-H8INT:	call	H8DLY
-        call    H_KEYI
-	ret
-H8INTC:	ld	a,$D0
-	out	($F0),a		  	; clear the H8 front panel interrupt
-	out	($F1),a
-	in	a,($F0)
-	ret
-H8DLY:	ld	bc,$0080
-H8DLYL:	dec	bc
-	ld	a,c
-	or	b
-	jr	nz,H8DLYL
-	ret
 ; JOYSTICK CODE
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 ; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
@@ -4760,120 +4870,4 @@ CONINX:	call	OUTHEX
 	ret
 ;
 HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
-; DEFAULT VALUES FOR WORKSPACE AREA
-TOF380: RET
-;	OUT     ($A8),A
-	NOP
-        LD      E,(HL)
-;        JR      J7F2F
-	NOP
-	NOP
-
-	RET
-;	OUT     ($A8),A
-	NOP
-        LD      (HL),E
-	LD      A,D
-        OUT     ($A8),A
-        RET
-
-	RET
-;	OUT     ($A8),A
-	NOP
-        EX      AF,AF'
-;        CALL    CLPRM1
-	NOP
-	NOP
-	NOP
-        EX      AF,AF'
-        POP     AF
-        OUT     ($A8),A
-        EX      AF,AF'
-        RET
-
-        JP      (IX)
-
-	defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-        defw    $0E2C                   ; illegal function call
-
-	defb    37
-
-	defb    29
-
-	defb    29
-
-	defb    24
-
-	defb    14
-
-	defw    0
-	defw    0
-	defw    $0800
-	defw    0
-	defw    0
-
-	defw    $1800
-	defw    $2000
-	defw    0
-	defw    $1B00
-	defw    $3800
-
-	defw    $1800
-	defw    $2000
-	defw    0
-	defw    $1B00
-	defw    $3800
-
-	defw    $0800
-	defw    0
-	defw    0
-	defw    $1B00
-	defw    $3800
-
-	defb    1
-	defb    1
-	defb    1
-	defb    0
-
-	defb    $00
-	defb    $E0
-	defb    $00
-	defb    $00
-	defb    $00
-	defb    $00
-	defb    $00
-	defb    $00
-	defb    $00
-	defb    $FF
-	defb    15
-	defb    4
-
-	defb    4
-
-	jp      0
-	jp      0
-	defb    15
-	defw    QUETAB
-	defb    $FF
-	defb    1
-	defb    50
-	defw    KEYBUF
-	defw    KEYBUF
-	defb    $53,$5C,$26,$2D,$0F
-	defb    $25,$2D,$0E,$16,$1F
-        defb    $53,$5C
-        defb    $26,$2D
-        defb    $0F
-	defw    $0100
-	defw    $0100
-	defb    ':'
-ENF380: defb	0
 ;
