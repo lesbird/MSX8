@@ -2138,7 +2138,6 @@ A0C3C:  push    hl
         push    iy
         push    ix
         call    H_KEYI
-;	call	H8INT
         in      a,(VDPCTL)
         and     a                       ; vdp interrupt ?
         jp      p,A0D02                 ; nop, quit KEYINT
@@ -2188,15 +2187,10 @@ A0C82:  rr      c                       ; handle this channel ?
         pop     bc
         or      b
         push    af
-;	nop
         call    A1226                   ; read keyboard row 8
         and     $01                    ; only spacebar
-;	nop
-;	nop
         pop     bc
-;	nop
         or      b
-;	nop
         ld      c,a
         ld      hl,TRGFLG
         xor     (hl)
@@ -2232,7 +2226,6 @@ A0C82:  rr      c                       ; handle this channel ?
         ld      (hl),$FF
         ldir                            ; create a being pressed
 	call    A0D4E
-;A0D02:  call	H8INTC
 A0D02:  pop     ix
         pop     iy
         pop     af
@@ -2617,7 +2610,10 @@ A120C:  ld      b,a
 ;
 A121B:  and     $AF
         or      $03
-A121F:  out     (PSGDAT),a
+A121F:  
+;	out     (PSGDAT),a
+	nop
+	nop
         call    A110C
         ei
         ret
