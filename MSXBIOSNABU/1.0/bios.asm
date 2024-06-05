@@ -21,6 +21,7 @@
 	DEFC	PSGDAT = $40
 	DEFC	PSGRIN = $40
 	DEFC	CONPORT = $48
+	DEFC	KEYPORT = $90
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
         EXTERN  ASPCT2
@@ -2138,14 +2139,13 @@ A0C3C:  push    hl
         push    iy
         push    ix
         call    H_KEYI
-;	call	H8INT
         in      a,(VDPCTL)
         and     a                       ; vdp interrupt ?
         jp      p,A0D02                 ; nop, quit KEYINT
         call    H_TIMI
         ei
         ld      (STATFL),a              ; save statusregister
-        and     $20                    ; sprite collisionflag set ?
+        and     $20                    	; sprite collisionflag set ?
         ld      hl,TRPTBL+11*3
         call    nz,C0EF1                ; yep, set sprite event
         ld      hl,(INTCNT)
@@ -2188,15 +2188,10 @@ A0C82:  rr      c                       ; handle this channel ?
         pop     bc
         or      b
         push    af
-;	nop
         call    A1226                   ; read keyboard row 8
         and     $01                    ; only spacebar
-;	nop
-;	nop
         pop     bc
-;	nop
         or      b
-;	nop
         ld      c,a
         ld      hl,TRGFLG
         xor     (hl)
@@ -2232,7 +2227,6 @@ A0C82:  rr      c                       ; handle this channel ?
         ld      (hl),$FF
         ldir                            ; create a being pressed
 	call    A0D4E
-;A0D02:  call	H8INTC
 A0D02:  pop     ix
         pop     iy
         pop     af
@@ -2448,7 +2442,7 @@ A110C:	nop
 	nop
 ;A110E:  out     (PSGCTL),a
 ;        in      a,(PSGRIN)
-A110E:	call	H8JSTK
+A110E:	call	NBJSTK
 	nop
         ret
 ;
@@ -4758,58 +4752,100 @@ OUTPS2:	ld      a,e
 ;
 ; JOYSTICK CODE
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-; H8 FORMAT: 14 - PLR4DN,PLR4UP,PLR3DN,PLR3UP,PLR2DN,PLR2UP,PLR1DN,PLR1UP
-; H8 FORMAT: 15 - PLR4RG,PLR4LF,PLR3RG,PLR3LF,PLR2RG,PLR2LF,PLR1RG,PLR1LF
-; H8 FORMAT: 14 - 0x03=PLR1TRG,0x0C=PLR2TRG,0x30=PLR3TRG,0xC0=PLR4TRG
-H8JSTK:	push	bc
-	ld	a,'J'
-	call	CONOUT
-	ld	c,$FF			; everything off (1=off, 0=on)
-	ld	a,$0E
-;	out	(PSGCTL),a
-;	in	a,(PSGCTL)
-	ld	a,$FF			; for now just ignore joysticks
-	ld	b,a
-	and	$03			; check trigger
-	jr	nz,H8JST2
-	ld	a,c
-	and	$EF			; TRGA on
+NBJSTK:	push	bc
+	ld	a,(JSTKST)		; prev state (1=off, 0=on)
 	ld	c,a
-	jr	H8JST4			; skip up/down if trigger pressed
-H8JST2:	ld	a,b
-	and	$01			; check up
-	jr	nz,H8JST3
-	ld	a,c
-	and	$FE			; UP on
+	in	a,(KEYPORT+1)		; keyboard status
+	and	$02			; z=no data waiting
+	jp	z,NBJSTX
+	in	a,(KEYPORT)		; keyboard data
+	ld	b,a			; save it
+	cp	$94			; watchdog - skip it
+	jp	z,NBJSTX
+	cp	$80			; player 1 input
+	jr	z,NBJSTP
+	cp	$81			; player 2 input
+	jr	z,NBJSTP
+	ld	a,b
+	and	$E0			; mask bits
+	cp	$A0			; looking for 1010.xxxx
+	jp	nz,NBJSTX
+	ld	a,b
+	and	$10			; fire button
+	call	z,NBJSF0
+	call	nz,NBJSF1
+	ld	a,b
+	and	$08			; up
+	call	z,NBJSU0
+	call	nz,NBJSU1
+	ld	a,b
+	and	$04			; right
+	call	z,NBJSR0
+	call	nz,NBJSR1
+	ld	a,b
+	and	$02			; down
+	call	z,NBJSD0
+	call	nz,NBJSD1
+	ld	a,b
+	and	$01			; left
+	call	z,NBJSL0
+	call	nz,NBJSL1
+	jp	NBJSTX
+NBJSTP:	and	$01
+	ld	(JSTKPL),a
+	jp	NBJSTX
+NBJSF0:	ld	a,c
+	or	$10
 	ld	c,a
-H8JST3:	ld	a,b
-	and	$02			; check down
-	jr	nz,H8JST4
-	ld	a,c
-	and	$FD			; DWN on
+	xor	a
+	ret
+NBJSF1:	ld	a,c
+	and	$EF
 	ld	c,a
-H8JST4:	ld	a,$0F
-;	out	(PSGCTL),a
-;	in	a,(PSGCTL)
-	ld	a,$FF			; for now just ignore joysticks
-	ld	b,a
-	and	$01			; check left
-	jr	nz,H8JST5
-	ld	a,c
-	and	$FB			; LFT on
+	ret
+NBJSU0:	ld	a,c
+	or	$01
 	ld	c,a
-H8JST5:	ld	a,b
-	and	$02			; check right
-	jr	nz,H8JSTX
-	ld	a,c
+	xor	a
+	ret
+NBJSU1:	ld	a,c
+	and	$FE
+	ld	c,a
+	ret
+NBJSR0:	ld	a,c
+	or	$08
+	ld	c,a
+	xor	a
+	ret
+NBJSR1:	ld	a,c
 	and	$F7
 	ld	c,a
-H8JSTX:	ld	a,c
-;	cpl
-	call	OUTHEX
-	call	CRLF
+	ret
+NBJSD0:	ld	a,c
+	or	$02
+	ld	c,a
+	xor	a
+	ret
+NBJSD1:	ld	a,c
+	and	$FD
+	ld	c,a
+	ret
+NBJSL0:	ld	a,c
+	or	$04
+	ld	c,a
+	xor	a
+	ret
+NBJSL1:	ld	a,c
+	and	$FB
+	ld	c,a
+	ret
+NBJSTX:	ld	a,c
+	ld	(JSTKST),a
 	pop	bc
 	ret
+;
+JSTKPL:	db	0
+JSTKST:	db	$FF
 ;
 CONOUT:	push	bc
 	ld	c,a
