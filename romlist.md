@@ -1,4 +1,4 @@
-# 352 WORKING GAMES
+# 353 WORKING GAMES
 Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
 Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
 Some don't work at all. They are marked with a 'N' in the list below<br>
@@ -255,7 +255,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP  KICKI288.ROM   Kick It (Japan).rom
  Y   KINAS289.ROM   Kinasai (Japan) (Unl).rom
  Y   KINGB290.ROM   King & Balloon (Japan).rom
- N4  KINGS292.ROM   King's Valley (Japan, Europe).rom
+ Y   KINGS292.ROM   King's Valley (Japan, Europe).rom
  Y   KINNI294.ROM   Kinnikuman - Muscle Man (Japan).rom
  YP? KNIGH295.ROM   Knight Lore (Japan).rom
  N4  KNIGH296.ROM   Knightmare - Majou Densetsu (Japan).rom
