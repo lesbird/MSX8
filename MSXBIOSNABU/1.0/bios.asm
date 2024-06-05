@@ -2611,7 +2611,10 @@ A120C:  ld      b,a
 ;
 A121B:  and     $AF
         or      $03
-A121F:  out     (PSGDAT),a
+A121F:  
+;	out     (PSGDAT),a
+	nop
+	nop
         call    A110C
         ei
         ret
