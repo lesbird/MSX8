@@ -4693,8 +4693,6 @@ TOF380:
 	defw    $1B00
 	defw    $3800
 
-	defb	0	; ??
-
 	defb    1
 	defb    1
 	defb    1
@@ -4720,7 +4718,7 @@ TOF380:
 	defb    15
 	defw    QUETAB
 	defb    $FF
-	defb    1
+	defb    2	;1
 	defb    50
 	defw    KEYBUF
 	defw    KEYBUF

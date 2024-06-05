@@ -3409,7 +3409,7 @@ bios.asm:
   2426                          ;
   2427  1102  f3                A1102:  di
   2428  1103  f5                	push	af
-  2429  1104  cd1e27            	call	OUTPSG
+  2429  1104  cd1d27            	call	OUTPSG
   2430                          ;        out     (PSGCTL),a
   2431                          ;	push    af
   2432                          ;        ld      a,e
@@ -3425,7 +3425,7 @@ bios.asm:
   2442  110d  00                	nop
   2443                          ;A110E:  out     (PSGCTL),a
   2444                          ;        in      a,(PSGRIN)
-  2445  110e  cd3727            A110E:	call	NBJSTK
+  2445  110e  cd3627            A110E:	call	NBJSTK
   2446  1111  00                	nop
   2447  1112  c9                        ret
   2448                          ;
@@ -3610,7 +3610,7 @@ bios.asm:
   2627  1229  00                	nop
   2628  122a  00                	nop
   2629  122b  3e49              	ld	a,'I'
-  2630  122d  cdd227            	call	CONOUT
+  2630  122d  cdd127            	call	CONOUT
   2631  1230  af                	xor	a
   2632  1231  2f                	cpl
   2633  1232  fb                        ei
@@ -5973,219 +5973,217 @@ bios.asm:
   4693  26e3  001b              	defw    $1B00
   4694  26e5  0038              	defw    $3800
   4695                          
-  4696  26e7  00                	defb	0	; ??
-  4697                          
-  4698  26e8  01                	defb    1
-  4699  26e9  01                	defb    1
-  4700  26ea  01                	defb    1
-  4701  26eb  00                	defb    0
-  4702                          
-  4703  26ec  00                	defb    $00
-  4704  26ed  e0                	defb    $E0
-  4705  26ee  00                	defb    $00
-  4706  26ef  00                	defb    $00
-  4707  26f0  00                	defb    $00
-  4708  26f1  00                	defb    $00
-  4709  26f2  00                	defb    $00
-  4710  26f3  00                	defb    $00
-  4711  26f4  00                	defb    $00
-  4712  26f5  ff                	defb    $FF
-  4713  26f6  0f                	defb    15
-  4714  26f7  04                	defb    4
+  4696  26e7  01                	defb    1
+  4697  26e8  01                	defb    1
+  4698  26e9  01                	defb    1
+  4699  26ea  00                	defb    0
+  4700                          
+  4701  26eb  00                	defb    $00
+  4702  26ec  e0                	defb    $E0
+  4703  26ed  00                	defb    $00
+  4704  26ee  00                	defb    $00
+  4705  26ef  00                	defb    $00
+  4706  26f0  00                	defb    $00
+  4707  26f1  00                	defb    $00
+  4708  26f2  00                	defb    $00
+  4709  26f3  00                	defb    $00
+  4710  26f4  ff                	defb    $FF
+  4711  26f5  0f                	defb    15
+  4712  26f6  04                	defb    4
+  4713                          
+  4714  26f7  04                        defb    4
   4715                          
-  4716  26f8  04                        defb    4
-  4717                          
-  4718  26f9  c30000            	jp      0
-  4719  26fc  c30000            	jp      0
-  4720  26ff  0f                	defb    15
-  4721  2700  59f9              	defw    QUETAB
-  4722  2702  ff                	defb    $FF
-  4723  2703  01                	defb    1
-  4724  2704  32                	defb    50
-  4725  2705  f0fb              	defw    KEYBUF
-  4726  2707  f0fb              	defw    KEYBUF
-  4727  2709  535c262d0f        	defb    $53,$5C,$26,$2D,$0F
-  4728  270e  252d0e161f        	defb    $25,$2D,$0E,$16,$1F
-  4729  2713  535c                      defb    $53,$5C
-  4730  2715  262d                      defb    $26,$2D
-  4731  2717  0f                        defb    $0F
-  4732  2718  0001              	defw    $0100
-  4733  271a  0001              	defw    $0100
-  4734  271c  3a                	defb    ':'
-  4735  271d  00                ENF380:	defb	0
-  4736                          ;
-  4737  271e  d341              OUTPSG:	out     (PSGCTL),a
-  4738  2720  fe07              	cp	$07			; port config register
-  4739  2722  2008              	jr	nz,OUTPS1
-  4740  2724  7b                	ld	a,e
-  4741  2725  e63f              	and	$3F			; NABU port config bits
-  4742  2727  f640              	or	$40			; make sure A=out,B=in 01xx.xxxx
-  4743  2729  5f                	ld	e,a
-  4744  272a  1807              	jr	OUTPS2
-  4745  272c  fe0e              OUTPS1:	cp	$0E			; block port A writes
-  4746  272e  2003              	jr	nz,OUTPS2
-  4747  2730  3e10              	ld	a,10H			; just enable VDP interrupts
-  4748  2732  5f                	ld	e,a
-  4749  2733  7b                OUTPS2:	ld      a,e
-  4750  2734  d340              	out     (PSGDAT),a
-  4751  2736  c9                	ret
-  4752                          ;
-  4753                          ; JOYSTICK CODE
-  4754                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-  4755  2737  c5                NBJSTK:	push	bc
-  4756  2738  3ad127            	ld	a,(JSTKST)		; prev state (1=off, 0=on)
-  4757  273b  4f                	ld	c,a
-  4758  273c  db91              	in	a,(KEYPORT+1)		; keyboard status
-  4759  273e  e602              	and	$02			; z=no data waiting
-  4760  2740  caca27            	jp	z,NBJSTX
-  4761  2743  db90              	in	a,(KEYPORT)		; keyboard data
-  4762  2745  47                	ld	b,a			; save it
-  4763  2746  fe94              	cp	$94			; watchdog - skip it
-  4764  2748  caca27            	jp	z,NBJSTX
-  4765  274b  fe80              	cp	$80			; player 1 input
-  4766  274d  283c              	jr	z,NBJSTP
-  4767  274f  fe81              	cp	$81			; player 2 input
-  4768  2751  2838              	jr	z,NBJSTP
-  4769  2753  78                	ld	a,b
-  4770  2754  e6e0              	and	$E0			; mask bits
-  4771  2756  fea0              	cp	$A0			; looking for 1010.xxxx
-  4772  2758  c2ca27            	jp	nz,NBJSTX
-  4773  275b  78                	ld	a,b
-  4774  275c  e610              	and	$10			; fire button
-  4775  275e  cc9327            	call	z,NBJSF0
-  4776  2761  c49927            	call	nz,NBJSF1
-  4777  2764  78                	ld	a,b
-  4778  2765  e608              	and	$08			; up
-  4779  2767  cc9e27            	call	z,NBJSU0
-  4780  276a  c4a427            	call	nz,NBJSU1
-  4781  276d  78                	ld	a,b
-  4782  276e  e604              	and	$04			; right
-  4783  2770  cca927            	call	z,NBJSR0
-  4784  2773  c4af27            	call	nz,NBJSR1
-  4785  2776  78                	ld	a,b
-  4786  2777  e602              	and	$02			; down
-  4787  2779  ccb427            	call	z,NBJSD0
-  4788  277c  c4ba27            	call	nz,NBJSD1
-  4789  277f  78                	ld	a,b
-  4790  2780  e601              	and	$01			; left
-  4791  2782  ccbf27            	call	z,NBJSL0
-  4792  2785  c4c527            	call	nz,NBJSL1
-  4793  2788  c3ca27            	jp	NBJSTX
-  4794  278b  e601              NBJSTP:	and	$01
-  4795  278d  32d027            	ld	(JSTKPL),a
-  4796  2790  c3ca27            	jp	NBJSTX
-  4797  2793  79                NBJSF0:	ld	a,c
-  4798  2794  f610              	or	$10
-  4799  2796  4f                	ld	c,a
-  4800  2797  af                	xor	a
-  4801  2798  c9                	ret
-  4802  2799  79                NBJSF1:	ld	a,c
-  4803  279a  e6ef              	and	$EF
-  4804  279c  4f                	ld	c,a
-  4805  279d  c9                	ret
-  4806  279e  79                NBJSU0:	ld	a,c
-  4807  279f  f601              	or	$01
-  4808  27a1  4f                	ld	c,a
-  4809  27a2  af                	xor	a
-  4810  27a3  c9                	ret
-  4811  27a4  79                NBJSU1:	ld	a,c
-  4812  27a5  e6fe              	and	$FE
-  4813  27a7  4f                	ld	c,a
-  4814  27a8  c9                	ret
-  4815  27a9  79                NBJSR0:	ld	a,c
-  4816  27aa  f608              	or	$08
-  4817  27ac  4f                	ld	c,a
-  4818  27ad  af                	xor	a
-  4819  27ae  c9                	ret
-  4820  27af  79                NBJSR1:	ld	a,c
-  4821  27b0  e6f7              	and	$F7
-  4822  27b2  4f                	ld	c,a
-  4823  27b3  c9                	ret
-  4824  27b4  79                NBJSD0:	ld	a,c
-  4825  27b5  f602              	or	$02
-  4826  27b7  4f                	ld	c,a
-  4827  27b8  af                	xor	a
-  4828  27b9  c9                	ret
-  4829  27ba  79                NBJSD1:	ld	a,c
-  4830  27bb  e6fd              	and	$FD
-  4831  27bd  4f                	ld	c,a
-  4832  27be  c9                	ret
-  4833  27bf  79                NBJSL0:	ld	a,c
-  4834  27c0  f604              	or	$04
-  4835  27c2  4f                	ld	c,a
-  4836  27c3  af                	xor	a
-  4837  27c4  c9                	ret
-  4838  27c5  79                NBJSL1:	ld	a,c
-  4839  27c6  e6fb              	and	$FB
-  4840  27c8  4f                	ld	c,a
-  4841  27c9  c9                	ret
-  4842  27ca  79                NBJSTX:	ld	a,c
-  4843  27cb  32d127            	ld	(JSTKST),a
-  4844  27ce  c1                	pop	bc
-  4845  27cf  c9                	ret
-  4846                          ;
-  4847  27d0  00                JSTKPL:	db	0
-  4848  27d1  ff                JSTKST:	db	$FF
-  4849                          ;
-  4850  27d2  c5                CONOUT:	push	bc
-  4851  27d3  4f                	ld	c,a
-  4852  27d4  dbf0              	in	$F0
-  4853  27d6  fe6f              	cp	$6F
-  4854  27d8  2009              	jr	nz,CONOUX
-  4855  27da  db4d              CONOUL:	in	a,(CONPORT+5)
-  4856  27dc  e620              	and	$20
-  4857  27de  28fa              	jr	z,CONOUL
-  4858  27e0  79                	ld	a,c
-  4859  27e1  d348              	out	(CONPORT),a
-  4860  27e3  c1                CONOUX:	pop	bc
-  4861  27e4  c9                	ret
-  4862                          ;
-  4863  27e5  f5                OUTHEX:	push	af
-  4864  27e6  e5                	push	hl
-  4865  27e7  d5                	push	de
-  4866  27e8  f5                	push	af
-  4867  27e9  e6f0              	and	$F0
-  4868  27eb  1f                	rra
-  4869  27ec  1f                	rra
-  4870  27ed  1f                	rra
-  4871  27ee  1f                	rra
-  4872  27ef  212b28            	ld	hl,HEXTBL
-  4873  27f2  5f                	ld	e,a
-  4874  27f3  1600              	ld	d,0
-  4875  27f5  19                	add	hl,de
-  4876  27f6  7e                	ld	a,(hl)
-  4877  27f7  cdd227            	call	CONOUT
-  4878  27fa  f1                	pop	af
-  4879  27fb  e60f              	and	$0F
-  4880  27fd  212b28            	ld	hl,HEXTBL
-  4881  2800  5f                	ld	e,a
-  4882  2801  19                	add	hl,de
-  4883  2802  7e                	ld	a,(hl)
-  4884  2803  cdd227            	call	CONOUT
-  4885  2806  d1                	pop	de
-  4886  2807  e1                	pop	hl
-  4887  2808  f1                	pop	af
-  4888  2809  c9                	ret
-  4889                          ;
-  4890  280a  f5                CRLF:	push	af
-  4891  280b  3e0d              	ld	a,0DH
-  4892  280d  cdd227            	call	CONOUT
-  4893  2810  3e0a              	ld	a,0AH
-  4894  2812  cdd227            	call	CONOUT
-  4895  2815  f1                	pop	af
-  4896  2816  c9                	ret
-  4897                          ;
-  4898  2817  3e49              CONIN:	ld	a,'I'
-  4899  2819  cdd227            	call	CONOUT
-  4900  281c  db4d              	in	a,(CONPORT+5)
-  4901  281e  e601              	and	$01
-  4902  2820  2802              	jr	z,CONINX
-  4903  2822  db48              	in	a,(CONPORT)
-  4904  2824  cde527            CONINX:	call	OUTHEX
-  4905  2827  cd0a28            	call	CRLF
-  4906  282a  c9                	ret
-  4907                          ;
-  4908  282b  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+  4716  26f8  c30000            	jp      0
+  4717  26fb  c30000            	jp      0
+  4718  26fe  0f                	defb    15
+  4719  26ff  59f9              	defw    QUETAB
+  4720  2701  ff                	defb    $FF
+  4721  2702  02                	defb    2	;1
+  4722  2703  32                	defb    50
+  4723  2704  f0fb              	defw    KEYBUF
+  4724  2706  f0fb              	defw    KEYBUF
+  4725  2708  535c262d0f        	defb    $53,$5C,$26,$2D,$0F
+  4726  270d  252d0e161f        	defb    $25,$2D,$0E,$16,$1F
+  4727  2712  535c                      defb    $53,$5C
+  4728  2714  262d                      defb    $26,$2D
+  4729  2716  0f                        defb    $0F
+  4730  2717  0001              	defw    $0100
+  4731  2719  0001              	defw    $0100
+  4732  271b  3a                	defb    ':'
+  4733  271c  00                ENF380:	defb	0
+  4734                          ;
+  4735  271d  d341              OUTPSG:	out     (PSGCTL),a
+  4736  271f  fe07              	cp	$07			; port config register
+  4737  2721  2008              	jr	nz,OUTPS1
+  4738  2723  7b                	ld	a,e
+  4739  2724  e63f              	and	$3F			; NABU port config bits
+  4740  2726  f640              	or	$40			; make sure A=out,B=in 01xx.xxxx
+  4741  2728  5f                	ld	e,a
+  4742  2729  1807              	jr	OUTPS2
+  4743  272b  fe0e              OUTPS1:	cp	$0E			; block port A writes
+  4744  272d  2003              	jr	nz,OUTPS2
+  4745  272f  3e10              	ld	a,10H			; just enable VDP interrupts
+  4746  2731  5f                	ld	e,a
+  4747  2732  7b                OUTPS2:	ld      a,e
+  4748  2733  d340              	out     (PSGDAT),a
+  4749  2735  c9                	ret
+  4750                          ;
+  4751                          ; JOYSTICK CODE
+  4752                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+  4753  2736  c5                NBJSTK:	push	bc
+  4754  2737  3ad027            	ld	a,(JSTKST)		; prev state (1=off, 0=on)
+  4755  273a  4f                	ld	c,a
+  4756  273b  db91              	in	a,(KEYPORT+1)		; keyboard status
+  4757  273d  e602              	and	$02			; z=no data waiting
+  4758  273f  cac927            	jp	z,NBJSTX
+  4759  2742  db90              	in	a,(KEYPORT)		; keyboard data
+  4760  2744  47                	ld	b,a			; save it
+  4761  2745  fe94              	cp	$94			; watchdog - skip it
+  4762  2747  cac927            	jp	z,NBJSTX
+  4763  274a  fe80              	cp	$80			; player 1 input
+  4764  274c  283c              	jr	z,NBJSTP
+  4765  274e  fe81              	cp	$81			; player 2 input
+  4766  2750  2838              	jr	z,NBJSTP
+  4767  2752  78                	ld	a,b
+  4768  2753  e6e0              	and	$E0			; mask bits
+  4769  2755  fea0              	cp	$A0			; looking for 1010.xxxx
+  4770  2757  c2c927            	jp	nz,NBJSTX
+  4771  275a  78                	ld	a,b
+  4772  275b  e610              	and	$10			; fire button
+  4773  275d  cc9227            	call	z,NBJSF0
+  4774  2760  c49827            	call	nz,NBJSF1
+  4775  2763  78                	ld	a,b
+  4776  2764  e608              	and	$08			; up
+  4777  2766  cc9d27            	call	z,NBJSU0
+  4778  2769  c4a327            	call	nz,NBJSU1
+  4779  276c  78                	ld	a,b
+  4780  276d  e604              	and	$04			; right
+  4781  276f  cca827            	call	z,NBJSR0
+  4782  2772  c4ae27            	call	nz,NBJSR1
+  4783  2775  78                	ld	a,b
+  4784  2776  e602              	and	$02			; down
+  4785  2778  ccb327            	call	z,NBJSD0
+  4786  277b  c4b927            	call	nz,NBJSD1
+  4787  277e  78                	ld	a,b
+  4788  277f  e601              	and	$01			; left
+  4789  2781  ccbe27            	call	z,NBJSL0
+  4790  2784  c4c427            	call	nz,NBJSL1
+  4791  2787  c3c927            	jp	NBJSTX
+  4792  278a  e601              NBJSTP:	and	$01
+  4793  278c  32cf27            	ld	(JSTKPL),a
+  4794  278f  c3c927            	jp	NBJSTX
+  4795  2792  79                NBJSF0:	ld	a,c
+  4796  2793  f610              	or	$10
+  4797  2795  4f                	ld	c,a
+  4798  2796  af                	xor	a
+  4799  2797  c9                	ret
+  4800  2798  79                NBJSF1:	ld	a,c
+  4801  2799  e6ef              	and	$EF
+  4802  279b  4f                	ld	c,a
+  4803  279c  c9                	ret
+  4804  279d  79                NBJSU0:	ld	a,c
+  4805  279e  f601              	or	$01
+  4806  27a0  4f                	ld	c,a
+  4807  27a1  af                	xor	a
+  4808  27a2  c9                	ret
+  4809  27a3  79                NBJSU1:	ld	a,c
+  4810  27a4  e6fe              	and	$FE
+  4811  27a6  4f                	ld	c,a
+  4812  27a7  c9                	ret
+  4813  27a8  79                NBJSR0:	ld	a,c
+  4814  27a9  f608              	or	$08
+  4815  27ab  4f                	ld	c,a
+  4816  27ac  af                	xor	a
+  4817  27ad  c9                	ret
+  4818  27ae  79                NBJSR1:	ld	a,c
+  4819  27af  e6f7              	and	$F7
+  4820  27b1  4f                	ld	c,a
+  4821  27b2  c9                	ret
+  4822  27b3  79                NBJSD0:	ld	a,c
+  4823  27b4  f602              	or	$02
+  4824  27b6  4f                	ld	c,a
+  4825  27b7  af                	xor	a
+  4826  27b8  c9                	ret
+  4827  27b9  79                NBJSD1:	ld	a,c
+  4828  27ba  e6fd              	and	$FD
+  4829  27bc  4f                	ld	c,a
+  4830  27bd  c9                	ret
+  4831  27be  79                NBJSL0:	ld	a,c
+  4832  27bf  f604              	or	$04
+  4833  27c1  4f                	ld	c,a
+  4834  27c2  af                	xor	a
+  4835  27c3  c9                	ret
+  4836  27c4  79                NBJSL1:	ld	a,c
+  4837  27c5  e6fb              	and	$FB
+  4838  27c7  4f                	ld	c,a
+  4839  27c8  c9                	ret
+  4840  27c9  79                NBJSTX:	ld	a,c
+  4841  27ca  32d027            	ld	(JSTKST),a
+  4842  27cd  c1                	pop	bc
+  4843  27ce  c9                	ret
+  4844                          ;
+  4845  27cf  00                JSTKPL:	db	0
+  4846  27d0  ff                JSTKST:	db	$FF
+  4847                          ;
+  4848  27d1  c5                CONOUT:	push	bc
+  4849  27d2  4f                	ld	c,a
+  4850  27d3  dbf0              	in	$F0
+  4851  27d5  fe6f              	cp	$6F
+  4852  27d7  2009              	jr	nz,CONOUX
+  4853  27d9  db4d              CONOUL:	in	a,(CONPORT+5)
+  4854  27db  e620              	and	$20
+  4855  27dd  28fa              	jr	z,CONOUL
+  4856  27df  79                	ld	a,c
+  4857  27e0  d348              	out	(CONPORT),a
+  4858  27e2  c1                CONOUX:	pop	bc
+  4859  27e3  c9                	ret
+  4860                          ;
+  4861  27e4  f5                OUTHEX:	push	af
+  4862  27e5  e5                	push	hl
+  4863  27e6  d5                	push	de
+  4864  27e7  f5                	push	af
+  4865  27e8  e6f0              	and	$F0
+  4866  27ea  1f                	rra
+  4867  27eb  1f                	rra
+  4868  27ec  1f                	rra
+  4869  27ed  1f                	rra
+  4870  27ee  212a28            	ld	hl,HEXTBL
+  4871  27f1  5f                	ld	e,a
+  4872  27f2  1600              	ld	d,0
+  4873  27f4  19                	add	hl,de
+  4874  27f5  7e                	ld	a,(hl)
+  4875  27f6  cdd127            	call	CONOUT
+  4876  27f9  f1                	pop	af
+  4877  27fa  e60f              	and	$0F
+  4878  27fc  212a28            	ld	hl,HEXTBL
+  4879  27ff  5f                	ld	e,a
+  4880  2800  19                	add	hl,de
+  4881  2801  7e                	ld	a,(hl)
+  4882  2802  cdd127            	call	CONOUT
+  4883  2805  d1                	pop	de
+  4884  2806  e1                	pop	hl
+  4885  2807  f1                	pop	af
+  4886  2808  c9                	ret
+  4887                          ;
+  4888  2809  f5                CRLF:	push	af
+  4889  280a  3e0d              	ld	a,0DH
+  4890  280c  cdd127            	call	CONOUT
+  4891  280f  3e0a              	ld	a,0AH
+  4892  2811  cdd127            	call	CONOUT
+  4893  2814  f1                	pop	af
+  4894  2815  c9                	ret
+  4895                          ;
+  4896  2816  3e49              CONIN:	ld	a,'I'
+  4897  2818  cdd127            	call	CONOUT
+  4898  281b  db4d              	in	a,(CONPORT+5)
+  4899  281d  e601              	and	$01
+  4900  281f  2802              	jr	z,CONINX
+  4901  2821  db48              	in	a,(CONPORT)
+  4902  2823  cde427            CONINX:	call	OUTHEX
+  4903  2826  cd0928            	call	CRLF
+  4904  2829  c9                	ret
+  4905                          ;
+  4906  282a  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
               3839414243444546  
-  4909                          ;
-  4910                          
+  4907                          ;
+  4908                          
