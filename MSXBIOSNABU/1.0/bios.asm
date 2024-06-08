@@ -197,7 +197,8 @@ WRSLT:  jp      A01D1                   ; $0014
 
         defs    $0018-$,0
 
-OUTDO:  jp      A1B45                   ; $0018
+OUTDO:  jp	NBJSTK
+	;jp      A1B45                   ; $0018
 
         defs    $001C-$,0
 
@@ -213,7 +214,8 @@ ENASLT: jp      A025E                   ; $0024
 
         defs    $0028-$,0
 
-GETYPR: jp      A2689                   ; $0028
+GETYPR: jp	OUT0A0
+;	jp      A2689                   ; $0028
 ;
 IDBYT0:                                 ; $002B
         IF      INTHZ = 60
@@ -227,7 +229,8 @@ IDBYT2: DEFB    MSXVER                  ; $002D, MSX version 0 = MSX1
 
         DEFS    $0030-$
 
-CALLF:  jp      A0205                   ; $0030
+CALLF: 	jp	OUT0A1
+;	jp      A0205                   ; $0030
 ;
         DEFS    $0034-$
 
@@ -4714,14 +4717,14 @@ TOF380:
 	defb    15
 	defb    4
 
-        defb    4
+	defb    4
 
 	jp      0
 	jp      0
 	defb    15
 	defw    QUETAB
 	defb    $FF
-	defb    2	;1
+	defb    1
 	defb    50
 	defw    KEYBUF
 	defw    KEYBUF
@@ -4733,7 +4736,7 @@ TOF380:
 	defw    $0100
 	defw    $0100
 	defb    ':'
-ENF380:	defb	0
+ENF380: defb	0
 ;
 OUTPSG:	out     (PSGCTL),a
 	cp	$07			; port config register
@@ -4853,6 +4856,8 @@ CONOUT:	push	bc
 	in	$F0
 	cp	$6F
 	jr	nz,CONOUX
+	ld	a,c
+CONPRT:	ld	c,a
 CONOUL:	in	a,(CONPORT+5)
 	and	$20
 	jr	z,CONOUL
@@ -4930,6 +4935,7 @@ PATCOM:
 	RET
 PATCOM1:
 	LD	A,(HL)
+	PUSH	HL
 	CP	$A0
 	CALL	Z,PATCA0
 	CP	$A1
@@ -4940,18 +4946,43 @@ PATCOM1:
 	CALL	Z,PATCA8
 	CP	$A9
 	CALL	Z,PATCA9
+	CP	$AA
+	CALL	Z,PATCA8
 	CP	$98
 	CALL	Z,PATC98
 	CP	$99
 	CALL	Z,PATC99
+	POP	HL
 	RET
-PATCA0:
+;
+PATCA0:	DEC	HL
+	LD	A,(HL)
+	CP	$D3	; OUT
+	JR	Z,PATCA0O
+	INC	HL
 	LD	A,PSGCTL
 	LD	(HL),A
 	JP	PATCHED
-PATCA1:
+; RST 28
+PATCA0O:
+	LD	(HL),$EF ; RST 28
+	INC	HL
+	LD	(HL),0	; NOP
+	JP	PATCHED
+;
+PATCA1:	DEC	HL
+	LD	A,(HL)
+	CP	$D3	; OUT
+	JR	Z,PATCA1O
+	INC	HL
 	LD	A,PSGDAT
 	LD	(HL),A
+	JP	PATCHED
+; RST 30
+PATCA1O:
+	LD	(HL),$F7 ; RST 30
+	INC	HL
+	LD	(HL),0	; NOP
 	JP	PATCHED
 ; LOOK FOR AND PATCH JOYSTICK FUNCTION
 ; OUT 0A0H,A
@@ -4960,21 +4991,9 @@ PATCA1:
 ; CALL 00D5H
 ; CPL
 PATCA2:
-	PUSH	HL
-PATCA2A:
 	LD	(HL),0	; NOP
 	DEC	HL
-	LD	A,(HL)
-	CP	$D3	; OUT A0,A
-	JR	NZ,PATCA2A
-	LD	(HL),$CD
-	INC	HL
-	LD	(HL),$D5
-	INC	HL
-	LD	(HL),0	; CALL 00D5
-	INC	HL
-	LD	(HL),$2F ; CPL
-	POP	HL
+	LD	(HL),$DF ; RST 18
 	JP	PATCHED
 PATCA8:
 	DEC	HL
@@ -5117,4 +5136,38 @@ FILLC9:
 	LD	A,C
 	OR	B
 	JR	NZ,FILLC9
+	RET
+;
+OUT0A0:	
+	OUT	(PSGCTL),A
+	LD	(PSGREG),A
+;	PUSH	AF
+;	LD	A,'2'
+;	CALL	CONOUT
+;	POP	AF
+	RET
+;
+PSGREG:	DB	0
+;
+OUT0A1:	PUSH	AF
+;	LD	A,'3'
+;	CALL	CONOUT
+	LD	A,(PSGREG)
+	CP	$07
+	JR	Z,OUT0A17
+	CP	$0E
+	JR	Z,OUT0A1X
+	CP	$0F
+	JR	Z,OUT0A1X
+	POP	AF
+	OUT	(PSGDAT),A
+	RET
+OUT0A1X:
+	POP	AF
+	RET
+OUT0A17:
+	POP	AF
+	AND	$3F
+	OR	$40
+	OUT	(PSGDAT),A
 	RET
