@@ -13,9 +13,9 @@ N = DOES NOT WORK (USUALLY START ADDRESS IS INVALID)
 STAT SHORT NAME     LONG NAME (481 ROMS)
 ==== ============   ============================================
  Y   10YAR000.ROM   10-Yard Fight (Japan).rom			
- N   3DGOL002.ROM   3-D Golf Simulation (Japan) (High Speed).rom
- N   3DGOL003.ROM   3-D Golf Simulation (Japan).rom
- N   3DTEN004.ROM   3D Tennis (Japan).rom
+ N0  3DGOL002.ROM   3-D Golf Simulation (Japan) (High Speed).rom
+ N0  3DGOL003.ROM   3-D Golf Simulation (Japan).rom
+ N0  3DTEN004.ROM   3D Tennis (Japan).rom
  Y   ACTMA007.ROM   Actman (Japan).rom
  N   ADVEN008.ROM   Adven' Chuta! (Japan).rom
  Y   AEJAP005.ROM   A.E. (Japan).rom
