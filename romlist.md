@@ -1,4 +1,4 @@
-# 386 WORKING GAMES
+# 387 WORKING GAMES
 Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
 Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
 Some don't work at all. They are marked with a 'N' in the list below<br>
@@ -284,7 +284,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N7  MACAT325.ROM   Mac Attack (Europe).rom
  Y   MACHI326.ROM   Machinegun Joe vs The Mafia (Japan).rom
  Y   MACRO327.ROM   Macross (Japan).rom
- N4  MAGIC328.ROM   Magical Kid Wiz (Japan).rom
+ Y   MAGIC328.ROM   Magical Kid Wiz (Japan).rom
  Y   MAGIC329.ROM   Magical Tree (Japan).rom
  Y   MANES331.ROM   Manes (Japan).rom
  Y   MAPPY332.ROM   Mappy (Japan).rom
