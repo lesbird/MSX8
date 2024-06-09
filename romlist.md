@@ -22,7 +22,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  ALBAT009.ROM   Albatros (Japan).rom
  YP? ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
  YP  ALIBA011.ROM   Alibaba and 40 Thieves (Japan).rom
- Y?  ALIEN012.ROM   Alien 8 (Japan).rom
+ YP? ALIEN012.ROM   Alien 8 (Japan).rom
  YP? ALPHA014.ROM   Alpha Roid (Japan).rom
  YP  ALPHA015.ROM   Alpha Squadron (Japan).rom
  Y   AMERI016.ROM   American Truck (Japan).rom
