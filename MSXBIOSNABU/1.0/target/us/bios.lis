@@ -6626,7 +6626,7 @@ bios.asm:
   5303  2c32  0d0a475541524449  	DB	$0D,$0A,"GUARDIC",$0D,$0A,0
               430d0a00          
   5304                          GAMECR7:
-  5305                          ; KNIGHTMARE
+  5305                          ; KNIGHTMARE (22,12,41)
   5306  2c3e  3a2840            	LD	A,($4028)
   5307  2c41  fe22              	CP	$22
   5308  2c43  2043              	JR	NZ,GAMECR8
@@ -6698,7 +6698,33 @@ bios.asm:
   5372  2ce6  0d0a4d4147494341  	DB	$0D,$0A,"MAGICAL KID WIZ",$0D,$0A,0
               4c204b4944205749  
               5a0d0a00          
-  5373                          ;
+  5373                          ; TWINBEE (22,95,41)
   5374                          GAMECR10:
-  5375  2cfa  c9                	RET
-  5376                          
+  5375  2cfa  3a2840            	LD	A,($4028)
+  5376  2cfd  fe22              	CP	$22
+  5377  2cff  2037              	JR	NZ,GAMECR11
+  5378  2d01  3a2940            	LD	A,($4029)
+  5379  2d04  fe95              	CP	$95
+  5380  2d06  2030              	JR	NZ,GAMECR11
+  5381  2d08  3a2a40            	LD	A,($402A)
+  5382  2d0b  fe41              	CP	$41
+  5383  2d0d  2029              	JR	NZ,GAMECR11
+  5384  2d0f  212b2d            	LD	HL,TWINMSG
+  5385  2d12  cde627            	CALL	CONPRTS
+  5386  2d15  af                	XOR	A
+  5387  2d16  322840            	LD	($4028),A
+  5388  2d19  322940            	LD	($4029),A
+  5389  2d1c  322a40            	LD	($402A),A
+  5390  2d1f  32fe40            	LD	($40FE),A
+  5391  2d22  32ff40            	LD	($40FF),A
+  5392  2d25  3ec9              	LD	A,$C9
+  5393  2d27  325240            	LD	($4052),A
+  5394  2d2a  c9                	RET
+  5395                          TWINMSG:
+  5396  2d2b  0d0a5457494e2042  	DB	$0D,$0A,"TWIN BEE",$0D,$0A,0
+              45450d0a00        
+  5397                          ;
+  5398                          GAMECR11:
+  5399  2d38  c9                	RET
+  5400                          ;
+  5401                          

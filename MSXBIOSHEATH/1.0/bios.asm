@@ -2623,18 +2623,21 @@ A121F:
 ;
 A1226:  di
 ;        in      a,($AA)
+	nop
+	nop
 ;        and     $F0
+	nop
+	nop
 ;        add     a,$08
+	nop
+	nop
 ;        out     ($AA),a
+	nop
+;	nop
 ;        in      a,($A9)
-	nop
-	nop
-	nop
-	nop
-	ld	a,'I'
-	call	CONOUT
-	xor	a
-	cpl
+;	nop
+;	nop
+	call	H8KPAD
         ei
         ret
 ;
@@ -2911,9 +2914,11 @@ A1452:  ld      c,a
 	nop
 ;        out     ($AA),a
 	nop
-	nop
+;	nop
 ;        in      a,($A9)
-	ld	a,$FF
+;	nop
+;	nop
+	call	H8KBD
         ei
         ret
 ;
@@ -4793,15 +4798,158 @@ H8JST4:	ld	a,$0F
 	ld	c,a
 H8JST5:	ld	a,b
 	and	$02			; check right
-	jr	nz,H8JSTX
+	jr	nz,H8JST6
 	ld	a,c
 	and	$F7
 	ld	c,a
+H8JST6:	in	$F0
+	cp	$F0			; 7=TRGA
+	jr	z,H8JSTA
+	cp	$CF			; 9=TRGB
+	jr	nz,H8JSTX
+	ld	a,c
+	and	$DF
+	ld	c,a
+	jr	H8JSTX
+H8JSTA:	ld	a,c
+	and	$EF
+	ld	c,a
 H8JSTX:	ld	a,c
-;	cpl
 	call	OUTHEX
 	call	CRLF
 	pop	bc
+	ret
+; READ H8 KEYPAD (ROW8)
+; 7=TRG1A,9=TRG1B
+; 5=SPACE
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+; .=0F,#=2F,/=4F,*=6F,-=8F,+=AF
+H8KPAD:	in	a,($F0)
+	cp	$FA			; 2 DOWN
+	jr	z,H8KPAD2
+	cp	$F6			; 4 LEFT
+	jr	z,H8KPAD4
+	cp	$F2			; 6 RIGHT
+	jr	z,H8KPAD6
+	cp	$EF			; 8 UP
+	jr	z,H8KPAD8
+	cp	$F4			; 5 SPACE
+	jr	z,H8KPAD5
+	ld	a,$FF
+	ret
+H8KPAD2:
+	ld	a,$BF
+	ret
+H8KPAD4:
+	ld	a,$EF
+	ret
+H8KPAD6:
+	ld	a,$7F
+	ret
+H8KPAD8:
+	ld	a,$DF
+	ret
+H8KPAD5:
+	ld	a,$FE
+	ret
+; READ H8 KEYBOARD
+; C=ROW NUMBER
+H8KBD:
+	ld	a,c
+	cp	$00			; 7,6,5,4,3,2,1,0
+	jr	z,H8KBD0
+	cp	$01			; SEMI,],[,\,=,-,9,8
+	jr	z,H8KBD1
+	cp	$02			; B,A, ,/,DOT,COMMA,`,'
+	jr	z,H8KBD2
+	cp	$03			; J,I,H,G,F,E,D,C
+	jr	z,H8KBD3
+	cp	$04			; R,Q,P,O,N,M,L,K
+	jr	z,H8KBD4
+	cp	$05			; Z,Y,X,W,V,U,T,S
+	jr	z,H8KBD5
+	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	jr	z,H8KBD6
+	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	jr	z,H8KBD7
+	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	jr	z,H8KBD8
+	cp	$09			; 4,3,2,1,0,X,X,X
+	jr	z,H8KBD9
+	cp	$0A			; .,COMMA,-,9,8,7,6,5
+	jr	z,H8KBDA
+	ld	a,$FF
+	ret
+H8KBD0:					; 7,6,5,4,3,2,1,0
+	in	a,($F0)
+	cp	$FE			; 0
+	jr	z,H8KBDK0
+	cp	$FC			; 1
+	jr	z,H8KBDK1
+	cp	$FA			; 2
+	jr	z,H8KBDK2
+	cp	$F8			; 3
+	jr	z,H8KBDK3
+;	cp	$F6			; 4
+;	jr	z,H8KBDK4
+;	cp	$F4			; 5
+;	jr	z,H8KBDK5
+;	cp	$F2			; 6
+;	jr	z,H8KBDK6
+;	cp	$F0			; 7
+;	jr	z,H8KBDK7
+	ld	a,$FF
+	ret
+H8KBDK0:
+	ld	a,$FE
+	ret
+H8KBDK1:
+	ld	a,$FD
+	ret
+H8KBDK2:
+	ld	a,$FB
+	ret
+H8KBDK3:
+	ld	a,$F7
+	ret
+;
+H8KBD1:					; SEMI,],[,\,=,-,9,8
+	ld	a,$FF
+	ret
+;
+H8KBD2:					; B,A, ,/,DOT,COMMA,`,'
+	ld	a,$FF
+	ret
+;
+H8KBD3:					; J,I,H,G,F,E,D,C
+	ld	a,$FF
+	ret
+;
+H8KBD4:					; R,Q,P,O,N,M,L,K
+	ld	a,$FF
+	ret
+;
+H8KBD5:					; Z,Y,X,W,V,U,T,S
+	ld	a,$FF
+	ret
+;
+H8KBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	ld	a,$FF
+	ret
+;
+H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	ld	a,$FF
+	ret
+;
+H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	jp	H8KPAD
+;
+H8KBD9:					; 4,3,2,1,0,X,X,X
+	ld	a,$FF
+	ret
+;
+H8KBDA:					; .,COMMA,-,9,8,7,6,5
+	ld	a,$FF
 	ret
 ;
 CONOUT:	push	af
@@ -5254,7 +5402,7 @@ GAMECR6:
 GUARMSG:
 	DB	$0D,$0A,"GUARDIC",$0D,$0A,0
 GAMECR7:
-; KNIGHTMARE
+; KNIGHTMARE (22,12,41)
 	LD	A,($4028)
 	CP	$22
 	JR	NZ,GAMECR8
@@ -5322,6 +5470,31 @@ GAMECR9:
 	RET
 MAGIMSG:
 	DB	$0D,$0A,"MAGICAL KID WIZ",$0D,$0A,0
-;
+; TWINBEE (22,95,41)
 GAMECR10:
+	LD	A,($4028)
+	CP	$22
+	JR	NZ,GAMECR11
+	LD	A,($4029)
+	CP	$95
+	JR	NZ,GAMECR11
+	LD	A,($402A)
+	CP	$41
+	JR	NZ,GAMECR11
+	LD	HL,TWINMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($4028),A
+	LD	($4029),A
+	LD	($402A),A
+	LD	($40FE),A
+	LD	($40FF),A
+	LD	A,$C9
+	LD	($4052),A
 	RET
+TWINMSG:
+	DB	$0D,$0A,"TWIN BEE",$0D,$0A,0
+;
+GAMECR11:
+	RET
+;
