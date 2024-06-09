@@ -1,4 +1,4 @@
-# 385 WORKING GAMES
+# 386 WORKING GAMES
 Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
 Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
 Some don't work at all. They are marked with a 'N' in the list below<br>
@@ -354,7 +354,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP? PINGB411.ROM   Pingball Maker (Japan).rom
  YP  PINKY412.ROM   Pinky Chase (Japan).rom
  Y?  PIPIJ413.ROM   Pipi (Japan).rom
- N4  PIPPO414.ROM   Pippols (Japan).rom
+ Y   PIPPO414.ROM   Pippols (Japan).rom
  YP  PITFA415.ROM   Pitfall II - Lost Caverns (Japan).rom
  N8  PITFA416.ROM   Pitfall! (Japan).rom
  Y   PLAYB417.ROM   Play Ball (Japan).rom
