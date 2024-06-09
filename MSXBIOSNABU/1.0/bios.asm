@@ -2148,7 +2148,7 @@ A0C3C:  push    hl
         call    H_TIMI
         ei
         ld      (STATFL),a              ; save statusregister
-        and     $20                    	; sprite collisionflag set ?
+        and     $20                    ; sprite collisionflag set ?
         ld      hl,TRPTBL+11*3
         call    nz,C0EF1                ; yep, set sprite event
         ld      hl,(INTCNT)
@@ -4617,7 +4617,7 @@ A2686:  jp      C4666
 A2689:  jp      C5597
 ;
 ; DEFAULT VALUES FOR WORKSPACE AREA
-TOF380:
+TOF380: 
 ;	OUT     ($A8),A
 	XOR	A
 	RET
@@ -4640,7 +4640,7 @@ TOF380:
 	RET
 	NOP
         EX      AF,AF'
-;        CALL    CLPRM1
+;       CALL    CLPRM1
 	NOP
 	NOP
 	NOP
@@ -4665,7 +4665,7 @@ TOF380:
         defw    $0E2C                   ; illegal function call
         defw    $0E2C                   ; illegal function call
 
-        defb    37
+	defb    37
 
 	defb    29
 
@@ -4848,23 +4848,31 @@ NBJSTX:	ld	a,c
 	pop	bc
 	ret
 ;
-JSTKPL:	db	0
 JSTKST:	db	$FF
+JSTKPL:	db	0
 ;
-CONOUT:	push	bc
-	ld	c,a
+CONOUT:	push	af
 	in	$F0
 	cp	$6F
 	jr	nz,CONOUX
-	ld	a,c
-CONPRT:	ld	c,a
+	pop	af
+CONPRT:	push	af
 CONOUL:	in	a,(CONPORT+5)
 	and	$20
 	jr	z,CONOUL
-	ld	a,c
+	pop	af
 	out	(CONPORT),a
-CONOUX:	pop	bc
 	ret
+CONOUX:	pop	af
+	ret
+;
+CONPRTS:
+	ld	a,(HL)
+	or	a
+	ret	z
+	call	CONPRT
+	inc	HL
+	jr	CONPRTS
 ;
 OUTHEX:	push	af
 	push	hl
@@ -5170,4 +5178,198 @@ OUT0A17:
 	AND	$3F
 	OR	$40
 	OUT	(PSGDAT),A
+	RET
+;
+; Pad to $2900
+        DEFS    $2B00 - ASMPC
+;
+GAMECRACKS:
+; PATCH ELEVATOR ACTION (HACK)
+	LD	A,($4016)
+	CP	$CD
+	JR	NZ,GAMECR2
+	LD	A,($4017)
+	CP	$59
+	JR	NZ,GAMECR2
+	LD	A,($4018)
+	CP	$4D
+	JR	NZ,GAMECR2
+	LD	HL,ELEVMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($4016),A
+	LD	($4017),A
+	LD	($4018),A
+	RET
+ELEVMSG:
+	DB	$0D,$0A,"ELEVATOR ACTION",$0D,$0A,0
+GAMECR2:
+; THEXDER PATCH (HACK)
+	LD	A,($48AF)
+	CP	$36
+	JR	NZ,GAMECR3
+	LD	HL,THEXMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($48AF),A
+	LD	($48B0),A
+	RET
+THEXMSG:
+	DB	$0D,$0A,"THEXDER",$0D,$0A,0
+GAMECR3:
+; KINGS VALLEY PATCH (HACK)
+	LD	A,($403F)
+	CP	$E4
+	JR	NZ,GAMECR4
+	LD	A,($4040)
+	CP	$40
+	JR	NZ,GAMECR4
+	LD	HL,KINGMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($403F),A
+	LD	($4040),A
+	LD	($409E),A
+	LD	($409F),A
+	RET
+KINGMSG:
+	DB	$0D,$0A,"KINGS VALLEY",$0D,$0A,0
+GAMECR4:
+; ARKANOID PATCH (HACK)
+	LD	A,($42FC)
+	CP	$3E
+	JR	NZ,GAMECR5
+	LD	A,($42FD)
+	CP	$0E
+	JR	NZ,GAMECR5
+	LD	A,($42FE)
+	CP	$D3
+	JR	NZ,GAMECR5
+	LD	HL,ARKAMSG
+	CALL	CONPRTS
+	LD	A,$C9
+	LD	($42FC),A
+	RET
+ARKAMSG:
+	DB	$0D,$0A,"ARKANOID",$0D,$0A,0
+GAMECR5:
+; GOONIES PATCH (22,1C,41) (22,29,41) (CB,B6)
+	LD	A,($4022)
+	CP	$22
+	JR	NZ,GAMECR6
+	LD	A,($4023)
+	CP	$1C
+	JR	NZ,GAMECR6
+	LD	A,($4024)
+	CP	$41
+	JR	NZ,GAMECR6
+	LD	HL,GOONMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($4022),A
+	LD	($4023),A
+	LD	($4024),A
+	LD	($4050),A
+	LD	($4051),A
+	LD	($4052),A
+	LD	($40B8),A
+	LD	($40B9),A
+	RET
+GOONMSG:
+	DB	$0D,$0A,"GOONIES",$0D,$0A,0
+GAMECR6:
+; GUARDIC PATCH (EA,6B) (90,6F) (24,5F) (7A,40) (6B,6A)
+	LD	A,($443A)
+	CP	$EA
+	JR	NZ,GAMECR7
+	LD	A,($443B)
+	CP	$6B
+	JR	NZ,GAMECR7
+	LD	HL,GUARMSG
+	CALL	CONPRTS
+	LD	A,$33
+	LD	($443A),A
+	LD	($443B),A
+	LD	($5F37),A
+	LD	($5F38),A
+	LD	($6075),A
+	LD	($6076),A
+	LD	($60EF),A
+	LD	($60F0),A
+	LD	($6A6F),A
+	LD	($6A70),A
+	RET
+GUARMSG:
+	DB	$0D,$0A,"GUARDIC",$0D,$0A,0
+GAMECR7:
+; KNIGHTMARE
+	LD	A,($4028)
+	CP	$22
+	JR	NZ,GAMECR8
+	LD	A,($4029)
+	CP	$12
+	JR	NZ,GAMECR8
+	LD	A,($402A)
+	CP	$41
+	JR	NZ,GAMECR8
+	LD	HL,KNIGMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($4028),A
+	LD	($4029),A
+	LD	($402A),A
+	LD	($4055),A
+	LD	($4056),A
+	LD	($4057),A
+	LD	($40CC),A
+	LD	($40CD),A
+	LD	($40CE),A
+	LD	($40CF),A
+	RET
+KNIGMSG:
+	DB	$0D,$0A,"KNIGHTMARE",$0D,$0A,0
+GAMECR8:
+; PIPPOLS (22,C5,40)
+	LD	A,($4033)
+	CP	$22
+	JR	NZ,GAMECR9
+	LD	A,($4034)
+	CP	$C5
+	JR	NZ,GAMECR9
+	LD	A,($4035)
+	CP	$40
+	JR	NZ,GAMECR9
+	LD	HL,PIPPMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($4033),A
+	LD	($4034),A
+	LD	($4035),A
+	LD	($4079),A
+	LD	($407A),A
+	RET
+PIPPMSG:
+	DB	$0D,$0A,"PIPPOLS",$0D,$0A,0
+; MAGICAL KID WIZ
+GAMECR9:
+	LD	A,($4014)
+	CP	$32
+	JR	NZ,GAMECR10
+	LD	A,($4015)
+	CP	$1C
+	JR	NZ,GAMECR10
+	LD	A,($4016)
+	CP	$40
+	JR	NZ,GAMECR10
+	LD	HL,MAGIMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($4014),A
+	LD	($4015),A
+	LD	($4016),A
+	RET
+MAGIMSG:
+	DB	$0D,$0A,"MAGICAL KID WIZ",$0D,$0A,0
+;
+GAMECR10:
 	RET
