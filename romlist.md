@@ -1,4 +1,4 @@
-# 387 WORKING GAMES
+# 388 WORKING GAMES
 Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
 Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
 Some don't work at all. They are marked with a 'N' in the list below<br>
@@ -467,7 +467,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP  TRITO540.ROM   Tritorn (Japan).rom
  N0  TRUMP541.ROM   Trumpaid (Japan).rom
  YP? TURBO543.ROM   Turboat (Japan).rom
- N4  TWINB544.ROM   Twin Bee (Japan).rom
+ Y   TWINB544.ROM   Twin Bee (Japan).rom
  YP  TWINH545.ROM   Twin Hammer (Europe).rom
  Y   TZRGR546.ROM   TZR - Grand Prix Rider (Japan).rom
  Y   ULTRA547.ROM   Ultraman (Japan).rom
