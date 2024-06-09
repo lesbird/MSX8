@@ -193,11 +193,11 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  GOKIB218.ROM   Gokiburi Daisakusen - Bug Bomb (Japan).rom
  N0  GOLFG219.ROM   Golf Game (Japan).rom
  YP? GOMOK221.ROM   Gomok Narabe - Omo Go (Japan).rom
- N4  GOONI222.ROM   Goonies, The (Japan).rom
+ Y   GOONI222.ROM   Goonies, The (Japan).rom
  Y   GPWOR223.ROM   GP World (Japan).rom
  N9  GREEN224.ROM   Green Beret (Europe).rom
  Y?  GROGS225.ROM   Grog's Revenge (Japan).rom
- N4  GUARD226.ROM   Guardic (Japan).rom
+ Y   GUARD226.ROM   Guardic (Japan).rom
  Y   GULKA227.ROM   Gulkave (Japan).rom
  YP? GUNFR228.ROM   Gun Fright (Japan).rom
  Y   GUNJI229.ROM   Gunjin Shougi Mars (Japan).rom
