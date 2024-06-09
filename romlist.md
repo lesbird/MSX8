@@ -34,7 +34,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   AQUAP023.ROM   Aqua Polis SOS (Japan).rom
  N4  AQUAT024.ROM   Aquattack (Japan).rom
  Y   ARAMO025.ROM   Aramo (Japan).rom
- Y?  ARKAN026.ROM   Arkanoid (Japan).rom
+ YP  ARKAN026.ROM   Arkanoid (Japan).rom
  Y   ATHLE027.ROM   Athletic Ball (Japan).rom
  N   ATHLE028.ROM   Athletic Land (Japan) (Beta).rom
  YP  ATHLE029.ROM   Athletic Land (Japan).rom
