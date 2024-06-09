@@ -258,7 +258,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   KINGS292.ROM   King's Valley (Japan, Europe).rom
  Y   KINNI294.ROM   Kinnikuman - Muscle Man (Japan).rom
  YP? KNIGH295.ROM   Knight Lore (Japan).rom
- N4  KNIGH296.ROM   Knightmare - Majou Densetsu (Japan).rom
+ Y   KNIGH296.ROM   Knightmare - Majou Densetsu (Japan).rom
  Y   KONAM300.ROM   Konami's Baseball (Japan).rom
  Y   KONAM301.ROM   Konami's Billiards (Europe).rom
  Y   KONAM302.ROM   Konami's Boxing (Japan).rom
