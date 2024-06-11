@@ -8,7 +8,7 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
 [MSX8 FOR NABU - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8NABU.zip) the CP/M launcher and customized MSX BIOS for the NABU Personal Computer.
 
-[MSX8 FOR RC2014 - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with JB Langston's TMS9918 video card and the AY3 audio card.
+[MSX8 FOR RC2014 - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with JB Langston's TMS9918 video card and Ed's AY3 audio card. (currently work-in-progress)
 
 [MSXROMS.ZIP - 6MB](https://drive.google.com/file/d/1CPUKjfRxF2Sq3ZCcoAHj1XeqptBqdim3/view?usp=sharing) 481 ROMs all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
 
