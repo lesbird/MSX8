@@ -69,7 +69,7 @@ When MSX8 is launched it jumps to high memory (0xC000) and then will look for an
 A0>MSX8 GALAGA.ROM
 ```
 
-The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). MSX8 also patches high memory with default values that some games need as specified in the MSX Redbook. When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M for file I/O anymore) and MSX8 will wait until you press L to launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
+The GAME ROM file must exist in the same folder as MSX8.COM and MSX-US.ROM. The GAME ROM is loaded at address 0x4000 up to 0xC000 (maximum ROM size is 32K). MSX8 also patches high memory with default values that some games need as specified in the MSX Redbook. When the GAME ROM is loaded the MSX BIOS is then copied down to address 0x0000 (since we don't need CP/M for file I/O anymore) and MSX8 will launch the game. The game start address is retrieved from the beginning of the GAME ROM contents at address 0x4002.
 
 ```
         LHLD    4002H  ; HL=START ADDRESS
