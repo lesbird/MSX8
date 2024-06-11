@@ -188,7 +188,8 @@ RDSLT: 	jp      A01B6                   ; $000C
 
         defs    $0010-$,0
 
-CHRGTR: jp      A2686                   ; $0010
+CHRGTR: jp	H8KBD
+;	jp      A2686                   ; $0010
 
         defs    $0014-$,0
 
@@ -4880,14 +4881,15 @@ H8KBD:
 	jr	z,H8KBDA
 	ld	a,$FF
 	ret
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
 H8KBD0:					; 7,6,5,4,3,2,1,0
 	in	a,($F0)
 	cp	$FE			; 0
 	jr	z,H8KBDK0
 	cp	$FC			; 1
 	jr	z,H8KBDK1
-	cp	$FA			; 2
-	jr	z,H8KBDK2
+;	cp	$FA			; 2
+;	jr	z,H8KBDK2
 	cp	$F8			; 3
 	jr	z,H8KBDK3
 ;	cp	$F6			; 4
@@ -4906,11 +4908,8 @@ H8KBDK0:
 H8KBDK1:
 	ld	a,$FD
 	ret
-H8KBDK2:
-	ld	a,$FB
-	ret
 H8KBDK3:
-	ld	a,$F7
+	ld	a,$FB
 	ret
 ;
 H8KBD1:					; SEMI,],[,\,=,-,9,8
@@ -4942,14 +4941,61 @@ H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 	ret
 ;
 H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
-	jp	H8KPAD
-;
+	call	H8KPAD
+	ld	c,a
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+	call	H8JSTK
+	bit	0,a
+	call	z,H8KBDSETU
+	bit	1,a
+	call	z,H8KBDSETD
+	bit	2,a
+	call	z,H8KBDSETL
+	bit	3,a
+	call	z,H8KBDSETR
+	bit	4,a
+	call	z,H8KBDSETS
+	ld	a,c
+	ret
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
 H8KBD9:					; 4,3,2,1,0,X,X,X
+	in	$F0
+	cp	$FE			; 0
+	jz	H8KBDP0
+	cp	$FC			; 1
+	jz	H8KBDP1
+	cp	$F8			; 3
+	jz	H8KBDP2
 	ld	a,$FF
+	ret
+H8KBDP0:
+	ld	a,$F7
+	ret
+H8KBDP1:
+	ld	a,$EF
+	ret
+H8KBDP2:
+	ld	a,$DF
 	ret
 ;
 H8KBDA:					; .,COMMA,-,9,8,7,6,5
 	ld	a,$FF
+	ret
+;
+H8KBDSETU:
+	res	5,c
+	ret
+H8KBDSETD:
+	res	6,c
+	ret
+H8KBDSETL:
+	res	4,c
+	ret
+H8KBDSETR:
+	res	7,c
+	ret
+H8KBDSETS:
+	res	0,c
 	ret
 ;
 CONOUT:	push	af
@@ -5111,13 +5157,12 @@ PATCA8:
 	INC	HL
 	LD	(HL),A	; NOP
 	JP	PATCHED
+; KEYBOARD INPUT PATCH
 PATCA9:
 	DEC	HL
-	LD	A,$AF	; XOR A
-	LD	(HL),A
+	LD	(HL),$4F ; LD C,A
 	INC	HL
-	LD	A,$2F	; CPL
-	LD	(HL),A
+	LD	(HL),$DF ; RST 10
 	JP	PATCHED
 PATC98:
 	LD	A,VDPDAT
@@ -5132,12 +5177,16 @@ PATCOME:
 	PUSH	DE
 	LD	E,$20	; CHECK ONLY 32 BYTES BACK
 PATCOME1:
+	LD	A,(HL)
+	CP	$A3	; OUTI OPCODE
+	JR	NZ,PATCOMEX
+PATCOME1A:
 	DEC	HL
 	LD	A,(HL)
 	CP	$0E	; LOOKING FOR LD C,<N>
 	JR	Z,PATCOME2
 	DEC	E
-	JR	NZ,PATCOME1
+	JR	NZ,PATCOME1A
 	JR	PATCOMEX
 PATCOME2:
 	INC	HL
@@ -5168,10 +5217,19 @@ PATCNT:	DB	0
 ; Pad to $2A00
         DEFS    $2A00 - ASMPC
 ; FILL IN DEFAULT VALUES FOR WORKSPACE AREA
-; THESE VALUES ARE IN MSX-US.ROM AT 0x268C SO IF
-; THAT ADDRESS CHANGES YOU NEED TO UPDATE IT HERE
+; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
+	LD	HL,$FD9A
+	LD	BC,$0230
+FILLC9:
+	LD	A,$C9
+	LD	(HL),A
+	INC	HL
+	DEC	BC
+	LD	A,C
+	OR	B
+	JR	NZ,FILLC9
 COPYF3:
-	LD	HL,$268C
+	LD	HL,TOF380
 	LD	DE,$F380
 	LD	BC,$0090
 COPYF3L:
@@ -5234,17 +5292,6 @@ DEFTBL0:
 	LD	(BOTTOM),HL
 	LD	HL,$F380
 	LD	(HIMEM),HL
-; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
-	LD	HL,$FD9A
-	LD	BC,$0230
-FILLC9:
-	LD	A,$C9
-	LD	(HL),A
-	INC	HL
-	DEC	BC
-	LD	A,C
-	OR	B
-	JR	NZ,FILLC9
 	RET
 ;
 OUT0A0:	
@@ -5280,7 +5327,7 @@ OUT0A17:
 	OUT	(PSGDAT),A
 	RET
 ;
-; Pad to $2900
+; Pad to $2B00
         DEFS    $2B00 - ASMPC
 ;
 GAMECRACKS:
@@ -5494,7 +5541,22 @@ GAMECR10:
 	RET
 TWINMSG:
 	DB	$0D,$0A,"TWIN BEE",$0D,$0A,0
-;
+; FROGGER (06, A8)
 GAMECR11:
+	LD	A,($415C)
+	CP	$06
+	JR	NZ,GAMECR12
+	LD	A,($415D)
+	CP	$A8
+	JR	NZ,GAMECR12
+	LD	HL,FROGMSG
+	CALL	CONPRTS
+	LD	A,$28
+	LD	($415D),A
+	RET
+FROGMSG:
+	DB	$0D,$0A,"FROGGER",$0D,$0A,0
+;
+GAMECR12:
 	RET
 ;

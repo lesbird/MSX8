@@ -181,7 +181,7 @@ CGTABL: dw      T1BBF                   ; $0004
         db      VDPDAT
         db      VDPDAT
 
-SYNCHR: jp      A2683                   ; $0008
+SYNCHR:	jp      A2683                   ; $0008
 
         defs    $000C-$,0
 
@@ -2624,18 +2624,21 @@ A121F:
 ;
 A1226:  di
 ;        in      a,($AA)
+	nop
+	nop
 ;        and     $F0
+	nop
+	nop
 ;        add     a,$08
+	nop
+	nop
 ;        out     ($AA),a
+	nop
+	nop
 ;        in      a,($A9)
 	nop
 	nop
-	nop
-	nop
-	ld	a,'I'
-	call	CONOUT
-	xor	a
-	cpl
+;	call	H8KPAD
         ei
         ret
 ;
@@ -5010,13 +5013,12 @@ PATCA8:
 	INC	HL
 	LD	(HL),A	; NOP
 	JP	PATCHED
+; KEYBOARD INPUT PATCH
 PATCA9:
 	DEC	HL
-	LD	A,$AF	; XOR A
-	LD	(HL),A
+	LD	(HL),$4F ; LD C,A
 	INC	HL
-	LD	A,$2F	; CPL
-	LD	(HL),A
+	LD	(HL),$DF ; RST 10
 	JP	PATCHED
 PATC98:
 	LD	A,VDPDAT
@@ -5031,12 +5033,16 @@ PATCOME:
 	PUSH	DE
 	LD	E,$20	; CHECK ONLY 32 BYTES BACK
 PATCOME1:
+	LD	A,(HL)
+	CP	$A3	; OUTI OPCODE
+	JR	NZ,PATCOMEX
+PATCOME1A:
 	DEC	HL
 	LD	A,(HL)
 	CP	$0E	; LOOKING FOR LD C,<N>
 	JR	Z,PATCOME2
 	DEC	E
-	JR	NZ,PATCOME1
+	JR	NZ,PATCOME1A
 	JR	PATCOMEX
 PATCOME2:
 	INC	HL
@@ -5067,10 +5073,19 @@ PATCNT:	DB	0
 ; Pad to $2A00
         DEFS    $2A00 - ASMPC
 ; FILL IN DEFAULT VALUES FOR WORKSPACE AREA
-; THESE VALUES ARE IN MSX-US.ROM AT 0x268C SO IF
-; THAT ADDRESS CHANGES YOU NEED TO UPDATE IT HERE
+; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
+	LD	HL,$FD9A
+	LD	BC,$0230
+FILLC9:
+	LD	A,$C9
+	LD	(HL),A
+	INC	HL
+	DEC	BC
+	LD	A,C
+	OR	B
+	JR	NZ,FILLC9
 COPYF3:
-	LD	HL,$268C
+	LD	HL,TOF380
 	LD	DE,$F380
 	LD	BC,$0090
 COPYF3L:
@@ -5133,17 +5148,6 @@ DEFTBL0:
 	LD	(BOTTOM),HL
 	LD	HL,$F380
 	LD	(HIMEM),HL
-; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
-	LD	HL,$FD9A
-	LD	BC,$0230
-FILLC9:
-	LD	A,$C9
-	LD	(HL),A
-	INC	HL
-	DEC	BC
-	LD	A,C
-	OR	B
-	JR	NZ,FILLC9
 	RET
 ;
 OUT0A0:	
@@ -5180,7 +5184,7 @@ OUT0A17:
 	OUT	(PSGDAT),A
 	RET
 ;
-; Pad to $2900
+; Pad to $2B00
         DEFS    $2B00 - ASMPC
 ;
 GAMECRACKS:
@@ -5394,7 +5398,22 @@ GAMECR10:
 	RET
 TWINMSG:
 	DB	$0D,$0A,"TWIN BEE",$0D,$0A,0
-;
+; FROGGER (06, A8)
 GAMECR11:
+	LD	A,($415C)
+	CP	$06
+	JR	NZ,GAMECR12
+	LD	A,($415D)
+	CP	$A8
+	JR	NZ,GAMECR12
+	LD	HL,FROGMSG
+	CALL	CONPRTS
+	LD	A,$28
+	LD	($415D),A
+	RET
+FROGMSG:
+	DB	$0D,$0A,"FROGGER",$0D,$0A,0
+;
+GAMECR12:
 	RET
 ;
