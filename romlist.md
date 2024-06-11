@@ -450,8 +450,8 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   TENSA522.ROM   Tensai Rabbian Daifunsen (Japan).rom
  Y?  TENSI523.ROM   Tensidachino Gogo (Japan).rom
  YP  TENSI524.ROM   Tension (Spain).rom
- YP? TETRA525.ROM   Tetra Horror (Japan).rom
- Y?  TETRI526.ROM   Tetris (Korea) (Unl).rom
+ N8  TETRA525.ROM   Tetra Horror (Japan).rom
+ Y   TETRI526.ROM   Tetris (Korea) (Unl).rom
  N8  TETSU527.ROM   Tetsuman (Japan).rom
  Y   THEXD528.ROM   Thexder (Japan).rom
  Y?  THUND529.ROM   Thunder Ball (Japan).rom
@@ -466,7 +466,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  TRICK539.ROM   Trick Boy (Japan).rom
  YP  TRITO540.ROM   Tritorn (Japan).rom
  N0  TRUMP541.ROM   Trumpaid (Japan).rom
- YP? TURBO543.ROM   Turboat (Japan).rom
+ N8  TURBO543.ROM   Turboat (Japan).rom
  Y   TWINB544.ROM   Twin Bee (Japan).rom
  YP  TWINH545.ROM   Twin Hammer (Europe).rom
  Y   TZRGR546.ROM   TZR - Grand Prix Rider (Japan).rom
@@ -478,7 +478,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP  WARRO553.ROM   Warroid (Japan).rom
  Y?  WATER554.ROM   Water Driver (Japan).rom
  Y   WONDE556.ROM   Wonder Boy (Japan).rom
- Y?  WRANG557.ROM   Wrangler (Spain).rom
+ N4  WRANG557.ROM   Wrangler (Spain).rom
  N4  WRECK558.ROM   Wreck, The (Europe).rom
  YP  XYXOL559.ROM   Xyxolog (Japan).rom
  N8  YABYU560.ROM   Yab Yum (Netherlands).rom
@@ -486,7 +486,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   YIEAR562.ROM   Yie Ar Kung-Fu (Japan).rom
  N4  YIEAR563.ROM   Yie Ar Kung-Fu II - The Emperor Yie-Gah (Japan).rom
  YP  YOKAI564.ROM   Yokai Tanken Chimachima (Japan).rom
- Y?  ZAIDE566.ROM   Zaider - Battle of Peguss (Japan).rom
+ Y   ZAIDE566.ROM   Zaider - Battle of Peguss (Japan).rom
  Y   ZANAC567.ROM   Zanac (Japan) (v2).rom
  Y   ZANAC568.ROM   Zanac (Japan).rom
  Y   ZAXXO569.ROM   Zaxxon (Japan).rom
