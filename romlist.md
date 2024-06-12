@@ -1,4 +1,4 @@
-# 385 WORKING GAMES
+# 384 WORKING GAMES
 Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
 Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
 Some don't work at all. They are marked with a 'N' in the list below<br>
@@ -20,7 +20,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N   ADVEN008.ROM   Adven' Chuta! (Japan).rom
  Y   AEJAP005.ROM   A.E. (Japan).rom
  Y?  ALBAT009.ROM   Albatros (Japan).rom
- YP? ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
+ N8  ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
  YP  ALIBA011.ROM   Alibaba and 40 Thieves (Japan).rom
  YP? ALIEN012.ROM   Alien 8 (Japan).rom
  YP? ALPHA014.ROM   Alpha Roid (Japan).rom
