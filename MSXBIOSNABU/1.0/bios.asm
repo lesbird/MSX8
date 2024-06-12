@@ -189,7 +189,8 @@ RDSLT: 	jp      A01B6                   ; $000C
 
         defs    $0010-$,0
 
-CHRGTR: jp      A2686                   ; $0010
+CHRGTR: jp	NBKBD
+;	jp      A2686                   ; $0010
 
         defs    $0014-$,0
 
@@ -2634,11 +2635,11 @@ A1226:  di
 	nop
 ;        out     ($AA),a
 	nop
-	nop
+;	nop
 ;        in      a,($A9)
-	nop
-	nop
-;	call	H8KPAD
+;	nop
+;	nop
+	call	NBKBD
         ei
         ret
 ;
@@ -2915,9 +2916,11 @@ A1452:  ld      c,a
 	nop
 ;        out     ($AA),a
 	nop
-	nop
+;	nop
 ;        in      a,($A9)
-	ld	a,$FF
+;	nop
+;	nop
+	call	NBKBD
         ei
         ret
 ;
@@ -4762,10 +4765,8 @@ OUTPS2:	ld      a,e
 NBJSTK:	push	bc
 	ld	a,(JSTKST)		; prev state (1=off, 0=on)
 	ld	c,a
-	in	a,(KEYPORT+1)		; keyboard status
-	and	$02			; z=no data waiting
+	call	RDKBD
 	jp	z,NBJSTX
-	in	a,(KEYPORT)		; keyboard data
 	ld	b,a			; save it
 	cp	$94			; watchdog - skip it
 	jp	z,NBJSTX
@@ -4773,7 +4774,9 @@ NBJSTK:	push	bc
 	jr	z,NBJSTP
 	cp	$81			; player 2 input
 	jr	z,NBJSTP
+	call	NBKBDRST
 	ld	a,b
+	ld	(KBCHAR),a
 	and	$E0			; mask bits
 	cp	$A0			; looking for 1010.xxxx
 	jp	nz,NBJSTX
@@ -4808,6 +4811,15 @@ NBJSF0:	ld	a,c
 	ret
 NBJSF1:	ld	a,c
 	and	$EF
+	ld	c,a
+	ret
+NBJSF2:	ld	a,c
+	or	$20
+	ld	c,a
+	xor	a
+	ret
+NBJSF3:	ld	a,c
+	and	$DF
 	ld	c,a
 	ret
 NBJSU0:	ld	a,c
@@ -4851,8 +4863,18 @@ NBJSTX:	ld	a,c
 	pop	bc
 	ret
 ;
+RDKBD:	in	a,(KEYPORT+1)		; keyboard status
+	and	$02			; z=no data waiting
+	ret	z
+	in	a,(KEYPORT)		; keyboard data
+;	call	CONPRT
+	ld	(KBCHAR),a
+	or	a
+	ret
+;
 JSTKST:	db	$FF
 JSTKPL:	db	0
+KBCHAR:	db	0
 ;
 CONOUT:	push	af
 	in	$F0
@@ -5416,4 +5438,203 @@ FROGMSG:
 ;
 GAMECR12:
 	RET
+; READ NABU KEYBOARD
+; C=ROW NUMBER
+NBKBD:	call	NBJSTK			; KBCHAR filled
+	ld	a,c
+	cp	$00			; 7,6,5,4,3,2,1,0
+	jp	z,NBKBD0
+	cp	$01			; SEMI,],[,\,=,-,9,8
+	jp	z,NBKBD1
+	cp	$02			; B,A, ,/,DOT,COMMA,`,'
+	jp	z,NBKBD2
+	cp	$03			; J,I,H,G,F,E,D,C
+	jp	z,NBKBD3
+	cp	$04			; R,Q,P,O,N,M,L,K
+	jp	z,NBKBD4
+	cp	$05			; Z,Y,X,W,V,U,T,S
+	jp	z,NBKBD5
+	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	jp	z,NBKBD6
+	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	jp	z,NBKBD7
+	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	jp	z,NBKBD8
+	cp	$09			; 4,3,2,1,0,X,X,X
+	jp	z,NBKBD9
+	cp	$0A			; .,COMMA,-,9,8,7,6,5
+	jp	z,NBKBDA
+	ld	a,$FF
+	jp	NBKBDX
+; READ ROW 0
+NBKBD0:					; 7,6,5,4,3,2,1,0
+	ld	a,(KBCHAR)
+	cp	'0'			; 0
+	jr	z,NBKBDK0
+	cp	'1'			; 1
+	jr	z,NBKBDK1
+	cp	'2'			; 2
+	jr	z,NBKBDK2
+	cp	'3'			; 3
+	jr	z,NBKBDK3
+	cp	'4'			; 4
+	jr	z,NBKBDK4
+	cp	'5'			; 5
+	jr	z,NBKBDK5
+	cp	'6'			; 6
+	jr	z,NBKBDK6
+	cp	'7'			; 7
+	jr	z,NBKBDK7
+	ld	a,$FF
+	jp	NBKBDX
+NBKBDK0:
+	ld	a,$FE
+	jp	NBKBDX
+NBKBDK1:
+	ld	a,$FD
+	jp	NBKBDX
+NBKBDK2:
+	ld	a,$FB
+	jp	NBKBDX
+NBKBDK3:
+	ld	a,$F7
+	jp	NBKBDX
+NBKBDK4:
+	ld	a,$EF
+	jp	NBKBDX
+NBKBDK5:
+	ld	a,$DF
+	jp	NBKBDX
+NBKBDK6:
+	ld	a,$BF
+	jp	NBKBDX
+NBKBDK7:
+	ld	a,$7F
+	jp	NBKBDX
+;
+NBKBD1:					; SEMI,],[,\,=,-,9,8
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD2:					; B,A, ,/,DOT,COMMA,`,'
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD3:					; J,I,H,G,F,E,D,C
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD4:					; R,Q,P,O,N,M,L,K
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD5:					; Z,Y,X,W,V,U,T,S
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	ld	c,$FF
+	ld	a,(KBCHAR)
+	cp	' '
+	call	z,NBKBDSETS
+; implement WASD controls
+	cp	'W'
+	call	z,NBKBDSETU
+	cp	'A'
+	call	z,NBKBDSETL
+	cp	'S'
+	call	z,NBKBDSETD
+	cp	'D'
+	call	z,NBKBDSETR
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+	ld	a,(JSTKST)
+	bit	0,a
+	call	z,NBKBDSETU
+	bit	1,a
+	call	z,NBKBDSETD
+	bit	2,a
+	call	z,NBKBDSETL
+	bit	3,a
+	call	z,NBKBDSETR
+	bit	4,a
+	call	z,NBKBDSETS
+	ld	a,c
+	jp	NBKBDX
+NBKBDSETU:
+	res	5,c
+	ret
+NBKBDSETD:
+	res	6,c
+	ret
+NBKBDSETL:
+	res	4,c
+	ret
+NBKBDSETR:
+	res	7,c
+	ret
+NBKBDSETS:
+	res	0,c
+	ret
+;
+NBKBD9:					; 4,3,2,1,0,X,X,X
+	ld	a,(KBCHAR)
+	cp	'0'			; 0
+	jz	NBKBDP0
+	cp	'1'			; 1
+	jz	NBKBDP1
+	cp	'2'			; 2
+	jz	NBKBDP2
+	cp	'3'
+	jz	NBKBDP3
+	cp	'4'
+	jz	NBKBDP4
+	ld	a,$FF
+	jp	NBKBDX
+NBKBDP0:
+	ld	a,$F7
+	jp	NBKBDX
+NBKBDP1:
+	ld	a,$EF
+	jp	NBKBDX
+NBKBDP2:
+	ld	a,$DF
+	jp	NBKBDX
+NBKBDP3:
+	ld	a,$BF
+	jp	NBKBDX
+NBKBDP4:
+	ld	a,$7F
+	jp	NBKBDX
+;
+NBKBDA:					; .,COMMA,-,9,8,7,6,5
+	ld	a,$FF
+	jp	NBKBDX
+;
+NBKBDX:	
+	push	af
+	ld	a,(KBDCNT)
+	inc	a
+	and	$1F
+	ld	(KBDCNT),a
+	jr	nz,NBKBDX1
+	xor	a			; KBCHAR was processed
+	ld	(KBCHAR),a
+NBKBDX1:
+	pop	af
+	ret
+;
+NBKBDRST:
+	xor	a
+	ld	(KBDCNT),a
+	ret
+;
+KBDCNT:	db	0
 ;

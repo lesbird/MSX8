@@ -4765,6 +4765,7 @@ RCJSTK:	push	bc
 	call	CONIN
 	or	a
 	jr	z,RCJSTKX
+	and	$DF	; force upper case
 	cp	'D'
 	call	z,RCJSTKR
 	cp	'A'
