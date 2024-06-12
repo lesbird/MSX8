@@ -6038,152 +6038,152 @@ bios.asm:
   4758                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
   4759                          ; for now just read the keyboard until joysticks are here
   4760  2733  c5                RCJSTK:	push	bc
-  4761  2734  cd9527            	call	RCJSTKTMR
-  4762  2737  3aab27            	ld	a,(RCJSTKST)
-  4763  273a  f6f0              	or	$F0	; reset button 1 and 2
-  4764  273c  4f                	ld	c,a
-  4765  273d  cdf627            	call	CONIN
-  4766  2740  b7                	or	a
-  4767  2741  281e              	jr	z,RCJSTKX
-  4768  2743  fe44              	cp	'D'
-  4769  2745  cc6727            	call	z,RCJSTKR
-  4770  2748  fe41              	cp	'A'
-  4771  274a  cc6f27            	call	z,RCJSTKL
-  4772  274d  fe57              	cp	'W'
-  4773  274f  cc7727            	call	z,RCJSTKU
-  4774  2752  fe53              	cp	'S'
-  4775  2754  cc7f27            	call	z,RCJSTKD
-  4776  2757  fe20              	cp	' '
-  4777  2759  cc8727            	call	z,RCJSTK1
-  4778  275c  fe45              	cp	'E'
-  4779  275e  cc8e27            	call	z,RCJSTK2
+  4761  2734  cd9327            	call	RCJSTKTMR
+  4762  2737  3aa927            	ld	a,(RCJSTKST)
+  4763                          ;	or	$F0	; reset button 1 and 2
+  4764  273a  4f                	ld	c,a
+  4765  273b  cdf427            	call	CONIN
+  4766  273e  b7                	or	a
+  4767  273f  281e              	jr	z,RCJSTKX
+  4768  2741  fe44              	cp	'D'
+  4769  2743  cc6527            	call	z,RCJSTKR
+  4770  2746  fe41              	cp	'A'
+  4771  2748  cc6d27            	call	z,RCJSTKL
+  4772  274b  fe57              	cp	'W'
+  4773  274d  cc7527            	call	z,RCJSTKU
+  4774  2750  fe53              	cp	'S'
+  4775  2752  cc7d27            	call	z,RCJSTKD
+  4776  2755  fe20              	cp	' '
+  4777  2757  cc8527            	call	z,RCJSTK1
+  4778  275a  fe45              	cp	'E'
+  4779  275c  cc8c27            	call	z,RCJSTK2
   4780                          RCJSTKX:
-  4781  2761  79                	ld	a,c
-  4782  2762  32ab27            	ld	(RCJSTKST),a
-  4783  2765  c1                	pop	bc
-  4784  2766  c9                	ret
+  4781  275f  79                	ld	a,c
+  4782  2760  32a927            	ld	(RCJSTKST),a
+  4783  2763  c1                	pop	bc
+  4784  2764  c9                	ret
   4785                          RCJSTKR:
-  4786  2767  79                	ld	a,c
-  4787  2768  e6f7              	and	$F7
-  4788  276a  f604              	or	$04
-  4789  276c  4f                	ld	c,a
-  4790  276d  1836              	jr	RCJSTKRST
+  4786  2765  79                	ld	a,c
+  4787  2766  e6f7              	and	$F7
+  4788  2768  f604              	or	$04
+  4789  276a  4f                	ld	c,a
+  4790  276b  1836              	jr	RCJSTKRST
   4791                          RCJSTKL:
-  4792  276f  79                	ld	a,c
-  4793  2770  e6fb              	and	$FB
-  4794  2772  f608              	or	$08
-  4795  2774  4f                	ld	c,a
-  4796  2775  182e              	jr	RCJSTKRST
+  4792  276d  79                	ld	a,c
+  4793  276e  e6fb              	and	$FB
+  4794  2770  f608              	or	$08
+  4795  2772  4f                	ld	c,a
+  4796  2773  182e              	jr	RCJSTKRST
   4797                          RCJSTKU:
-  4798  2777  79                	ld	a,c
-  4799  2778  e6fe              	and	$FE
-  4800  277a  f602              	or	$02
-  4801  277c  4f                	ld	c,a
-  4802  277d  1826              	jr	RCJSTKRST
+  4798  2775  79                	ld	a,c
+  4799  2776  e6fe              	and	$FE
+  4800  2778  f602              	or	$02
+  4801  277a  4f                	ld	c,a
+  4802  277b  1826              	jr	RCJSTKRST
   4803                          RCJSTKD:
-  4804  277f  79                	ld	a,c
-  4805  2780  e6fd              	and	$FD
-  4806  2782  f601              	or	$01
-  4807  2784  4f                	ld	c,a
-  4808  2785  181e              	jr	RCJSTKRST
+  4804  277d  79                	ld	a,c
+  4805  277e  e6fd              	and	$FD
+  4806  2780  f601              	or	$01
+  4807  2782  4f                	ld	c,a
+  4808  2783  181e              	jr	RCJSTKRST
   4809                          RCJSTK1:
-  4810  2787  79                	ld	a,c
-  4811  2788  e6ef              	and	$EF
-  4812  278a  f620              	or	$20
-  4813  278c  4f                	ld	c,a
-  4814  278d  c9                	ret
+  4810  2785  79                	ld	a,c
+  4811  2786  e6ef              	and	$EF
+  4812  2788  f620              	or	$20
+  4813  278a  4f                	ld	c,a
+  4814  278b  c9                	ret
   4815                          RCJSTK2:
-  4816  278e  79                	ld	a,c
-  4817  278f  e6df              	and	$DF
-  4818  2791  f610              	or	$10
-  4819  2793  4f                	ld	c,a
-  4820  2794  c9                	ret
+  4816  278c  79                	ld	a,c
+  4817  278d  e6df              	and	$DF
+  4818  278f  f610              	or	$10
+  4819  2791  4f                	ld	c,a
+  4820  2792  c9                	ret
   4821                          RCJSTKTMR:
-  4822  2795  3aaa27            	ld	a,(RCJSTKCNT)
-  4823  2798  3c                	inc	a
-  4824  2799  e60f              	and	$0F
-  4825  279b  32aa27            	ld	(RCJSTKCNT),a
-  4826  279e  c0                	ret	nz
-  4827  279f  3eff              	ld	a,$FF	; reset stick state every 16 frames if idle
-  4828  27a1  32ab27            	ld	(RCJSTKST),a
-  4829  27a4  c9                	ret
+  4822  2793  3aa827            	ld	a,(RCJSTKCNT)
+  4823  2796  3c                	inc	a
+  4824  2797  e60f              	and	$0F
+  4825  2799  32a827            	ld	(RCJSTKCNT),a
+  4826  279c  c0                	ret	nz
+  4827  279d  3eff              	ld	a,$FF	; reset stick state every 16 frames if idle
+  4828  279f  32a927            	ld	(RCJSTKST),a
+  4829  27a2  c9                	ret
   4830                          RCJSTKRST:
-  4831  27a5  af                	xor	a
-  4832  27a6  32aa27            	ld	(RCJSTKCNT),a
-  4833  27a9  c9                	ret
+  4831  27a3  af                	xor	a
+  4832  27a4  32a827            	ld	(RCJSTKCNT),a
+  4833  27a7  c9                	ret
   4834                          ;
   4835                          RCJSTKCNT:
-  4836  27aa  00                	db	$00
+  4836  27a8  00                	db	$00
   4837                          RCJSTKST:
-  4838  27ab  ff                	db	$FF
+  4838  27a9  ff                	db	$FF
   4839                          ;
-  4840  27ac  c9                CONOUT:	ret
-  4841  27ad  f5                CONPRT:	push	af
-  4842  27ae  af                	xor	a
-  4843  27af  d380              	out	(CONPORT),a
-  4844  27b1  db80              CONOUL:	in	a,(CONPORT)
-  4845  27b3  e604              	and	$04
-  4846  27b5  28fa              	jr	z,CONOUL
-  4847  27b7  f1                	pop	af
-  4848  27b8  d381              	out	(CONPORT+1),a
-  4849  27ba  c9                	ret
+  4840  27aa  c9                CONOUT:	ret
+  4841  27ab  f5                CONPRT:	push	af
+  4842  27ac  af                	xor	a
+  4843  27ad  d380              	out	(CONPORT),a
+  4844  27af  db80              CONOUL:	in	a,(CONPORT)
+  4845  27b1  e604              	and	$04
+  4846  27b3  28fa              	jr	z,CONOUL
+  4847  27b5  f1                	pop	af
+  4848  27b6  d381              	out	(CONPORT+1),a
+  4849  27b8  c9                	ret
   4850                          ;
   4851                          CONPRTS:
-  4852  27bb  7e                	ld	a,(HL)
-  4853  27bc  b7                	or	a
-  4854  27bd  c8                	ret	z
-  4855  27be  cdad27            	call	CONPRT
-  4856  27c1  23                	inc	HL
-  4857  27c2  18f7              	jr	CONPRTS
+  4852  27b9  7e                	ld	a,(HL)
+  4853  27ba  b7                	or	a
+  4854  27bb  c8                	ret	z
+  4855  27bc  cdab27            	call	CONPRT
+  4856  27bf  23                	inc	HL
+  4857  27c0  18f7              	jr	CONPRTS
   4858                          ;
-  4859  27c4  f5                OUTHEX:	push	af
-  4860  27c5  e5                	push	hl
-  4861  27c6  d5                	push	de
-  4862  27c7  f5                	push	af
-  4863  27c8  e6f0              	and	$F0
-  4864  27ca  1f                	rra
-  4865  27cb  1f                	rra
-  4866  27cc  1f                	rra
-  4867  27cd  1f                	rra
-  4868  27ce  210128            	ld	hl,HEXTBL
-  4869  27d1  5f                	ld	e,a
-  4870  27d2  1600              	ld	d,0
-  4871  27d4  19                	add	hl,de
-  4872  27d5  7e                	ld	a,(hl)
-  4873  27d6  cdac27            	call	CONOUT
-  4874  27d9  f1                	pop	af
-  4875  27da  e60f              	and	$0F
-  4876  27dc  210128            	ld	hl,HEXTBL
-  4877  27df  5f                	ld	e,a
-  4878  27e0  19                	add	hl,de
-  4879  27e1  7e                	ld	a,(hl)
-  4880  27e2  cdac27            	call	CONOUT
-  4881  27e5  d1                	pop	de
-  4882  27e6  e1                	pop	hl
-  4883  27e7  f1                	pop	af
-  4884  27e8  c9                	ret
+  4859  27c2  f5                OUTHEX:	push	af
+  4860  27c3  e5                	push	hl
+  4861  27c4  d5                	push	de
+  4862  27c5  f5                	push	af
+  4863  27c6  e6f0              	and	$F0
+  4864  27c8  1f                	rra
+  4865  27c9  1f                	rra
+  4866  27ca  1f                	rra
+  4867  27cb  1f                	rra
+  4868  27cc  21ff27            	ld	hl,HEXTBL
+  4869  27cf  5f                	ld	e,a
+  4870  27d0  1600              	ld	d,0
+  4871  27d2  19                	add	hl,de
+  4872  27d3  7e                	ld	a,(hl)
+  4873  27d4  cdaa27            	call	CONOUT
+  4874  27d7  f1                	pop	af
+  4875  27d8  e60f              	and	$0F
+  4876  27da  21ff27            	ld	hl,HEXTBL
+  4877  27dd  5f                	ld	e,a
+  4878  27de  19                	add	hl,de
+  4879  27df  7e                	ld	a,(hl)
+  4880  27e0  cdaa27            	call	CONOUT
+  4881  27e3  d1                	pop	de
+  4882  27e4  e1                	pop	hl
+  4883  27e5  f1                	pop	af
+  4884  27e6  c9                	ret
   4885                          ;
-  4886  27e9  f5                CRLF:	push	af
-  4887  27ea  3e0d              	ld	a,0DH
-  4888  27ec  cdac27            	call	CONOUT
-  4889  27ef  3e0a              	ld	a,0AH
-  4890  27f1  cdac27            	call	CONOUT
-  4891  27f4  f1                	pop	af
-  4892  27f5  c9                	ret
+  4886  27e7  f5                CRLF:	push	af
+  4887  27e8  3e0d              	ld	a,0DH
+  4888  27ea  cdaa27            	call	CONOUT
+  4889  27ed  3e0a              	ld	a,0AH
+  4890  27ef  cdaa27            	call	CONOUT
+  4891  27f2  f1                	pop	af
+  4892  27f3  c9                	ret
   4893                          ;
-  4894  27f6  af                CONIN:	xor	a
-  4895  27f7  d380              	out	(CONPORT),a
-  4896  27f9  db80              	in	a,(CONPORT)
-  4897  27fb  e601              	and	$01
-  4898  27fd  c8                	ret	z
-  4899  27fe  db81              	in	a,(CONPORT+1)
-  4900  2800  c9                	ret
+  4894  27f4  af                CONIN:	xor	a
+  4895  27f5  d380              	out	(CONPORT),a
+  4896  27f7  db80              	in	a,(CONPORT)
+  4897  27f9  e601              	and	$01
+  4898  27fb  c8                	ret	z
+  4899  27fc  db81              	in	a,(CONPORT+1)
+  4900  27fe  c9                	ret
   4901                          ;
-  4902  2801  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+  4902  27ff  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
               3839414243444546  
   4903                          ;
   4904                          ; Pad to $2900
-  4905  2811  0000000000000000          DEFS    $2900 - ASMPC
+  4905  280f  0000000000000000          DEFS    $2900 - ASMPC
               0000000000000000  
               0000000000000000  
               0000000000000000  
@@ -6212,7 +6212,8 @@ bios.asm:
               0000000000000000  
               0000000000000000  
               0000000000000000  
-              00000000000000    
+              0000000000000000  
+              00                
   4906                          ; PATCH DIRECT PSG/VDP I/O
   4907                          ; ENTER HL=START ADR, DE=NUM BYTES
   4908                          ; RETURN A=NUM PATCHES
@@ -6498,7 +6499,7 @@ bios.asm:
   5176  2b11  fe4d              	CP	$4D
   5177  2b13  2025              	JR	NZ,GAMECR2
   5178  2b15  21262b            	LD	HL,ELEVMSG
-  5179  2b18  cdbb27            	CALL	CONPRTS
+  5179  2b18  cdb927            	CALL	CONPRTS
   5180  2b1b  af                	XOR	A
   5181  2b1c  321640            	LD	($4016),A
   5182  2b1f  321740            	LD	($4017),A
@@ -6514,7 +6515,7 @@ bios.asm:
   5190  2b3d  fe36              	CP	$36
   5191  2b3f  201a              	JR	NZ,GAMECR3
   5192  2b41  214f2b            	LD	HL,THEXMSG
-  5193  2b44  cdbb27            	CALL	CONPRTS
+  5193  2b44  cdb927            	CALL	CONPRTS
   5194  2b47  af                	XOR	A
   5195  2b48  32af48            	LD	($48AF),A
   5196  2b4b  32b048            	LD	($48B0),A
@@ -6531,7 +6532,7 @@ bios.asm:
   5206  2b65  fe40              	CP	$40
   5207  2b67  2025              	JR	NZ,GAMECR4
   5208  2b69  217d2b            	LD	HL,KINGMSG
-  5209  2b6c  cdbb27            	CALL	CONPRTS
+  5209  2b6c  cdb927            	CALL	CONPRTS
   5210  2b6f  af                	XOR	A
   5211  2b70  323f40            	LD	($403F),A
   5212  2b73  324040            	LD	($4040),A
@@ -6554,7 +6555,7 @@ bios.asm:
   5227  2b9f  fed3              	CP	$D3
   5228  2ba1  2019              	JR	NZ,GAMECR5
   5229  2ba3  21af2b            	LD	HL,ARKAMSG
-  5230  2ba6  cdbb27            	CALL	CONPRTS
+  5230  2ba6  cdb927            	CALL	CONPRTS
   5231  2ba9  3ec9              	LD	A,$C9
   5232  2bab  32fc42            	LD	($42FC),A
   5233  2bae  c9                	RET
@@ -6573,7 +6574,7 @@ bios.asm:
   5245  2bcd  fe41              	CP	$41
   5246  2bcf  202c              	JR	NZ,GAMECR6
   5247  2bd1  21f12b            	LD	HL,GOONMSG
-  5248  2bd4  cdbb27            	CALL	CONPRTS
+  5248  2bd4  cdb927            	CALL	CONPRTS
   5249  2bd7  af                	XOR	A
   5250  2bd8  322240            	LD	($4022),A
   5251  2bdb  322340            	LD	($4023),A
@@ -6596,7 +6597,7 @@ bios.asm:
   5267  2c07  fe6b              	CP	$6B
   5268  2c09  2033              	JR	NZ,GAMECR7
   5269  2c0b  21322c            	LD	HL,GUARMSG
-  5270  2c0e  cdbb27            	CALL	CONPRTS
+  5270  2c0e  cdb927            	CALL	CONPRTS
   5271  2c11  3e33              	LD	A,$33
   5272  2c13  323a44            	LD	($443A),A
   5273  2c16  323b44            	LD	($443B),A
@@ -6624,7 +6625,7 @@ bios.asm:
   5294  2c4f  fe41              	CP	$41
   5295  2c51  2035              	JR	NZ,GAMECR8
   5296  2c53  21792c            	LD	HL,KNIGMSG
-  5297  2c56  cdbb27            	CALL	CONPRTS
+  5297  2c56  cdb927            	CALL	CONPRTS
   5298  2c59  af                	XOR	A
   5299  2c5a  322840            	LD	($4028),A
   5300  2c5d  322940            	LD	($4029),A
@@ -6652,7 +6653,7 @@ bios.asm:
   5321  2c99  fe40              	CP	$40
   5322  2c9b  2023              	JR	NZ,GAMECR9
   5323  2c9d  21b42c            	LD	HL,PIPPMSG
-  5324  2ca0  cdbb27            	CALL	CONPRTS
+  5324  2ca0  cdb927            	CALL	CONPRTS
   5325  2ca3  af                	XOR	A
   5326  2ca4  323340            	LD	($4033),A
   5327  2ca7  323440            	LD	($4034),A
@@ -6675,7 +6676,7 @@ bios.asm:
   5343  2cd1  fe40              	CP	$40
   5344  2cd3  2025              	JR	NZ,GAMECR10
   5345  2cd5  21e62c            	LD	HL,MAGIMSG
-  5346  2cd8  cdbb27            	CALL	CONPRTS
+  5346  2cd8  cdb927            	CALL	CONPRTS
   5347  2cdb  af                	XOR	A
   5348  2cdc  321440            	LD	($4014),A
   5349  2cdf  321540            	LD	($4015),A
@@ -6697,7 +6698,7 @@ bios.asm:
   5363  2d0b  fe41              	CP	$41
   5364  2d0d  2029              	JR	NZ,GAMECR11
   5365  2d0f  212b2d            	LD	HL,TWINMSG
-  5366  2d12  cdbb27            	CALL	CONPRTS
+  5366  2d12  cdb927            	CALL	CONPRTS
   5367  2d15  af                	XOR	A
   5368  2d16  322840            	LD	($4028),A
   5369  2d19  322940            	LD	($4029),A
@@ -6719,7 +6720,7 @@ bios.asm:
   5384  2d42  fea8              	CP	$A8
   5385  2d44  2018              	JR	NZ,GAMECR12
   5386  2d46  21522d            	LD	HL,FROGMSG
-  5387  2d49  cdbb27            	CALL	CONPRTS
+  5387  2d49  cdb927            	CALL	CONPRTS
   5388  2d4c  3e28              	LD	A,$28
   5389  2d4e  325d41            	LD	($415D),A
   5390  2d51  c9                	RET

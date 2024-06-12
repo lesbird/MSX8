@@ -4760,7 +4760,7 @@ OUTPS2:	ld      a,e
 RCJSTK:	push	bc
 	call	RCJSTKTMR
 	ld	a,(RCJSTKST)
-	or	$F0	; reset button 1 and 2
+;	or	$F0	; reset button 1 and 2
 	ld	c,a
 	call	CONIN
 	or	a
