@@ -14,14 +14,13 @@
         INCLUDE "const.def"
         INCLUDE "msx.def"
 
-; Define VDP/PSG ports for Heathkit graphics board
+; Define VDP/PSG ports for RCBus TMS9918 graphics board and RCBus AY3 audio card set to MSX I/O ports
         DEFC    VDPDAT = $98
         DEFC    VDPCTL = $99
         DEFC    PSGCTL = $A0
 	DEFC	PSGDAT = $A1
 	DEFC	PSGRIN = $A2
-	DEFC	CONPORT = $48
-	DEFC	KEYPORT = $90
+	DEFC	CONPORT = $80
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
         EXTERN  ASPCT2
@@ -197,7 +196,7 @@ WRSLT:  jp      A01D1                   ; $0014
 
         defs    $0018-$,0
 
-OUTDO:  jp	NBJSTK
+OUTDO:  jp	RCJSTK
 	;jp      A1B45                   ; $0018
 
         defs    $001C-$,0
@@ -2445,7 +2444,7 @@ A110C:	nop
 	nop
 ;A110E:  out     (PSGCTL),a
 ;        in      a,(PSGRIN)
-A110E:	call	NBJSTK
+A110E:	call	RCJSTK
 	nop
         ret
 ;
@@ -4745,128 +4744,108 @@ OUTPSG:	out     (PSGCTL),a
 	cp	$07			; port config register
 	jr	nz,OUTPS1
 	ld	a,e
-	and	$3F			; NABU port config bits
-	or	$40			; make sure A=out,B=in 01xx.xxxx
+	and	$3F
 	ld	e,a
 	jr	OUTPS2
 OUTPS1:	cp	$0E			; block port A writes
 	jr	nz,OUTPS2
-	ld	a,10H			; just enable VDP interrupts
-	ld	e,a
+	ld	e,$00
 OUTPS2:	ld      a,e
 	out     (PSGDAT),a
 	ret
 ;
 ; JOYSTICK CODE
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-NBJSTK:	push	bc
-	ld	a,(JSTKST)		; prev state (1=off, 0=on)
+; for now just read the keyboard until joysticks are here
+RCJSTK:	push	bc
+	call	RCJSTKTMR
+	ld	a,(RCJSTKST)
+	or	$F0	; reset button 1 and 2
 	ld	c,a
-	in	a,(KEYPORT+1)		; keyboard status
-	and	$02			; z=no data waiting
-	jp	z,NBJSTX
-	in	a,(KEYPORT)		; keyboard data
-	ld	b,a			; save it
-	cp	$94			; watchdog - skip it
-	jp	z,NBJSTX
-	cp	$80			; player 1 input
-	jr	z,NBJSTP
-	cp	$81			; player 2 input
-	jr	z,NBJSTP
-	ld	a,b
-	and	$E0			; mask bits
-	cp	$A0			; looking for 1010.xxxx
-	jp	nz,NBJSTX
-	ld	a,b
-	and	$10			; fire button
-	call	z,NBJSF0
-	call	nz,NBJSF1
-	ld	a,b
-	and	$08			; up
-	call	z,NBJSU0
-	call	nz,NBJSU1
-	ld	a,b
-	and	$04			; right
-	call	z,NBJSR0
-	call	nz,NBJSR1
-	ld	a,b
-	and	$02			; down
-	call	z,NBJSD0
-	call	nz,NBJSD1
-	ld	a,b
-	and	$01			; left
-	call	z,NBJSL0
-	call	nz,NBJSL1
-	jp	NBJSTX
-NBJSTP:	and	$01
-	ld	(JSTKPL),a
-	jp	NBJSTX
-NBJSF0:	ld	a,c
-	or	$10
-	ld	c,a
-	xor	a
-	ret
-NBJSF1:	ld	a,c
-	and	$EF
-	ld	c,a
-	ret
-NBJSU0:	ld	a,c
-	or	$01
-	ld	c,a
-	xor	a
-	ret
-NBJSU1:	ld	a,c
-	and	$FE
-	ld	c,a
-	ret
-NBJSR0:	ld	a,c
-	or	$08
-	ld	c,a
-	xor	a
-	ret
-NBJSR1:	ld	a,c
-	and	$F7
-	ld	c,a
-	ret
-NBJSD0:	ld	a,c
-	or	$02
-	ld	c,a
-	xor	a
-	ret
-NBJSD1:	ld	a,c
-	and	$FD
-	ld	c,a
-	ret
-NBJSL0:	ld	a,c
-	or	$04
-	ld	c,a
-	xor	a
-	ret
-NBJSL1:	ld	a,c
-	and	$FB
-	ld	c,a
-	ret
-NBJSTX:	ld	a,c
-	ld	(JSTKST),a
+	call	CONIN
+	or	a
+	jr	z,RCJSTKX
+	cp	'D'
+	call	z,RCJSTKR
+	cp	'A'
+	call	z,RCJSTKL
+	cp	'W'
+	call	z,RCJSTKU
+	cp	'S'
+	call	z,RCJSTKD
+	cp	' '
+	call	z,RCJSTK1
+	cp	'E'
+	call	z,RCJSTK2
+RCJSTKX:
+	ld	a,c
+	ld	(RCJSTKST),a
 	pop	bc
 	ret
+RCJSTKR:
+	ld	a,c
+	and	$F7
+	or	$04
+	ld	c,a
+	jr	RCJSTKRST
+RCJSTKL:
+	ld	a,c
+	and	$FB
+	or	$08
+	ld	c,a
+	jr	RCJSTKRST
+RCJSTKU:
+	ld	a,c
+	and	$FE
+	or	$02
+	ld	c,a
+	jr	RCJSTKRST
+RCJSTKD:
+	ld	a,c
+	and	$FD
+	or	$01
+	ld	c,a
+	jr	RCJSTKRST
+RCJSTK1:
+	ld	a,c
+	and	$EF
+	or	$20
+	ld	c,a
+	ret
+RCJSTK2:
+	ld	a,c
+	and	$DF
+	or	$10
+	ld	c,a
+	ret
+RCJSTKTMR:
+	ld	a,(RCJSTKCNT)
+	inc	a
+	and	$0F
+	ld	(RCJSTKCNT),a
+	ret	nz
+	ld	a,$FF	; reset stick state every 16 frames if idle
+	ld	(RCJSTKST),a
+	ret
+RCJSTKRST:
+	xor	a
+	ld	(RCJSTKCNT),a
+	ret
 ;
-JSTKST:	db	$FF
-JSTKPL:	db	0
+RCJSTKCNT:
+	db	$00
+RCJSTKST:
+	db	$FF
 ;
-CONOUT:	push	af
-	in	$F0
-	cp	$6F
-	jr	nz,CONOUX
-	pop	af
+CONOUT:	ret
 CONPRT:	push	af
-CONOUL:	in	a,(CONPORT+5)
-	and	$20
+	xor	a
+	out	(CONPORT),a
+CONOUL:	in	a,(CONPORT)
+	and	$04
 	jr	z,CONOUL
 	pop	af
-	out	(CONPORT),a
-	ret
-CONOUX:	pop	af
+	out	(CONPORT+1),a
 	ret
 ;
 CONPRTS:
@@ -4912,14 +4891,12 @@ CRLF:	push	af
 	pop	af
 	ret
 ;
-CONIN:	ld	a,'I'
-	call	CONOUT
-	in	a,(CONPORT+5)
-	and	$01
-	jr	z,CONINX
+CONIN:	xor	a
+	out	(CONPORT),a
 	in	a,(CONPORT)
-CONINX:	call	OUTHEX
-	call	CRLF
+	and	$01
+	ret	z
+	in	a,(CONPORT+1)
 	ret
 ;
 HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
