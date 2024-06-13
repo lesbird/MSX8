@@ -14,6 +14,10 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
 [ROM CROSS REFERENCE](https://github.com/lesbird/MSX8/blob/main/romlist.md) - list of game ROM status (working or not) along with long file names
 
+Launch games as shown below
+```
+>MSX8 PACMAN.ROM
+```
 MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an [HA8-3 Color Graphics Card](https://github.com/sebhc/sebhc/wiki/HA-8-3) (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K (a clone of the HA8-3).
 
 This repository contains the source code for the CP/M program buildable with the standard CP/M ASM program as follows:
