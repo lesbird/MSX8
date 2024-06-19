@@ -4776,12 +4776,15 @@ NBJSTK:	push	bc
 	jr	z,NBJSTP
 	call	NBKBDRST
 	ld	a,b
-	ld	(KBCHAR),a
+	cp	'E'			; fire button 2
+	call	z,NBJSF3
+	call	nz,NBJSF2
+	ld	a,b
 	and	$E0			; mask bits
 	cp	$A0			; looking for 1010.xxxx
 	jp	nz,NBJSTX
 	ld	a,b
-	and	$10			; fire button
+	and	$10			; fire button 1
 	call	z,NBJSF0
 	call	nz,NBJSF1
 	ld	a,b
@@ -4816,11 +4819,11 @@ NBJSF1:	ld	a,c
 NBJSF2:	ld	a,c
 	or	$20
 	ld	c,a
-	xor	a
 	ret
 NBJSF3:	ld	a,c
 	and	$DF
 	ld	c,a
+	xor	a
 	ret
 NBJSU0:	ld	a,c
 	or	$01
@@ -5546,6 +5549,7 @@ NBKBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	cp	' '
 	call	z,NBKBDSETS
 ; implement WASD controls
+	and	$DF			; FORCE UPPER CASE
 	cp	'W'
 	call	z,NBKBDSETU
 	cp	'A'

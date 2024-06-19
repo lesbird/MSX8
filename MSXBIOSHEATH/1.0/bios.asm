@@ -402,20 +402,39 @@ C01AD:  INC     D
         RET
         ENDIF
 
-A01B6:  call    A027E                   ; make masks
+A01B6:  
+;	call    A027E                   ; make masks
+	nop
+	nop
+	nop
 
         IF      SLOTFIX = 1
-        jp      m,C016F
+;        jp      m,C016F
+	nop
+	nop
+	nop
         ELSE
-        jp      m,A01C6                 ; expanded slot, handle
+;        jp      m,A01C6                 ; expanded slot, handle
+	nop
+	nop
+	nop
         ENDIF
 
-        in      a,($A8)
-        ld      d,a
-        and     c                       ; clear slot of page
-        or      b                       ; set new slot
-        call    RDPRIM                  ; read byte
-        ld      a,e
+;        in      a,($A8)
+	nop
+	nop
+;        ld      d,a
+	nop
+;        and     c                       ; clear slot of page
+	nop
+;        or      b                       ; set new slot
+	nop
+;        call    RDPRIM                  ; read byte
+	nop
+	nop
+	nop
+;        ld      a,e
+	xor	a
         ret
 ;
 A01C6:  push    hl
@@ -2245,30 +2264,59 @@ A0D02:  pop     ix
         ei
         ret
 ;
-A0D12:  in      a,($AA)
-        and     $F0
-        ld      c,a
+A0D12:  
+;	in      a,($AA)
+	nop
+	nop
+;        and     $F0
+	nop
+	nop
+;        ld      c,a
+	nop
         ld      b,11
         ld      hl,NEWKEY
-A0D1C:  ld      a,c
+A0D1C:  
+;	ld      a,c
+	nop
 ;        out     ($AA),a
-	nop
-	nop
+;	nop
+;	nop
+	ld	c,b
 ;        in      a,($A9)
-	nop
-	nop
+;	nop
+;	nop
+	call	H8KBD
         ld      (hl),a
         inc     c
         inc     hl
         djnz    A0D1C                   ; scan keyboard & put in NEWKEY
-        ld      a,(ENSTOP)
-        and     a                       ; Hot break possible ?
-        jr      z,A0D3A                 ; nop, quit
-        ld      a,(NEWKEY+6)
-        cp      11101000b               ; CODE+GRAPH+CTRL+SHIFT pressed ?
-        jr      nz,A0D3A                ; nop, quit
-        ld      ix,J409B                ; start headloop
-        jp      A01FF                   ; with CALBAS
+;        ld      a,(ENSTOP)
+	nop
+	nop
+	nop
+;        and     a                       ; Hot break possible ?
+	nop
+;        jr      z,A0D3A                 ; nop, quit
+	nop
+	nop
+;        ld      a,(NEWKEY+6)
+	nop
+	nop
+	nop
+;        cp      11101000b               ; CODE+GRAPH+CTRL+SHIFT pressed ?
+	nop
+	nop
+;        jr      nz,A0D3A                ; nop, quit
+	nop
+	nop
+;        ld      ix,J409B                ; start headloop
+	nop
+	nop
+	nop
+;        jp      A01FF                   ; with CALBAS
+	nop
+	nop
+	nop
 ;
 A0D3A:  ld      de,OLDKEY+11
         ld      b,11
@@ -4803,12 +4851,12 @@ H8JST5:	ld	a,b
 	ld	a,c
 	and	$F7
 	ld	c,a
-H8JST6:	in	$F0
+H8JST6:	in	a,($F0)
 	cp	$F0			; 7=TRGA
 	jr	z,H8JSTA
 	cp	$CF			; 9=TRGB
 	jr	nz,H8JSTX
-	ld	a,c
+H8JSTB:	ld	a,c
 	and	$DF
 	ld	c,a
 	jr	H8JSTX
@@ -4825,7 +4873,10 @@ H8JSTX:	ld	a,c
 ; 5=SPACE
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
 ; .=0F,#=2F,/=4F,*=6F,-=8F,+=AF
-H8KPAD:	in	a,($F0)
+H8KPAD:	
+	ld	a,'P'
+	call	CONOUT
+	in	a,($F0)
 	cp	$FA			; 2 DOWN
 	jr	z,H8KPAD2
 	cp	$F6			; 4 LEFT
@@ -4852,150 +4903,6 @@ H8KPAD8:
 	ret
 H8KPAD5:
 	ld	a,$FE
-	ret
-; READ H8 KEYBOARD
-; C=ROW NUMBER
-H8KBD:
-	ld	a,c
-	cp	$00			; 7,6,5,4,3,2,1,0
-	jr	z,H8KBD0
-	cp	$01			; SEMI,],[,\,=,-,9,8
-	jr	z,H8KBD1
-	cp	$02			; B,A, ,/,DOT,COMMA,`,'
-	jr	z,H8KBD2
-	cp	$03			; J,I,H,G,F,E,D,C
-	jr	z,H8KBD3
-	cp	$04			; R,Q,P,O,N,M,L,K
-	jr	z,H8KBD4
-	cp	$05			; Z,Y,X,W,V,U,T,S
-	jr	z,H8KBD5
-	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
-	jr	z,H8KBD6
-	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
-	jr	z,H8KBD7
-	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
-	jr	z,H8KBD8
-	cp	$09			; 4,3,2,1,0,X,X,X
-	jr	z,H8KBD9
-	cp	$0A			; .,COMMA,-,9,8,7,6,5
-	jr	z,H8KBDA
-	ld	a,$FF
-	ret
-; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
-H8KBD0:					; 7,6,5,4,3,2,1,0
-	in	a,($F0)
-	cp	$FE			; 0
-	jr	z,H8KBDK0
-	cp	$FC			; 1
-	jr	z,H8KBDK1
-;	cp	$FA			; 2
-;	jr	z,H8KBDK2
-	cp	$F8			; 3
-	jr	z,H8KBDK3
-;	cp	$F6			; 4
-;	jr	z,H8KBDK4
-;	cp	$F4			; 5
-;	jr	z,H8KBDK5
-;	cp	$F2			; 6
-;	jr	z,H8KBDK6
-;	cp	$F0			; 7
-;	jr	z,H8KBDK7
-	ld	a,$FF
-	ret
-H8KBDK0:
-	ld	a,$FE
-	ret
-H8KBDK1:
-	ld	a,$FD
-	ret
-H8KBDK3:
-	ld	a,$FB
-	ret
-;
-H8KBD1:					; SEMI,],[,\,=,-,9,8
-	ld	a,$FF
-	ret
-;
-H8KBD2:					; B,A, ,/,DOT,COMMA,`,'
-	ld	a,$FF
-	ret
-;
-H8KBD3:					; J,I,H,G,F,E,D,C
-	ld	a,$FF
-	ret
-;
-H8KBD4:					; R,Q,P,O,N,M,L,K
-	ld	a,$FF
-	ret
-;
-H8KBD5:					; Z,Y,X,W,V,U,T,S
-	ld	a,$FF
-	ret
-;
-H8KBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
-	ld	a,$FF
-	ret
-;
-H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
-	ld	a,$FF
-	ret
-;
-H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
-	call	H8KPAD
-	ld	c,a
-; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-	call	H8JSTK
-	bit	0,a
-	call	z,H8KBDSETU
-	bit	1,a
-	call	z,H8KBDSETD
-	bit	2,a
-	call	z,H8KBDSETL
-	bit	3,a
-	call	z,H8KBDSETR
-	bit	4,a
-	call	z,H8KBDSETS
-	ld	a,c
-	ret
-; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
-H8KBD9:					; 4,3,2,1,0,X,X,X
-	in	$F0
-	cp	$FE			; 0
-	jz	H8KBDP0
-	cp	$FC			; 1
-	jz	H8KBDP1
-	cp	$F8			; 3
-	jz	H8KBDP2
-	ld	a,$FF
-	ret
-H8KBDP0:
-	ld	a,$F7
-	ret
-H8KBDP1:
-	ld	a,$EF
-	ret
-H8KBDP2:
-	ld	a,$DF
-	ret
-;
-H8KBDA:					; .,COMMA,-,9,8,7,6,5
-	ld	a,$FF
-	ret
-;
-H8KBDSETU:
-	res	5,c
-	ret
-H8KBDSETD:
-	res	6,c
-	ret
-H8KBDSETL:
-	res	4,c
-	ret
-H8KBDSETR:
-	res	7,c
-	ret
-H8KBDSETS:
-	res	0,c
 	ret
 ;
 CONOUT:	push	af
@@ -5297,17 +5204,17 @@ DEFTBL0:
 OUT0A0:	
 	OUT	(PSGCTL),A
 	LD	(PSGREG),A
-	PUSH	AF
-	LD	A,'2'
-	CALL	CONOUT
-	POP	AF
+;	PUSH	AF
+;	LD	A,'2'
+;	CALL	CONOUT
+;	POP	AF
 	RET
 ;
 PSGREG:	DB	0
 ;
 OUT0A1:	PUSH	AF
-	LD	A,'3'
-	CALL	CONOUT
+;	LD	A,'3'
+;	CALL	CONOUT
 	LD	A,(PSGREG)
 	CP	$07
 	JR	Z,OUT0A17
@@ -5559,4 +5466,333 @@ FROGMSG:
 ;
 GAMECR12:
 	RET
+;
+KBDIN:
+	ld	a,(KBDCNT)
+	inc	a
+	and	$0F
+	ld	(KBDCNT),a
+	ret	nz
+	in	a,(CONPORT+5)
+	and	$01
+	jr	z,KBDINX
+	in	a,(CONPORT)
+	ld	(KBDKEY),a
+	ret
+KBDINX:	xor	a
+	ld	(KBDKEY),a
+	ret
+;
+; READ H8 KEYBOARD
+; C=ROW NUMBER
+H8KBD:
+	call	KBDIN
+	ld	a,'K'
+	call	CONOUT
+	ld	a,c
+	call	OUTHEX
+	cp	$00			; 7,6,5,4,3,2,1,0
+	jp	z,H8KBD0
+	cp	$01			; SEMI,],[,\,=,-,9,8
+	jp	z,H8KBD1
+	cp	$02			; B,A, ,/,DOT,COMMA,`,'
+	jp	z,H8KBD2
+	cp	$03			; J,I,H,G,F,E,D,C
+	jp	z,H8KBD3
+	cp	$04			; R,Q,P,O,N,M,L,K
+	jp	z,H8KBD4
+	cp	$05			; Z,Y,X,W,V,U,T,S
+	jp	z,H8KBD5
+	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	jp	z,H8KBD6
+	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	jp	z,H8KBD7
+	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	jp	z,H8KBD8
+	cp	$09			; 4,3,2,1,0,X,X,X
+	jp	z,H8KBD9
+	cp	$0A			; .,COMMA,-,9,8,7,6,5
+	jp	z,H8KBDA
+	ld	a,$FF
+	ret
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+H8KBD0:					; 7,6,5,4,3,2,1,0
+	in	a,($F0)
+	cp	$FE			; 0
+	jp	z,H8KBDBIT1
+	cp	$FC			; 1
+	jp	z,H8KBDBIT2
+	cp	$F8			; 3
+	jp	z,H8KBDBIT3
+	ld	a,(KBDKEY)
+	cp	'7'
+	jp	z,H8KBDBIT8
+	cp	'6'
+	jp	z,H8KBDBIT7
+	cp	'5'
+	jp	z,H8KBDBIT6
+	cp	'4'
+	jp	z,H8KBDBIT5
+	cp	'3'
+	jp	z,H8KBDBIT4
+	cp	'2'
+	jp	z,H8KBDBIT3
+	cp	'1'
+	jp	z,H8KBDBIT2
+	cp	'0'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD1:					; SEMI,],[,\,=,-,9,8
+	ld	a,(KBDKEY)
+	cp	';'
+	jp	z,H8KBDBIT8
+	cp	']'
+	jp	z,H8KBDBIT7
+	cp	'['
+	jp	z,H8KBDBIT6
+	cp	$5C
+	jp	z,H8KBDBIT5
+	cp	'='
+	jp	z,H8KBDBIT4
+	cp	'-'
+	jp	z,H8KBDBIT3
+	cp	'9'
+	jp	z,H8KBDBIT2
+	cp	'8'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD2:					; B,A, ,/,DOT,COMMA,`,'
+	ld	a,(KBDKEY)
+	cp	'B'
+	jp	z,H8KBDBIT8
+	cp	'A'
+	jp	z,H8KBDBIT7
+	cp	' '
+	jp	z,H8KBDBIT6
+	cp	'/'
+	jp	z,H8KBDBIT5
+	cp	'.'
+	jp	z,H8KBDBIT4
+	cp	','
+	jp	z,H8KBDBIT3
+	cp	'`'
+	jp	z,H8KBDBIT2
+	cp	$2C
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD3:					; J,I,H,G,F,E,D,C
+	ld	a,(KBDKEY)
+	cp	'J'
+	jp	z,H8KBDBIT8
+	cp	'I'
+	jp	z,H8KBDBIT7
+	cp	'H'
+	jp	z,H8KBDBIT6
+	cp	'G'
+	jp	z,H8KBDBIT5
+	cp	'F'
+	jp	z,H8KBDBIT4
+	cp	'E'
+	jp	z,H8KBDBIT3
+	cp	'D'
+	jp	z,H8KBDBIT2
+	cp	'C'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD4:					; R,Q,P,O,N,M,L,K
+	ld	a,(KBDKEY)
+	cp	'R'
+	jp	z,H8KBDBIT8
+	cp	'Q'
+	jp	z,H8KBDBIT7
+	cp	'P'
+	jp	z,H8KBDBIT6
+	cp	'O'
+	jp	z,H8KBDBIT5
+	cp	'N'
+	jp	z,H8KBDBIT4
+	cp	'M'
+	jp	z,H8KBDBIT3
+	cp	'L'
+	jp	z,H8KBDBIT2
+	cp	'K'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD5:					; Z,Y,X,W,V,U,T,S
+	ld	a,(KBDKEY)
+	cp	'Z'
+	jp	z,H8KBDBIT8
+	cp	'Y'
+	jp	z,H8KBDBIT7
+	cp	'X'
+	jp	z,H8KBDBIT6
+	cp	'W'
+	jp	z,H8KBDBIT5
+	cp	'V'
+	jp	z,H8KBDBIT4
+	cp	'U'
+	jp	z,H8KBDBIT3
+	cp	'T'
+	jp	z,H8KBDBIT2
+	cp	'S'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	ld	a,$FF
+	ret
+;
+H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	ld	a,(KBDKEY)
+	cp	$0D
+	jp	z,H8KBDBIT8
+	cp	$1B
+	jp	z,H8KBDBIT7
+	cp	$08
+	jp	z,H8KBDBIT6
+	cp	$1B
+	jp	z,H8KBDBIT5
+	cp	$09
+	jp	z,H8KBDBIT4
+	cp	$1B
+	jp	z,H8KBDBIT3
+	cp	$1B
+	jp	z,H8KBDBIT2
+	cp	$1B
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	call	H8KPAD
+	ld	c,a
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+	call	H8JSTK
+	bit	0,a
+	call	z,H8KBDSETU
+	bit	1,a
+	call	z,H8KBDSETD
+	bit	2,a
+	call	z,H8KBDSETL
+	bit	3,a
+	call	z,H8KBDSETR
+	bit	4,a
+	call	z,H8KBDSETS
+	ld	a,(KBDKEY)
+	cp	$20
+	call	z,H8KBDSETS
+	cp	'A'
+	call	z,H8KBDSETL
+	cp	'D'
+	call	z,H8KBDSETR
+	cp	'W'
+	call	z,H8KBDSETU
+	cp	'S'
+	call	z,H8KBDSETD
+	ld	a,c
+	ret
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+H8KBD9:					; 4,3,2,1,0,X,X,X
+	in	a,($F0)
+	cp	$FE			; 0
+	jp	z,H8KBDBIT4
+	cp	$FC			; 1
+	jp	z,H8KBDBIT5
+	cp	$F8			; 3
+	jp	z,H8KBDBIT6
+	ld	a,(KBDKEY)
+	cp	'4'
+	jp	z,H8KBDBIT8
+	cp	'3'
+	jp	z,H8KBDBIT7
+	cp	'2'
+	jp	z,H8KBDBIT6
+	cp	'1'
+	jp	z,H8KBDBIT5
+	cp	'0'
+	jp	z,H8KBDBIT4
+	cp	$1B
+	jp	z,H8KBDBIT3
+	cp	$1B
+	jp	z,H8KBDBIT2
+	cp	$1B
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBDA:					; .,COMMA,-,9,8,7,6,5
+	ld	a,(KBDKEY)
+	cp	'.'
+	jp	z,H8KBDBIT8
+	cp	','
+	jp	z,H8KBDBIT7
+	cp	'-'
+	jp	z,H8KBDBIT6
+	cp	'9'
+	jp	z,H8KBDBIT5
+	cp	'8'
+	jp	z,H8KBDBIT4
+	cp	'7'
+	jp	z,H8KBDBIT3
+	cp	'6'
+	jp	z,H8KBDBIT2
+	cp	'5'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	ret
+;
+H8KBDSETU:
+	res	5,c
+	ret
+H8KBDSETD:
+	res	6,c
+	ret
+H8KBDSETL:
+	res	4,c
+	ret
+H8KBDSETR:
+	res	7,c
+	ret
+H8KBDSETS:
+	res	0,c
+	ret
+;
+H8KBDBIT1:
+	ld	a,$FE
+	ret
+H8KBDBIT2:
+	ld	a,$FD
+	ret
+H8KBDBIT3:
+	ld	a,$FB
+	ret
+H8KBDBIT4:
+	ld	a,$F7
+	ret
+H8KBDBIT5:
+	ld	a,$EF
+	ret
+H8KBDBIT6:
+	ld	a,$DF
+	ret
+H8KBDBIT7:
+	ld	a,$BF
+	ret
+H8KBDBIT8:
+	ld	a,$7F
+	ret
+;
+KBDCNT:	db	0
+KBDKEY:	db	0
 ;
