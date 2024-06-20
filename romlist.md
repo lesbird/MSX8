@@ -20,7 +20,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   ADVEN008.ROM   Adven' Chuta! (Japan).rom
  Y   AEJAP005.ROM   A.E. (Japan).rom
  Y?  ALBAT009.ROM   Albatros (Japan).rom
- N8  ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
+ NP8 ALCAZ010.ROM   Alcazar - The Forgotten Fortress (Japan).rom
  YP  ALIBA011.ROM   Alibaba and 40 Thieves (Japan).rom
  YP  ALIEN012.ROM   Alien 8 (Japan).rom
  YP? ALPHA014.ROM   Alpha Roid (Japan).rom
@@ -145,8 +145,8 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N4  DOROD148.ROM   Dorodon (Japan).rom
  YP  DOUBL149.ROM   Double Dragon (Korea) (Unl).rom
  Y?  DRCOP150.ROM   Dr. Copy (Japan).rom
- Y?  DRAGO151.ROM   Dragon Attack (Japan).rom
- Y?  DRAGO154.ROM   Dragon Slayer (Japan).rom
+ Y   DRAGO151.ROM   Dragon Attack (Japan).rom
+ Y   DRAGO154.ROM   Dragon Slayer (Japan).rom
  YP  DRAIN158.ROM   Drainer (Japan).rom
  Y   DRUAG159.ROM   Druaga no Tou (Japan).rom
  Y?  DUNGE161.ROM   Dungeon Master (Japan).rom
@@ -173,12 +173,12 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP? FLASH190.ROM   Flash Point (Korea) (Unl).rom
  Y   FLASH191.ROM   Flash Splash (Japan).rom
  Y   FLICK192.ROM   Flicky (Japan).rom
- Y?  FLICS193.ROM   Flics, Les (France).rom
- Y?  FLIPP196.ROM   Flipper Slipper (Japan).rom
+ Y   FLICS193.ROM   Flics, Les (France).rom
+ Y   FLIPP196.ROM   Flipper Slipper (Japan).rom
  Y   FORMA197.ROM   Formation Z (Japan).rom
- YP? FROGG198.ROM   Frogger (Japan).rom
+ YP  FROGG198.ROM   Frogger (Japan).rom
  Y   FRONT199.ROM   Front Line (Japan).rom
- Y?  FRUIT200.ROM   Fruit Search (Japan).rom
+ Y   FRUIT200.ROM   Fruit Search (Japan).rom
  Y   FUNKY201.ROM   Funky Mouse (Japan).rom
  N8  FUTBO202.ROM   Futbol (Spain).rom
  Y   FUUNT203.ROM   Fuun Takeshijyou (Japan).rom
@@ -190,27 +190,27 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N0  GANGM213.ROM   Gang Master (Japan).rom
  YP  GHOST216.ROM   Ghostbusters (Europe).rom
  Y?  GLIDE217.ROM   Glider (Japan).rom
- Y?  GOKIB218.ROM   Gokiburi Daisakusen - Bug Bomb (Japan).rom
+ Y   GOKIB218.ROM   Gokiburi Daisakusen - Bug Bomb (Japan).rom
  N0  GOLFG219.ROM   Golf Game (Japan).rom
  YP? GOMOK221.ROM   Gomok Narabe - Omo Go (Japan).rom
  Y   GOONI222.ROM   Goonies, The (Japan).rom
  Y   GPWOR223.ROM   GP World (Japan).rom
  N9  GREEN224.ROM   Green Beret (Europe).rom
- Y?  GROGS225.ROM   Grog's Revenge (Japan).rom
+ Y   GROGS225.ROM   Grog's Revenge (Japan).rom
  Y   GUARD226.ROM   Guardic (Japan).rom
  Y   GULKA227.ROM   Gulkave (Japan).rom
- YP? GUNFR228.ROM   Gun Fright (Japan).rom
+ YP  GUNFR228.ROM   Gun Fright (Japan).rom
  Y   GUNJI229.ROM   Gunjin Shougi Mars (Japan).rom
  YP  GYROD230.ROM   Gyrodine (Japan).rom
  N0  HEROJ231.ROM   H.E.R.O. (Japan).rom
  Y   HADES232.ROM   Hades no Monsho (Japan).rom
- Y?  HAFAN233.ROM   Hafanuda Koi Koi - Gostop Godori (Japan).rom
- Y?  HANAF235.ROM   Hanafuta (Japan).rom
- Y?  HANGO236.ROM   Hang-On (Japan).rom
- Y?  HARAP237.ROM   Harapeko Pakkun (Japan).rom
+ Y   HAFAN233.ROM   Hafanuda Koi Koi - Gostop Godori (Japan).rom
+ YP  HANAF235.ROM   Hanafuta (Japan).rom
+ Y   HANGO236.ROM   Hang-On (Japan).rom
+ Y   HARAP237.ROM   Harapeko Pakkun (Japan).rom
  Y   HAUNT240.ROM   Haunted Boynight (Japan).rom
  Y   HEAVY241.ROM   Heavy Boxing (Japan).rom
- Y?  HEIST242.ROM   Heist, The (Japan).rom
+ Y   HEIST242.ROM   Heist, The (Japan).rom
  Y   HELIT243.ROM   Helitank (Japan).rom
  Y   HIGHW244.ROM   High Way Star (Japan).rom
  Y   HIGHW245.ROM   High Way Star (Korea).rom
@@ -218,6 +218,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   HITSU247.ROM   Hitsuji Yai - Preety Sheep (Japan).rom
  Y   HOLEI248.ROM   Hole in One (Japan).rom
  Y?  HOLEI249.ROM   Hole in One Professional (Japan).rom
+===
  Y   HONKB250.ROM   Honkball (Japan).rom
  YP  HOPPE251.ROM   Hopper (Europe).rom
  Y?  HUDSO252.ROM   Hudson 3D Golf (Japan).rom
