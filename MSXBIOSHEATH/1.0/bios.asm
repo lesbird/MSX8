@@ -2686,7 +2686,7 @@ A1226:  di
 ;        in      a,($A9)
 ;	nop
 ;	nop
-	call	H8KPAD
+	call	H8KBD
         ei
         ret
 ;
@@ -4813,7 +4813,9 @@ OUTPS1:	ld      a,e
 H8JSTK:	push	bc
 	ld	a,'J'
 	call	CONOUT
-	ld	c,$FF			; everything off (1=off, 0=on)
+	call	H8KPAD
+	ld	c,a
+;	ld	c,$FF			; everything off (1=off, 0=on)
 	ld	a,$0E
 	out	(PSGCTL),a
 	in	a,(PSGCTL)
@@ -4865,12 +4867,11 @@ H8JSTA:	ld	a,c
 	ld	c,a
 H8JSTX:	ld	a,c
 	call	OUTHEX
-	call	CRLF
+	call	SPACE
 	pop	bc
 	ret
-; READ H8 KEYPAD (ROW8)
-; 7=TRG1A,9=TRG1B
-; 5=SPACE
+; READ H8 KEYPAD
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
 ; .=0F,#=2F,/=4F,*=6F,-=8F,+=AF
 H8KPAD:	
@@ -4890,19 +4891,19 @@ H8KPAD:
 	ld	a,$FF
 	ret
 H8KPAD2:
-	ld	a,$BF
+	ld	a,$FD
 	ret
 H8KPAD4:
-	ld	a,$EF
+	ld	a,$FB
 	ret
 H8KPAD6:
-	ld	a,$7F
+	ld	a,$F7
 	ret
 H8KPAD8:
-	ld	a,$DF
+	ld	a,$FE
 	ret
 H8KPAD5:
-	ld	a,$FE
+	ld	a,$EF
 	ret
 ;
 CONOUT:	push	af
@@ -4959,6 +4960,11 @@ CRLF:	push	af
 	ld	a,0DH
 	call	CONOUT
 	ld	a,0AH
+	call	CONOUT
+	pop	af
+	ret
+SPACE:	push	af
+	ld	a,' '
 	call	CONOUT
 	pop	af
 	ret
@@ -5468,18 +5474,24 @@ GAMECR12:
 	RET
 ;
 KBDIN:
-	ld	a,(KBDCNT)
-	inc	a
-	and	$0F
-	ld	(KBDCNT),a
-	ret	nz
+;	ld	a,(KBDCNT)
+;	inc	a
+;	and	$0F
+;	ld	(KBDCNT),a
+;	ret	nz
 	in	a,(CONPORT+5)
 	and	$01
 	jr	z,KBDINX
 	in	a,(CONPORT)
 	ld	(KBDKEY),a
+;	call	CONPRT
 	ret
-KBDINX:	xor	a
+KBDINX:	
+;	xor	a
+;	ld	(KBDKEY),a
+	ret
+KBDRST:
+	xor	a
 	ld	(KBDKEY),a
 	ret
 ;
@@ -5491,6 +5503,7 @@ H8KBD:
 	call	CONOUT
 	ld	a,c
 	call	OUTHEX
+	call	SPACE
 	cp	$00			; 7,6,5,4,3,2,1,0
 	jp	z,H8KBD0
 	cp	$01			; SEMI,],[,\,=,-,9,8
@@ -5542,6 +5555,7 @@ H8KBD0:					; 7,6,5,4,3,2,1,0
 	cp	'0'
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD1:					; SEMI,],[,\,=,-,9,8
@@ -5563,15 +5577,16 @@ H8KBD1:					; SEMI,],[,\,=,-,9,8
 	cp	'8'
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
-H8KBD2:					; B,A, ,/,DOT,COMMA,`,'
+H8KBD2:					; B,A,&,/,DOT,COMMA,`,'
 	ld	a,(KBDKEY)
 	cp	'B'
 	jp	z,H8KBDBIT8
 	cp	'A'
 	jp	z,H8KBDBIT7
-	cp	' '
+	cp	'&'
 	jp	z,H8KBDBIT6
 	cp	'/'
 	jp	z,H8KBDBIT5
@@ -5584,6 +5599,7 @@ H8KBD2:					; B,A, ,/,DOT,COMMA,`,'
 	cp	$2C
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD3:					; J,I,H,G,F,E,D,C
@@ -5605,6 +5621,7 @@ H8KBD3:					; J,I,H,G,F,E,D,C
 	cp	'C'
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD4:					; R,Q,P,O,N,M,L,K
@@ -5626,6 +5643,7 @@ H8KBD4:					; R,Q,P,O,N,M,L,K
 	cp	'K'
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD5:					; Z,Y,X,W,V,U,T,S
@@ -5647,51 +5665,61 @@ H8KBD5:					; Z,Y,X,W,V,U,T,S
 	cp	'S'
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 	ld	a,(KBDKEY)
 	cp	$0D
 	jp	z,H8KBDBIT8
-	cp	$1B
-	jp	z,H8KBDBIT7
+;	cp	$1B
+;	jp	z,H8KBDBIT7
 	cp	$08
 	jp	z,H8KBDBIT6
-	cp	$1B
-	jp	z,H8KBDBIT5
+;	cp	$1B
+;	jp	z,H8KBDBIT5
 	cp	$09
 	jp	z,H8KBDBIT4
 	cp	$1B
 	jp	z,H8KBDBIT3
-	cp	$1B
-	jp	z,H8KBDBIT2
-	cp	$1B
-	jp	z,H8KBDBIT1
+;	cp	$1B
+;	jp	z,H8KBDBIT2
+;	cp	$1B
+;	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
-	call	H8KPAD
-	ld	c,a
+	push	bc
+	ld	c,$FF
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 	call	H8JSTK
+	ld	b,a
 	bit	0,a
 	call	z,H8KBDSETU
+	ld	a,b
 	bit	1,a
 	call	z,H8KBDSETD
+	ld	a,b
 	bit	2,a
 	call	z,H8KBDSETL
+	ld	a,b
 	bit	3,a
 	call	z,H8KBDSETR
+	ld	a,b
 	bit	4,a
 	call	z,H8KBDSETS
 	ld	a,(KBDKEY)
 	cp	$20
 	call	z,H8KBDSETS
+	cp	$08
+	call	z,H8KBDSETDEL
 	cp	'A'
 	call	z,H8KBDSETL
 	cp	'D'
@@ -5701,6 +5729,9 @@ H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	cp	'S'
 	call	z,H8KBDSETD
 	ld	a,c
+	call	OUTHEX
+	call	CRLF
+	pop	bc
 	ret
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
 H8KBD9:					; 4,3,2,1,0,X,X,X
@@ -5722,13 +5753,14 @@ H8KBD9:					; 4,3,2,1,0,X,X,X
 	jp	z,H8KBDBIT5
 	cp	'0'
 	jp	z,H8KBDBIT4
-	cp	$1B
-	jp	z,H8KBDBIT3
-	cp	$1B
-	jp	z,H8KBDBIT2
-	cp	$1B
-	jp	z,H8KBDBIT1
+;	cp	$1B
+;	jp	z,H8KBDBIT3
+;	cp	$1B
+;	jp	z,H8KBDBIT2
+;	cp	$1B
+;	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBDA:					; .,COMMA,-,9,8,7,6,5
@@ -5750,47 +5782,68 @@ H8KBDA:					; .,COMMA,-,9,8,7,6,5
 	cp	'5'
 	jp	z,H8KBDBIT1
 	ld	a,$FF
+	call	H8KBDBITX
 	ret
 ;
 H8KBDSETU:
+	call	KBDRST
 	res	5,c
 	ret
 H8KBDSETD:
+	call	KBDRST
 	res	6,c
 	ret
 H8KBDSETL:
+	call	KBDRST
 	res	4,c
 	ret
 H8KBDSETR:
+	call	KBDRST
 	res	7,c
 	ret
 H8KBDSETS:
+	call	KBDRST
 	res	0,c
+	ret
+H8KBDSETDEL:
+	call	KBDRST
+	res	3,c
 	ret
 ;
 H8KBDBIT1:
+	call	KBDRST
 	ld	a,$FE
-	ret
+	jr	H8KBDBITX
 H8KBDBIT2:
+	call	KBDRST
 	ld	a,$FD
-	ret
+	jr	H8KBDBITX
 H8KBDBIT3:
+	call	KBDRST
 	ld	a,$FB
-	ret
+	jr	H8KBDBITX
 H8KBDBIT4:
+	call	KBDRST
 	ld	a,$F7
-	ret
+	jr	H8KBDBITX
 H8KBDBIT5:
+	call	KBDRST
 	ld	a,$EF
-	ret
+	jr	H8KBDBITX
 H8KBDBIT6:
+	call	KBDRST
 	ld	a,$DF
-	ret
+	jr	H8KBDBITX
 H8KBDBIT7:
+	call	KBDRST
 	ld	a,$BF
-	ret
+	jr	H8KBDBITX
 H8KBDBIT8:
+	call	KBDRST
 	ld	a,$7F
+H8KBDBITX:
+	call	OUTHEX
+	call	CRLF
 	ret
 ;
 KBDCNT:	db	0

@@ -724,7 +724,7 @@ bios.asm:
    189                          
    190  000f  00                        defs    $0010-$,0
    191                          
-   192  0010  c3752d            CHRGTR: jp	NBKBD
+   192  0010  c3762d            CHRGTR: jp	NBKBD
    193                          ;	jp      A2686                   ; $0010
    194                          
    195  0013  00                        defs    $0014-$,0
@@ -2832,7 +2832,7 @@ bios.asm:
   2286                          ;        in      a,($A9)
   2287                          ;	nop
   2288                          ;	nop
-  2289  0d1e  cd752d            	call	NBKBD
+  2289  0d1e  cd762d            	call	NBKBD
   2290  0d21  77                        ld      (hl),a
   2291  0d22  0c                        inc     c
   2292  0d23  23                        inc     hl
@@ -3670,7 +3670,7 @@ bios.asm:
   2687                          ;        in      a,($A9)
   2688                          ;	nop
   2689                          ;	nop
-  2690  122e  cd752d            	call	NBKBD
+  2690  122e  cd762d            	call	NBKBD
   2691  1231  fb                        ei
   2692  1232  c9                        ret
   2693                          ;
@@ -3963,7 +3963,7 @@ bios.asm:
   2968                          ;        in      a,($A9)
   2969                          ;	nop
   2970                          ;	nop
-  2971  145a  cd752d            	call	NBKBD
+  2971  145a  cd762d            	call	NBKBD
   2972  145d  fb                        ei
   2973  145e  c9                        ret
   2974                          ;
@@ -6210,7 +6210,7 @@ bios.asm:
   4930                          ;
   4931                          NBKBDRST:
   4932  27f2  af                	xor	a
-  4933  27f3  32852f            	ld	(KBDCNT),a
+  4933  27f3  32dc2f            	ld	(KBDCNT),a
   4934  27f6  c9                	ret
   4935                          ;
   4936  27f7  ff                JSTKST:	db	$FF
@@ -6837,324 +6837,364 @@ bios.asm:
   5511  2d61  e602              	and	$02			; z=no data waiting
   5512  2d63  280b              	jr	z,KBDINX
   5513  2d65  db90              	in	a,(KEYPORT)		; keyboard data
-  5514  2d67  32862f            	ld	(KBDKEY),a
+  5514  2d67  32dd2f            	ld	(KBDKEY),a
   5515                          ;	call	CONOUT
   5516  2d6a  c9                	ret
-  5517  2d6b  3a862f            KBDIN1:	ld	a,(KBDKEY)
+  5517  2d6b  3add2f            KBDIN1:	ld	a,(KBDKEY)
   5518  2d6e  b7                	or	a
   5519  2d6f  c9                	ret
-  5520  2d70  af                KBDINX:	xor	a
-  5521  2d71  32862f            	ld	(KBDKEY),a
-  5522  2d74  c9                	ret
-  5523                          ;
-  5524                          ; READ H8 KEYBOARD
-  5525                          ; C=ROW NUMBER
-  5526                          NBKBD:
-  5527                          ;	call	KBDIN
-  5528                          ;	ld	a,'K'
-  5529                          ;	call	CONOUT
-  5530  2d75  79                	ld	a,c
-  5531                          ;	call	OUTHEX
-  5532  2d76  fe00              	cp	$00			; 7,6,5,4,3,2,1,0
-  5533  2d78  cab02d            	jp	z,NBKBD0
-  5534  2d7b  fe01              	cp	$01			; SEMI,],[,\,=,-,9,8
-  5535  2d7d  cade2d            	jp	z,NBKBD1
-  5536  2d80  fe02              	cp	$02			; B,A,&,/,DOT,COMMA,`,'
-  5537  2d82  ca0c2e            	jp	z,NBKBD2
-  5538  2d85  fe03              	cp	$03			; J,I,H,G,F,E,D,C
-  5539  2d87  ca3a2e            	jp	z,NBKBD3
-  5540  2d8a  fe04              	cp	$04			; R,Q,P,O,N,M,L,K
-  5541  2d8c  ca682e            	jp	z,NBKBD4
-  5542  2d8f  fe05              	cp	$05			; Z,Y,X,W,V,U,T,S
-  5543  2d91  ca962e            	jp	z,NBKBD5
-  5544  2d94  fe06              	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
-  5545  2d96  cac42e            	jp	z,NBKBD6
-  5546  2d99  fe07              	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
-  5547  2d9b  cac72e            	jp	z,NBKBD7
-  5548  2d9e  fe08              	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
-  5549  2da0  cae12e            	jp	z,NBKBD8
-  5550  2da3  fe09              	cp	$09			; 4,3,2,1,0,X,X,X
-  5551  2da5  ca0e2f            	jp	z,NBKBD9
-  5552  2da8  fe0a              	cp	$0A			; .,COMMA,-,9,8,7,6,5
-  5553  2daa  ca2d2f            	jp	z,NBKBDA
-  5554  2dad  3eff              	ld	a,$FF
-  5555  2daf  c9                	ret
-  5556                          ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
-  5557                          NBKBD0:					; 7,6,5,4,3,2,1,0
-  5558                          ;	in	a,($F0)
-  5559                          ;	cp	$FE			; 0
-  5560                          ;	jp	z,H8KBDBIT1
-  5561                          ;	cp	$FC			; 1
-  5562                          ;	jp	z,H8KBDBIT2
-  5563                          ;	cp	$F8			; 3
-  5564                          ;	jp	z,H8KBDBIT3
-  5565  2db0  3a862f            	ld	a,(KBDKEY)
-  5566  2db3  fe37              	cp	'7'
-  5567  2db5  ca822f            	jp	z,H8KBDBIT8
-  5568  2db8  fe36              	cp	'6'
-  5569  2dba  ca7f2f            	jp	z,H8KBDBIT7
-  5570  2dbd  fe35              	cp	'5'
-  5571  2dbf  ca7c2f            	jp	z,H8KBDBIT6
-  5572  2dc2  fe34              	cp	'4'
-  5573  2dc4  ca792f            	jp	z,H8KBDBIT5
-  5574  2dc7  fe33              	cp	'3'
-  5575  2dc9  ca762f            	jp	z,H8KBDBIT4
-  5576  2dcc  fe32              	cp	'2'
-  5577  2dce  ca732f            	jp	z,H8KBDBIT3
-  5578  2dd1  fe31              	cp	'1'
-  5579  2dd3  ca702f            	jp	z,H8KBDBIT2
-  5580  2dd6  fe30              	cp	'0'
-  5581  2dd8  ca6d2f            	jp	z,H8KBDBIT1
-  5582  2ddb  3eff              	ld	a,$FF
-  5583  2ddd  c9                	ret
-  5584                          ;
-  5585                          NBKBD1:					; SEMI,],[,\,=,-,9,8
-  5586  2dde  3a862f            	ld	a,(KBDKEY)
-  5587  2de1  fe3b              	cp	';'
-  5588  2de3  ca822f            	jp	z,H8KBDBIT8
-  5589  2de6  fe5d              	cp	']'
-  5590  2de8  ca7f2f            	jp	z,H8KBDBIT7
-  5591  2deb  fe5b              	cp	'['
-  5592  2ded  ca7c2f            	jp	z,H8KBDBIT6
-  5593  2df0  fe5c              	cp	$5C
-  5594  2df2  ca792f            	jp	z,H8KBDBIT5
-  5595  2df5  fe3d              	cp	'='
-  5596  2df7  ca762f            	jp	z,H8KBDBIT4
-  5597  2dfa  fe2d              	cp	'-'
-  5598  2dfc  ca732f            	jp	z,H8KBDBIT3
-  5599  2dff  fe39              	cp	'9'
-  5600  2e01  ca702f            	jp	z,H8KBDBIT2
-  5601  2e04  fe38              	cp	'8'
-  5602  2e06  ca6d2f            	jp	z,H8KBDBIT1
-  5603  2e09  3eff              	ld	a,$FF
-  5604  2e0b  c9                	ret
-  5605                          ;
-  5606                          NBKBD2:					; B,A,&,/,DOT,COMMA,`,'
-  5607  2e0c  3a862f            	ld	a,(KBDKEY)
-  5608  2e0f  fe42              	cp	'B'
-  5609  2e11  ca822f            	jp	z,H8KBDBIT8
-  5610  2e14  fe41              	cp	'A'
-  5611  2e16  ca7f2f            	jp	z,H8KBDBIT7
-  5612  2e19  fe26              	cp	$26
-  5613  2e1b  ca7c2f            	jp	z,H8KBDBIT6
-  5614  2e1e  fe2f              	cp	'/'
-  5615  2e20  ca792f            	jp	z,H8KBDBIT5
-  5616  2e23  fe2e              	cp	'.'
-  5617  2e25  ca762f            	jp	z,H8KBDBIT4
-  5618  2e28  fe2c              	cp	','
-  5619  2e2a  ca732f            	jp	z,H8KBDBIT3
-  5620  2e2d  fe60              	cp	'`'
-  5621  2e2f  ca702f            	jp	z,H8KBDBIT2
-  5622  2e32  fe2c              	cp	$2C
-  5623  2e34  ca6d2f            	jp	z,H8KBDBIT1
-  5624  2e37  3eff              	ld	a,$FF
-  5625  2e39  c9                	ret
-  5626                          ;
-  5627                          NBKBD3:					; J,I,H,G,F,E,D,C
-  5628  2e3a  3a862f            	ld	a,(KBDKEY)
-  5629  2e3d  fe4a              	cp	'J'
-  5630  2e3f  ca822f            	jp	z,H8KBDBIT8
-  5631  2e42  fe49              	cp	'I'
-  5632  2e44  ca7f2f            	jp	z,H8KBDBIT7
-  5633  2e47  fe48              	cp	'H'
-  5634  2e49  ca7c2f            	jp	z,H8KBDBIT6
-  5635  2e4c  fe47              	cp	'G'
-  5636  2e4e  ca792f            	jp	z,H8KBDBIT5
-  5637  2e51  fe46              	cp	'F'
-  5638  2e53  ca762f            	jp	z,H8KBDBIT4
-  5639  2e56  fe45              	cp	'E'
-  5640  2e58  ca732f            	jp	z,H8KBDBIT3
-  5641  2e5b  fe44              	cp	'D'
-  5642  2e5d  ca702f            	jp	z,H8KBDBIT2
-  5643  2e60  fe43              	cp	'C'
-  5644  2e62  ca6d2f            	jp	z,H8KBDBIT1
-  5645  2e65  3eff              	ld	a,$FF
-  5646  2e67  c9                	ret
-  5647                          ;
-  5648                          NBKBD4:					; R,Q,P,O,N,M,L,K
-  5649  2e68  3a862f            	ld	a,(KBDKEY)
-  5650  2e6b  fe52              	cp	'R'
-  5651  2e6d  ca822f            	jp	z,H8KBDBIT8
-  5652  2e70  fe51              	cp	'Q'
-  5653  2e72  ca7f2f            	jp	z,H8KBDBIT7
-  5654  2e75  fe50              	cp	'P'
-  5655  2e77  ca7c2f            	jp	z,H8KBDBIT6
-  5656  2e7a  fe4f              	cp	'O'
-  5657  2e7c  ca792f            	jp	z,H8KBDBIT5
-  5658  2e7f  fe4e              	cp	'N'
-  5659  2e81  ca762f            	jp	z,H8KBDBIT4
-  5660  2e84  fe4d              	cp	'M'
-  5661  2e86  ca732f            	jp	z,H8KBDBIT3
-  5662  2e89  fe4c              	cp	'L'
-  5663  2e8b  ca702f            	jp	z,H8KBDBIT2
-  5664  2e8e  fe4b              	cp	'K'
-  5665  2e90  ca6d2f            	jp	z,H8KBDBIT1
-  5666  2e93  3eff              	ld	a,$FF
-  5667  2e95  c9                	ret
-  5668                          ;
-  5669                          NBKBD5:					; Z,Y,X,W,V,U,T,S
-  5670  2e96  3a862f            	ld	a,(KBDKEY)
-  5671  2e99  fe5a              	cp	'Z'
-  5672  2e9b  ca822f            	jp	z,H8KBDBIT8
-  5673  2e9e  fe59              	cp	'Y'
-  5674  2ea0  ca7f2f            	jp	z,H8KBDBIT7
-  5675  2ea3  fe58              	cp	'X'
-  5676  2ea5  ca7c2f            	jp	z,H8KBDBIT6
-  5677  2ea8  fe57              	cp	'W'
-  5678  2eaa  ca792f            	jp	z,H8KBDBIT5
-  5679  2ead  fe56              	cp	'V'
-  5680  2eaf  ca762f            	jp	z,H8KBDBIT4
-  5681  2eb2  fe55              	cp	'U'
-  5682  2eb4  ca732f            	jp	z,H8KBDBIT3
-  5683  2eb7  fe54              	cp	'T'
-  5684  2eb9  ca702f            	jp	z,H8KBDBIT2
-  5685  2ebc  fe53              	cp	'S'
-  5686  2ebe  ca6d2f            	jp	z,H8KBDBIT1
-  5687  2ec1  3eff              	ld	a,$FF
-  5688  2ec3  c9                	ret
-  5689                          ;
-  5690                          NBKBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
-  5691  2ec4  3eff              	ld	a,$FF
-  5692  2ec6  c9                	ret
-  5693                          ;
-  5694                          NBKBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
-  5695  2ec7  3a862f            	ld	a,(KBDKEY)
-  5696  2eca  fe0d              	cp	$0D
-  5697  2ecc  ca822f            	jp	z,H8KBDBIT8
-  5698                          ;	cp	$1B
-  5699                          ;	jp	z,H8KBDBIT7
-  5700  2ecf  fe08              	cp	$08
-  5701  2ed1  ca7c2f            	jp	z,H8KBDBIT6
-  5702                          ;	cp	$1B
-  5703                          ;	jp	z,H8KBDBIT5
-  5704  2ed4  fe09              	cp	$09
-  5705  2ed6  ca762f            	jp	z,H8KBDBIT4
-  5706  2ed9  fe1b              	cp	$1B
-  5707  2edb  ca732f            	jp	z,H8KBDBIT3
-  5708                          ;	cp	$1B
-  5709                          ;	jp	z,H8KBDBIT2
+  5520                          KBDINX:
+  5521                          ;	xor	a
+  5522                          ;	ld	(KBDKEY),a
+  5523  2d70  c9                	ret
+  5524                          KBDRST:
+  5525  2d71  af                	xor	a
+  5526  2d72  32dd2f            	ld	(KBDKEY),a
+  5527  2d75  c9                	ret
+  5528                          ;
+  5529                          ; READ H8 KEYBOARD
+  5530                          ; C=ROW NUMBER
+  5531                          NBKBD:
+  5532                          ;	call	KBDIN
+  5533                          ;	ld	a,'K'
+  5534                          ;	call	CONOUT
+  5535  2d76  79                	ld	a,c
+  5536                          ;	call	OUTHEX
+  5537  2d77  fe00              	cp	$00			; 7,6,5,4,3,2,1,0
+  5538  2d79  cab12d            	jp	z,NBKBD0
+  5539  2d7c  fe01              	cp	$01			; SEMI,],[,\,=,-,9,8
+  5540  2d7e  cae22d            	jp	z,NBKBD1
+  5541  2d81  fe02              	cp	$02			; B,A,&,/,DOT,COMMA,`,'
+  5542  2d83  ca132e            	jp	z,NBKBD2
+  5543  2d86  fe03              	cp	$03			; J,I,H,G,F,E,D,C
+  5544  2d88  ca442e            	jp	z,NBKBD3
+  5545  2d8b  fe04              	cp	$04			; R,Q,P,O,N,M,L,K
+  5546  2d8d  ca752e            	jp	z,NBKBD4
+  5547  2d90  fe05              	cp	$05			; Z,Y,X,W,V,U,T,S
+  5548  2d92  caa62e            	jp	z,NBKBD5
+  5549  2d95  fe06              	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+  5550  2d97  cad72e            	jp	z,NBKBD6
+  5551  2d9a  fe07              	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+  5552  2d9c  cadd2e            	jp	z,NBKBD7
+  5553  2d9f  fe08              	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+  5554  2da1  cafa2e            	jp	z,NBKBD8
+  5555  2da4  fe09              	cp	$09			; 4,3,2,1,0,X,X,X
+  5556  2da6  ca2e2f            	jp	z,NBKBD9
+  5557  2da9  fe0a              	cp	$0A			; .,COMMA,-,9,8,7,6,5
+  5558  2dab  ca502f            	jp	z,NBKBDA
+  5559  2dae  3eff              	ld	a,$FF
+  5560  2db0  c9                	ret
+  5561                          ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+  5562                          NBKBD0:					; 7,6,5,4,3,2,1,0
+  5563                          ;	in	a,($F0)
+  5564                          ;	cp	$FE			; 0
+  5565                          ;	jp	z,H8KBDBIT1
+  5566                          ;	cp	$FC			; 1
+  5567                          ;	jp	z,H8KBDBIT2
+  5568                          ;	cp	$F8			; 3
+  5569                          ;	jp	z,H8KBDBIT3
+  5570  2db1  3add2f            	ld	a,(KBDKEY)
+  5571  2db4  fe37              	cp	'7'
+  5572  2db6  cad62f            	jp	z,H8KBDBIT8
+  5573  2db9  fe36              	cp	'6'
+  5574  2dbb  cacf2f            	jp	z,H8KBDBIT7
+  5575  2dbe  fe35              	cp	'5'
+  5576  2dc0  cac82f            	jp	z,H8KBDBIT6
+  5577  2dc3  fe34              	cp	'4'
+  5578  2dc5  cac12f            	jp	z,H8KBDBIT5
+  5579  2dc8  fe33              	cp	'3'
+  5580  2dca  caba2f            	jp	z,H8KBDBIT4
+  5581  2dcd  fe32              	cp	'2'
+  5582  2dcf  cab32f            	jp	z,H8KBDBIT3
+  5583  2dd2  fe31              	cp	'1'
+  5584  2dd4  caac2f            	jp	z,H8KBDBIT2
+  5585  2dd7  fe30              	cp	'0'
+  5586  2dd9  caa52f            	jp	z,H8KBDBIT1
+  5587  2ddc  3eff              	ld	a,$FF
+  5588  2dde  cddb2f            	call	H8KBDBITX
+  5589  2de1  c9                	ret
+  5590                          ;
+  5591                          NBKBD1:					; SEMI,],[,\,=,-,9,8
+  5592  2de2  3add2f            	ld	a,(KBDKEY)
+  5593  2de5  fe3b              	cp	';'
+  5594  2de7  cad62f            	jp	z,H8KBDBIT8
+  5595  2dea  fe5d              	cp	']'
+  5596  2dec  cacf2f            	jp	z,H8KBDBIT7
+  5597  2def  fe5b              	cp	'['
+  5598  2df1  cac82f            	jp	z,H8KBDBIT6
+  5599  2df4  fe5c              	cp	$5C
+  5600  2df6  cac12f            	jp	z,H8KBDBIT5
+  5601  2df9  fe3d              	cp	'='
+  5602  2dfb  caba2f            	jp	z,H8KBDBIT4
+  5603  2dfe  fe2d              	cp	'-'
+  5604  2e00  cab32f            	jp	z,H8KBDBIT3
+  5605  2e03  fe39              	cp	'9'
+  5606  2e05  caac2f            	jp	z,H8KBDBIT2
+  5607  2e08  fe38              	cp	'8'
+  5608  2e0a  caa52f            	jp	z,H8KBDBIT1
+  5609  2e0d  3eff              	ld	a,$FF
+  5610  2e0f  cddb2f            	call	H8KBDBITX
+  5611  2e12  c9                	ret
+  5612                          ;
+  5613                          NBKBD2:					; B,A,&,/,DOT,COMMA,`,'
+  5614  2e13  3add2f            	ld	a,(KBDKEY)
+  5615  2e16  fe42              	cp	'B'
+  5616  2e18  cad62f            	jp	z,H8KBDBIT8
+  5617  2e1b  fe41              	cp	'A'
+  5618  2e1d  cacf2f            	jp	z,H8KBDBIT7
+  5619  2e20  fe26              	cp	'&'
+  5620  2e22  cac82f            	jp	z,H8KBDBIT6
+  5621  2e25  fe2f              	cp	'/'
+  5622  2e27  cac12f            	jp	z,H8KBDBIT5
+  5623  2e2a  fe2e              	cp	'.'
+  5624  2e2c  caba2f            	jp	z,H8KBDBIT4
+  5625  2e2f  fe2c              	cp	','
+  5626  2e31  cab32f            	jp	z,H8KBDBIT3
+  5627  2e34  fe60              	cp	'`'
+  5628  2e36  caac2f            	jp	z,H8KBDBIT2
+  5629  2e39  fe2c              	cp	$2C
+  5630  2e3b  caa52f            	jp	z,H8KBDBIT1
+  5631  2e3e  3eff              	ld	a,$FF
+  5632  2e40  cddb2f            	call	H8KBDBITX
+  5633  2e43  c9                	ret
+  5634                          ;
+  5635                          NBKBD3:					; J,I,H,G,F,E,D,C
+  5636  2e44  3add2f            	ld	a,(KBDKEY)
+  5637  2e47  fe4a              	cp	'J'
+  5638  2e49  cad62f            	jp	z,H8KBDBIT8
+  5639  2e4c  fe49              	cp	'I'
+  5640  2e4e  cacf2f            	jp	z,H8KBDBIT7
+  5641  2e51  fe48              	cp	'H'
+  5642  2e53  cac82f            	jp	z,H8KBDBIT6
+  5643  2e56  fe47              	cp	'G'
+  5644  2e58  cac12f            	jp	z,H8KBDBIT5
+  5645  2e5b  fe46              	cp	'F'
+  5646  2e5d  caba2f            	jp	z,H8KBDBIT4
+  5647  2e60  fe45              	cp	'E'
+  5648  2e62  cab32f            	jp	z,H8KBDBIT3
+  5649  2e65  fe44              	cp	'D'
+  5650  2e67  caac2f            	jp	z,H8KBDBIT2
+  5651  2e6a  fe43              	cp	'C'
+  5652  2e6c  caa52f            	jp	z,H8KBDBIT1
+  5653  2e6f  3eff              	ld	a,$FF
+  5654  2e71  cddb2f            	call	H8KBDBITX
+  5655  2e74  c9                	ret
+  5656                          ;
+  5657                          NBKBD4:					; R,Q,P,O,N,M,L,K
+  5658  2e75  3add2f            	ld	a,(KBDKEY)
+  5659  2e78  fe52              	cp	'R'
+  5660  2e7a  cad62f            	jp	z,H8KBDBIT8
+  5661  2e7d  fe51              	cp	'Q'
+  5662  2e7f  cacf2f            	jp	z,H8KBDBIT7
+  5663  2e82  fe50              	cp	'P'
+  5664  2e84  cac82f            	jp	z,H8KBDBIT6
+  5665  2e87  fe4f              	cp	'O'
+  5666  2e89  cac12f            	jp	z,H8KBDBIT5
+  5667  2e8c  fe4e              	cp	'N'
+  5668  2e8e  caba2f            	jp	z,H8KBDBIT4
+  5669  2e91  fe4d              	cp	'M'
+  5670  2e93  cab32f            	jp	z,H8KBDBIT3
+  5671  2e96  fe4c              	cp	'L'
+  5672  2e98  caac2f            	jp	z,H8KBDBIT2
+  5673  2e9b  fe4b              	cp	'K'
+  5674  2e9d  caa52f            	jp	z,H8KBDBIT1
+  5675  2ea0  3eff              	ld	a,$FF
+  5676  2ea2  cddb2f            	call	H8KBDBITX
+  5677  2ea5  c9                	ret
+  5678                          ;
+  5679                          NBKBD5:					; Z,Y,X,W,V,U,T,S
+  5680  2ea6  3add2f            	ld	a,(KBDKEY)
+  5681  2ea9  fe5a              	cp	'Z'
+  5682  2eab  cad62f            	jp	z,H8KBDBIT8
+  5683  2eae  fe59              	cp	'Y'
+  5684  2eb0  cacf2f            	jp	z,H8KBDBIT7
+  5685  2eb3  fe58              	cp	'X'
+  5686  2eb5  cac82f            	jp	z,H8KBDBIT6
+  5687  2eb8  fe57              	cp	'W'
+  5688  2eba  cac12f            	jp	z,H8KBDBIT5
+  5689  2ebd  fe56              	cp	'V'
+  5690  2ebf  caba2f            	jp	z,H8KBDBIT4
+  5691  2ec2  fe55              	cp	'U'
+  5692  2ec4  cab32f            	jp	z,H8KBDBIT3
+  5693  2ec7  fe54              	cp	'T'
+  5694  2ec9  caac2f            	jp	z,H8KBDBIT2
+  5695  2ecc  fe53              	cp	'S'
+  5696  2ece  caa52f            	jp	z,H8KBDBIT1
+  5697  2ed1  3eff              	ld	a,$FF
+  5698  2ed3  cddb2f            	call	H8KBDBITX
+  5699  2ed6  c9                	ret
+  5700                          ;
+  5701                          NBKBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+  5702  2ed7  3eff              	ld	a,$FF
+  5703  2ed9  cddb2f            	call	H8KBDBITX
+  5704  2edc  c9                	ret
+  5705                          ;
+  5706                          NBKBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+  5707  2edd  3add2f            	ld	a,(KBDKEY)
+  5708  2ee0  fe0d              	cp	$0D
+  5709  2ee2  cad62f            	jp	z,H8KBDBIT8
   5710                          ;	cp	$1B
-  5711                          ;	jp	z,H8KBDBIT1
-  5712  2ede  3eff              	ld	a,$FF
-  5713  2ee0  c9                	ret
-  5714                          ;
-  5715                          NBKBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
-  5716                          ;	call	H8KPAD
-  5717  2ee1  0eff              	ld	c,$FF
-  5718                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-  5719  2ee3  3af727            	ld	a,(JSTKST)
-  5720  2ee6  cb47              	bit	0,a
-  5721  2ee8  cc5b2f            	call	z,NBKBDSETU
-  5722  2eeb  cb4f              	bit	1,a
-  5723  2eed  cc5e2f            	call	z,NBKBDSETD
-  5724  2ef0  cb57              	bit	2,a
-  5725  2ef2  cc612f            	call	z,NBKBDSETL
-  5726  2ef5  cb5f              	bit	3,a
-  5727  2ef7  cc642f            	call	z,NBKBDSETR
-  5728  2efa  cb67              	bit	4,a
-  5729  2efc  cc672f            	call	z,NBKBDSETS
-  5730  2eff  3a862f            	ld	a,(KBDKEY)
-  5731  2f02  fe20              	cp	$20
-  5732  2f04  cc672f            	call	z,NBKBDSETS
-  5733  2f07  fe08              	cp	$08
-  5734  2f09  cc6a2f            	call	z,NBKBDSETDEL
-  5735  2f0c  79                	ld	a,c
-  5736  2f0d  c9                	ret
-  5737                          ;
-  5738                          NBKBD9:					; 4,3,2,1,0,X,X,X
-  5739                          ;	in	a,($F0)
-  5740                          ;	cp	$FE			; 0
-  5741                          ;	jp	z,H8KBDBIT4
-  5742                          ;	cp	$FC			; 1
-  5743                          ;	jp	z,H8KBDBIT5
-  5744                          ;	cp	$F8			; 3
-  5745                          ;	jp	z,H8KBDBIT6
-  5746  2f0e  3a862f            	ld	a,(KBDKEY)
-  5747  2f11  fe34              	cp	'4'
-  5748  2f13  ca822f            	jp	z,H8KBDBIT8
-  5749  2f16  fe33              	cp	'3'
-  5750  2f18  ca7f2f            	jp	z,H8KBDBIT7
-  5751  2f1b  fe32              	cp	'2'
-  5752  2f1d  ca7c2f            	jp	z,H8KBDBIT6
-  5753  2f20  fe31              	cp	'1'
-  5754  2f22  ca792f            	jp	z,H8KBDBIT5
-  5755  2f25  fe30              	cp	'0'
-  5756  2f27  ca762f            	jp	z,H8KBDBIT4
-  5757                          ;	cp	$1B
-  5758                          ;	jp	z,H8KBDBIT3
-  5759                          ;	cp	$1B
-  5760                          ;	jp	z,H8KBDBIT2
-  5761                          ;	cp	$1B
-  5762                          ;	jp	z,H8KBDBIT1
-  5763  2f2a  3eff              	ld	a,$FF
-  5764  2f2c  c9                	ret
-  5765                          ;
-  5766                          NBKBDA:					; .,COMMA,-,9,8,7,6,5
-  5767  2f2d  3a862f            	ld	a,(KBDKEY)
-  5768  2f30  fe2e              	cp	'.'
-  5769  2f32  ca822f            	jp	z,H8KBDBIT8
-  5770  2f35  fe2c              	cp	','
-  5771  2f37  ca7f2f            	jp	z,H8KBDBIT7
-  5772  2f3a  fe2d              	cp	'-'
-  5773  2f3c  ca7c2f            	jp	z,H8KBDBIT6
-  5774  2f3f  fe39              	cp	'9'
-  5775  2f41  ca792f            	jp	z,H8KBDBIT5
-  5776  2f44  fe38              	cp	'8'
-  5777  2f46  ca762f            	jp	z,H8KBDBIT4
-  5778  2f49  fe37              	cp	'7'
-  5779  2f4b  ca732f            	jp	z,H8KBDBIT3
-  5780  2f4e  fe36              	cp	'6'
-  5781  2f50  ca702f            	jp	z,H8KBDBIT2
-  5782  2f53  fe35              	cp	'5'
-  5783  2f55  ca6d2f            	jp	z,H8KBDBIT1
-  5784  2f58  3eff              	ld	a,$FF
-  5785  2f5a  c9                	ret
-  5786                          ;
-  5787                          NBKBDSETU:
-  5788  2f5b  cba9              	res	5,c
-  5789  2f5d  c9                	ret
-  5790                          NBKBDSETD:
-  5791  2f5e  cbb1              	res	6,c
-  5792  2f60  c9                	ret
-  5793                          NBKBDSETL:
-  5794  2f61  cba1              	res	4,c
-  5795  2f63  c9                	ret
-  5796                          NBKBDSETR:
-  5797  2f64  cbb9              	res	7,c
-  5798  2f66  c9                	ret
-  5799                          NBKBDSETS:
-  5800  2f67  cb81              	res	0,c
-  5801  2f69  c9                	ret
-  5802                          NBKBDSETDEL:
-  5803  2f6a  cb99              	res	3,c
-  5804  2f6c  c9                	ret
-  5805                          ;
-  5806                          H8KBDBIT1:
-  5807  2f6d  3efe              	ld	a,$FE
-  5808  2f6f  c9                	ret
-  5809                          H8KBDBIT2:
-  5810  2f70  3efd              	ld	a,$FD
-  5811  2f72  c9                	ret
-  5812                          H8KBDBIT3:
-  5813  2f73  3efb              	ld	a,$FB
-  5814  2f75  c9                	ret
-  5815                          H8KBDBIT4:
-  5816  2f76  3ef7              	ld	a,$F7
-  5817  2f78  c9                	ret
-  5818                          H8KBDBIT5:
-  5819  2f79  3eef              	ld	a,$EF
-  5820  2f7b  c9                	ret
-  5821                          H8KBDBIT6:
-  5822  2f7c  3edf              	ld	a,$DF
-  5823  2f7e  c9                	ret
-  5824                          H8KBDBIT7:
-  5825  2f7f  3ebf              	ld	a,$BF
-  5826  2f81  c9                	ret
-  5827                          H8KBDBIT8:
-  5828  2f82  3e7f              	ld	a,$7F
-  5829  2f84  c9                	ret
-  5830                          ;
-  5831  2f85  00                KBDCNT:	db	0
-  5832  2f86  00                KBDKEY:	db	0
-  5833                          ;
-  5834                          
+  5711                          ;	jp	z,H8KBDBIT7
+  5712  2ee5  fe08              	cp	$08
+  5713  2ee7  cac82f            	jp	z,H8KBDBIT6
+  5714                          ;	cp	$1B
+  5715                          ;	jp	z,H8KBDBIT5
+  5716  2eea  fe09              	cp	$09
+  5717  2eec  caba2f            	jp	z,H8KBDBIT4
+  5718  2eef  fe1b              	cp	$1B
+  5719  2ef1  cab32f            	jp	z,H8KBDBIT3
+  5720                          ;	cp	$1B
+  5721                          ;	jp	z,H8KBDBIT2
+  5722                          ;	cp	$1B
+  5723                          ;	jp	z,H8KBDBIT1
+  5724  2ef4  3eff              	ld	a,$FF
+  5725  2ef6  cddb2f            	call	H8KBDBITX
+  5726  2ef9  c9                	ret
+  5727                          ;
+  5728                          NBKBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+  5729  2efa  c5                	push	bc
+  5730  2efb  0eff              	ld	c,$FF
+  5731                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+  5732  2efd  3af727            	ld	a,(JSTKST)
+  5733  2f00  47                	ld	b,a
+  5734  2f01  cb47              	bit	0,a
+  5735  2f03  cc812f            	call	z,NBKBDSETU
+  5736  2f06  78                	ld	a,b
+  5737  2f07  cb4f              	bit	1,a
+  5738  2f09  cc872f            	call	z,NBKBDSETD
+  5739  2f0c  78                	ld	a,b
+  5740  2f0d  cb57              	bit	2,a
+  5741  2f0f  cc8d2f            	call	z,NBKBDSETL
+  5742  2f12  78                	ld	a,b
+  5743  2f13  cb5f              	bit	3,a
+  5744  2f15  cc932f            	call	z,NBKBDSETR
+  5745  2f18  78                	ld	a,b
+  5746  2f19  cb67              	bit	4,a
+  5747  2f1b  cc992f            	call	z,NBKBDSETS
+  5748  2f1e  3add2f            	ld	a,(KBDKEY)
+  5749  2f21  fe20              	cp	$20
+  5750  2f23  cc992f            	call	z,NBKBDSETS
+  5751  2f26  fe08              	cp	$08
+  5752  2f28  cc9f2f            	call	z,NBKBDSETDEL
+  5753  2f2b  79                	ld	a,c
+  5754                          ;	call	OUTHEX
+  5755                          ;	call	CRLF
+  5756  2f2c  c1                	pop	bc
+  5757  2f2d  c9                	ret
+  5758                          ;
+  5759                          NBKBD9:					; 4,3,2,1,0,X,X,X
+  5760                          ;	in	a,($F0)
+  5761                          ;	cp	$FE			; 0
+  5762                          ;	jp	z,H8KBDBIT4
+  5763                          ;	cp	$FC			; 1
+  5764                          ;	jp	z,H8KBDBIT5
+  5765                          ;	cp	$F8			; 3
+  5766                          ;	jp	z,H8KBDBIT6
+  5767  2f2e  3add2f            	ld	a,(KBDKEY)
+  5768  2f31  fe34              	cp	'4'
+  5769  2f33  cad62f            	jp	z,H8KBDBIT8
+  5770  2f36  fe33              	cp	'3'
+  5771  2f38  cacf2f            	jp	z,H8KBDBIT7
+  5772  2f3b  fe32              	cp	'2'
+  5773  2f3d  cac82f            	jp	z,H8KBDBIT6
+  5774  2f40  fe31              	cp	'1'
+  5775  2f42  cac12f            	jp	z,H8KBDBIT5
+  5776  2f45  fe30              	cp	'0'
+  5777  2f47  caba2f            	jp	z,H8KBDBIT4
+  5778                          ;	cp	$1B
+  5779                          ;	jp	z,H8KBDBIT3
+  5780                          ;	cp	$1B
+  5781                          ;	jp	z,H8KBDBIT2
+  5782                          ;	cp	$1B
+  5783                          ;	jp	z,H8KBDBIT1
+  5784  2f4a  3eff              	ld	a,$FF
+  5785  2f4c  cddb2f            	call	H8KBDBITX
+  5786  2f4f  c9                	ret
+  5787                          ;
+  5788                          NBKBDA:					; .,COMMA,-,9,8,7,6,5
+  5789  2f50  3add2f            	ld	a,(KBDKEY)
+  5790  2f53  fe2e              	cp	'.'
+  5791  2f55  cad62f            	jp	z,H8KBDBIT8
+  5792  2f58  fe2c              	cp	','
+  5793  2f5a  cacf2f            	jp	z,H8KBDBIT7
+  5794  2f5d  fe2d              	cp	'-'
+  5795  2f5f  cac82f            	jp	z,H8KBDBIT6
+  5796  2f62  fe39              	cp	'9'
+  5797  2f64  cac12f            	jp	z,H8KBDBIT5
+  5798  2f67  fe38              	cp	'8'
+  5799  2f69  caba2f            	jp	z,H8KBDBIT4
+  5800  2f6c  fe37              	cp	'7'
+  5801  2f6e  cab32f            	jp	z,H8KBDBIT3
+  5802  2f71  fe36              	cp	'6'
+  5803  2f73  caac2f            	jp	z,H8KBDBIT2
+  5804  2f76  fe35              	cp	'5'
+  5805  2f78  caa52f            	jp	z,H8KBDBIT1
+  5806  2f7b  3eff              	ld	a,$FF
+  5807  2f7d  cddb2f            	call	H8KBDBITX
+  5808  2f80  c9                	ret
+  5809                          ;
+  5810                          NBKBDSETU:
+  5811  2f81  cd712d            	call	KBDRST
+  5812  2f84  cba9              	res	5,c
+  5813  2f86  c9                	ret
+  5814                          NBKBDSETD:
+  5815  2f87  cd712d            	call	KBDRST
+  5816  2f8a  cbb1              	res	6,c
+  5817  2f8c  c9                	ret
+  5818                          NBKBDSETL:
+  5819  2f8d  cd712d            	call	KBDRST
+  5820  2f90  cba1              	res	4,c
+  5821  2f92  c9                	ret
+  5822                          NBKBDSETR:
+  5823  2f93  cd712d            	call	KBDRST
+  5824  2f96  cbb9              	res	7,c
+  5825  2f98  c9                	ret
+  5826                          NBKBDSETS:
+  5827  2f99  cd712d            	call	KBDRST
+  5828  2f9c  cb81              	res	0,c
+  5829  2f9e  c9                	ret
+  5830                          NBKBDSETDEL:
+  5831  2f9f  cd712d            	call	KBDRST
+  5832  2fa2  cb99              	res	3,c
+  5833  2fa4  c9                	ret
+  5834                          ;
+  5835                          H8KBDBIT1:
+  5836  2fa5  cd712d            	call	KBDRST
+  5837  2fa8  3efe              	ld	a,$FE
+  5838  2faa  182f              	jr	H8KBDBITX
+  5839                          H8KBDBIT2:
+  5840  2fac  cd712d            	call	KBDRST
+  5841  2faf  3efd              	ld	a,$FD
+  5842  2fb1  1828              	jr	H8KBDBITX
+  5843                          H8KBDBIT3:
+  5844  2fb3  cd712d            	call	KBDRST
+  5845  2fb6  3efb              	ld	a,$FB
+  5846  2fb8  1821              	jr	H8KBDBITX
+  5847                          H8KBDBIT4:
+  5848  2fba  cd712d            	call	KBDRST
+  5849  2fbd  3ef7              	ld	a,$F7
+  5850  2fbf  181a              	jr	H8KBDBITX
+  5851                          H8KBDBIT5:
+  5852  2fc1  cd712d            	call	KBDRST
+  5853  2fc4  3eef              	ld	a,$EF
+  5854  2fc6  1813              	jr	H8KBDBITX
+  5855                          H8KBDBIT6:
+  5856  2fc8  cd712d            	call	KBDRST
+  5857  2fcb  3edf              	ld	a,$DF
+  5858  2fcd  180c              	jr	H8KBDBITX
+  5859                          H8KBDBIT7:
+  5860  2fcf  cd712d            	call	KBDRST
+  5861  2fd2  3ebf              	ld	a,$BF
+  5862  2fd4  1805              	jr	H8KBDBITX
+  5863                          H8KBDBIT8:
+  5864  2fd6  cd712d            	call	KBDRST
+  5865  2fd9  3e7f              	ld	a,$7F
+  5866                          H8KBDBITX:
+  5867                          ;	call	OUTHEX
+  5868                          ;	call	CRLF
+  5869  2fdb  c9                	ret
+  5870                          ;
+  5871  2fdc  00                KBDCNT:	db	0
+  5872  2fdd  00                KBDKEY:	db	0
+  5873                          ;
+  5874                          
