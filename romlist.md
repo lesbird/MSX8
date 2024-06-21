@@ -218,12 +218,11 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   HITSU247.ROM   Hitsuji Yai - Preety Sheep (Japan).rom
  Y   HOLEI248.ROM   Hole in One (Japan).rom
  Y?  HOLEI249.ROM   Hole in One Professional (Japan).rom
-===
  Y   HONKB250.ROM   Honkball (Japan).rom
  YP  HOPPE251.ROM   Hopper (Europe).rom
  Y?  HUDSO252.ROM   Hudson 3D Golf (Japan).rom
  Y   HUSTL253.ROM   Hustle! Chumy (Japan).rom
- Y?  HYDLI254.ROM   Hydlide (Japan).rom
+ Y   HYDLI254.ROM   Hydlide (Japan).rom
  Y   HYPER257.ROM   Hyper Olympic 1 (Japan).rom
  Y   HYPER258.ROM   Hyper Olympic 2 (Japan).rom
  Y?  HYPER259.ROM   Hyper Rally (Japan).rom
@@ -238,16 +237,16 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   IRIEG268.ROM   Iriegas - Theseus (Japan).rom
  Y   ISSUN269.ROM   Issunhoushi No Donnamondai (Japan).rom
  Y   JPWIN270.ROM   J.P. Winkle (Japan).rom
- Y?  JANKA272.ROM   Janka (Japan).rom
+ Y   JANKA272.ROM   Janka (Japan).rom
  Y   JETSE273.ROM   Jet Set Willy (Japan).rom
- N4  JIGSA274.ROM   Jigsaw Set (Japan).rom
- Y?  JISSE275.ROM   Jissen - 4-nin Mahjong (Japan).rom
+ Y   JIGSA274.ROM   Jigsaw Set (Japan).rom
+ Y   JISSE275.ROM   Jissen - 4-nin Mahjong (Japan).rom
  Y   JUMPJ276.ROM   Jump (Japan).rom
  Y   JUMPC277.ROM   Jump Coaster (Japan).rom
  YP  JUMPL278.ROM   Jump Land (Japan).rom
  Y   JUMPI279.ROM   Jumping Rabbit (Japan).rom
  N0  JUNOF280.ROM   Juno First (Japan).rom
- Y?  JYANF281.ROM   Jyan Friend (Japan).rom
+ Y   JYANF281.ROM   Jyan Friend (Japan).rom
  Y   JYANK282.ROM   Jyankyo (Japan).rom
  Y   JYANY283.ROM   Jyanyuu (Japan).rom
  N4  KAGEN284.ROM   Kage no Densetsu - Legend of Kage, The (Japan).rom
@@ -258,7 +257,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   KINGB290.ROM   King & Balloon (Japan).rom
  Y   KINGS292.ROM   King's Valley (Japan, Europe).rom
  Y   KINNI294.ROM   Kinnikuman - Muscle Man (Japan).rom
- YP? KNIGH295.ROM   Knight Lore (Japan).rom
+ YP  KNIGH295.ROM   Knight Lore (Japan).rom
  Y   KNIGH296.ROM   Knightmare - Majou Densetsu (Japan).rom
  Y   KONAM300.ROM   Konami's Baseball (Japan).rom
  Y   KONAM301.ROM   Konami's Billiards (Europe).rom
@@ -271,10 +270,10 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   KONAM308.ROM   Konami's Tennis (Japan).rom
  Y   KONEK309.ROM   Koneko no Daibouken - Catboy (Japan).rom
  Y   KUNGF310.ROM   Kung Fu Acho (Japan).rom
- Y?  KUNGF311.ROM   Kung Fu Master (Japan).rom
- Y?  KUNGF312.ROM   Kung Fu Taigun (Japan).rom
+ Y   KUNGF311.ROM   Kung Fu Master (Japan).rom
+ Y   KUNGF312.ROM   Kung Fu Taigun (Japan).rom
  N0  LADDE313.ROM   Ladder Building (Japan).rom
- Y?  LAPTI314.ROM   Laptick 2 (Japan).rom
+ YP  LAPTI314.ROM   Laptick 2 (Japan).rom
  Y   LEMAN315.ROM   Le Mans 2 (Europe).rom
  N8  LEONA317.ROM   Leonard (Spain).rom
  Y   LODER319.ROM   Lode Runner (Japan).rom
@@ -295,13 +294,14 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   MEGAL338.ROM   Megalopolis SOS (Japan).rom
  Y?  MIDNI340.ROM   Midnight Brothers (Japan).rom
  Y?  MIDNI341.ROM   Midnight Building (Japan).rom
- N8  MIDWA342.ROM   Midway (Japan).rom
+ Y?  MIDWA342.ROM   Midway (Japan).rom
  Y?  MILCA343.ROM   Mil Caras (Spain).rom
  Y   MINIG344.ROM   Mini Golf (Japan).rom
  Y   MOAIN347.ROM   Moai no Hibou (Japan).rom
  Y   MOBIL348.ROM   Mobile Planet Suthirus - Approach from the Westgate (Japan).rom
  Y   MOBIL349.ROM   Mobile-Suit Gundam - Last Shooting (Japan).rom
- YP? MOKAR350.ROM   Mokarimakka (Japan).rom
+ YP  MOKAR350.ROM   Mokarimakka (Japan).rom
+===
  N0  MOLEJ351.ROM   Mole (Japan).rom
  Y?  MOLEM352.ROM   Mole Mole 2 (Japan).rom
  Y?  MONKE353.ROM   Monkey Academy (Japan).rom
