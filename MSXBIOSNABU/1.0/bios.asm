@@ -4822,15 +4822,39 @@ NBJSTK:	push	bc
 	jr	z,NBJSTP
 	cp	$81			; player 2 input
 	jr	z,NBJSTP
-	call	NBKBDRST
+;	call	KBDRST
 	ld	a,b
 	cp	'E'			; fire button 2
 	call	z,NBJSF3
 	call	nz,NBJSF2
 	ld	a,b
-	cp	$20
+	cp	$20			; space bar
 	call	z,NBJSF1
 	call	nz,NBJSF0
+	ld	a,b
+	cp	$E0			; right arrow down
+	call	z,NBJSR1
+	ld	a,b
+	cp	$F0			; right arrow up
+	call	z,NBJSR0
+	ld	a,b
+	cp	$E1			; left arrow down
+	call	z,NBJSL1
+	ld	a,b
+	cp	$F1			; left arrow up
+	call	z,NBJSL0
+	ld	a,b
+	cp	$E2			; up arrow down
+	call	z,NBJSU1
+	ld	a,b
+	cp	$F2			; up arrow up
+	call	z,NBJSU0
+	ld	a,b
+	cp	$E3			; down arrow down
+	call	z,NBJSD1
+	ld	a,b
+	cp	$F3			; down arrow up
+	call	z,NBJSD0
 	ld	a,b
 	and	$E0			; mask bits
 	cp	$A0			; looking for 1010.xxxx
@@ -4928,10 +4952,6 @@ NBJSTX:	ld	a,c
 	pop	bc
 	ret
 ;
-NBKBDRST:
-	xor	a
-	ld	(KBDCNT),a
-	ret
 ;
 JSTKST:	db	$FF
 JSTKPL:	db	0
@@ -5502,31 +5522,19 @@ GAMECR12:
 	RET
 ;
 KBDIN:
-;	ld	a,(KBDCNT)
-;	inc	a
-;	and	$0F
-;	ld	(KBDCNT),a
-;	jr	z,KBDIN1
 	in	a,(KEYPORT+1)		; keyboard status
 	and	$02			; z=no data waiting
-	jr	z,KBDINX
+	ret	z
 	in	a,(KEYPORT)		; keyboard data
 	ld	(KBDKEY),a
 ;	call	CONOUT
-	ret
-KBDIN1:	ld	a,(KBDKEY)
-	or	a
-	ret
-KBDINX:	
-;	xor	a
-;	ld	(KBDKEY),a
 	ret
 KBDRST:
 	xor	a
 	ld	(KBDKEY),a
 	ret
 ;
-; READ H8 KEYBOARD
+; READ NABU KEYBOARD
 ; C=ROW NUMBER
 NBKBD:
 ;	call	KBDIN
@@ -5750,6 +5758,14 @@ NBKBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	call	z,NBKBDSETS
 	cp	$08
 	call	z,NBKBDSETDEL
+	cp	'A'
+	call	z,NBKBDSETL
+	cp	'D'
+	call	z,NBKBDSETR
+	cp	'W'
+	call	z,NBKBDSETU
+	cp	'S'
+	call	z,NBKBDSETD
 	ld	a,c
 ;	call	OUTHEX
 ;	call	CRLF
