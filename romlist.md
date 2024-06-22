@@ -301,43 +301,42 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   MOBIL348.ROM   Mobile Planet Suthirus - Approach from the Westgate (Japan).rom
  Y   MOBIL349.ROM   Mobile-Suit Gundam - Last Shooting (Japan).rom
  YP  MOKAR350.ROM   Mokarimakka (Japan).rom
-===
  N0  MOLEJ351.ROM   Mole (Japan).rom
  Y?  MOLEM352.ROM   Mole Mole 2 (Japan).rom
- Y?  MONKE353.ROM   Monkey Academy (Japan).rom
+ YP? MONKE353.ROM   Monkey Academy (Japan).rom
  Y   MONST354.ROM   Monster's Fair (Japan).rom
  N0  MOONL355.ROM   Moon Landing (Japan).rom
- Y?  MOONP356.ROM   Moon Patrol (Japan).rom
+ Y   MOONP356.ROM   Moon Patrol (Japan).rom
  Y   MOONS357.ROM   Moonsweeper (Japan).rom
  N4  MOPIR358.ROM   Mopiranger (Japan).rom
  NC  MORIT359.ROM   Morita Kazuo no Othello (Japan).rom
- Y?  MOUSE360.ROM   Mouser (Japan).rom
+ YP? MOUSE360.ROM   Mouser (Japan).rom
  Y   MRCHI361.ROM   Mr. Chin (Japan).rom
  Y?  MRDOJ362.ROM   Mr. Do (Japan).rom
- Y?  MRDOS364.ROM   Mr. Do's Wild Ride (Japan).rom
+ Y   MRDOS364.ROM   Mr. Do's Wild Ride (Japan).rom
  Y   MRDOV363.ROM   Mr. Do vs Unicorns (Japan).rom
  N0  MSX21365.ROM   MSX 21 (Japan).rom
  Y   MSXBA366.ROM   MSX Baseball (Japan).rom
- Y?  MSXBA367.ROM   MSX Baseball II National (Japan).rom
+ Y   MSXBA367.ROM   MSX Baseball II National (Japan).rom
  N0  MSXDE368.ROM   MSX Derby (Japan).rom
  Y   MSXRU369.ROM   MSX Rugby (Japan).rom
  Y   MSXSO370.ROM   MSX Soccer (Japan).rom
  N0  NAUSI372.ROM   Nausicaa (Japan).rom
  Y   NESSE378.ROM   Nessen Koushiyen (Japan).rom
- YP? NIGHT379.ROM   Night Shade (Japan).rom
+ YP  NIGHT379.ROM   Night Shade (Japan).rom
  Y   NINJA380.ROM   Ninja Jajamaru-kun (Japan).rom
- YP? NINJA381.ROM   Ninja Princess (Japan).rom
+ YP  NINJA381.ROM   Ninja Princess (Japan).rom
  Y   NINJA382.ROM   Ninjakun (Japan).rom
- Y?  NINJA383.ROM   Ninjakun Majou (Japan).rom
+ Y   NINJA383.ROM   Ninjakun Majou (Japan).rom
  Y   NINJY384.ROM   Ninjya Kage (Japan).rom
  Y?  NYANN386.ROM   Nyan Nyan Pro Wrestling (Japan).rom
- Y?  NYORO387.ROM   Nyorols (Japan).rom
+ Y   NYORO387.ROM   Nyorols (Japan).rom
  Y   OILSW389.ROM   Oil's Well (Japan).rom
  Y?  OKAMI390.ROM   Okami no Su (Japan).rom
- Y?  OMACF388.ROM   O'Mac Farmer (Japan).rom
+ Y   OMACF388.ROM   O'Mac Farmer (Japan).rom
  Y   OTHEL391.ROM   Othello (Japan).rom
  Y   OYOID392.ROM   Oyoide Tango (Japan).rom
- Y?  PACHI394.ROM   Pachi Com (Japan).rom
+ Y   PACHI394.ROM   Pachi Com (Japan).rom
  Y   PACMA393.ROM   Pac-Man (Japan).rom
  Y   PAIPA395.ROM   Pai Panic (Japan).rom
  N0  PAIRS396.ROM   Pairs (Japan).rom
@@ -351,6 +350,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP? PICOP406.ROM   Pico Pico (Japan).rom
  Y   PICTU407.ROM   Picture Puzzle (Japan).rom
  Y?  PILLB408.ROM   Pillbox (Japan).rom
+===
  Y?  PINEA410.ROM   Pine Applin (Japan).rom
  YP? PINGB411.ROM   Pingball Maker (Japan).rom
  YP  PINKY412.ROM   Pinky Chase (Japan).rom
