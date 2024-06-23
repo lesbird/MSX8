@@ -4819,42 +4819,42 @@ NBJSTK:	push	bc
 	cp	$94			; watchdog - skip it
 	jp	z,NBJSTX
 	cp	$80			; player 1 input
-	jr	z,NBJSTP
+	jp	z,NBJSTP
 	cp	$81			; player 2 input
-	jr	z,NBJSTP
+	jp	z,NBJSTP
 ;	call	KBDRST
-	ld	a,b
-	cp	'E'			; fire button 2
-	call	z,NBJSF3
-	call	nz,NBJSF2
-	ld	a,b
-	cp	$20			; space bar
-	call	z,NBJSF1
-	call	nz,NBJSF0
-	ld	a,b
-	cp	$E0			; right arrow down
-	call	z,NBJSR1
-	ld	a,b
-	cp	$F0			; right arrow up
-	call	z,NBJSR0
-	ld	a,b
-	cp	$E1			; left arrow down
-	call	z,NBJSL1
-	ld	a,b
-	cp	$F1			; left arrow up
-	call	z,NBJSL0
-	ld	a,b
-	cp	$E2			; up arrow down
-	call	z,NBJSU1
-	ld	a,b
-	cp	$F2			; up arrow up
-	call	z,NBJSU0
-	ld	a,b
-	cp	$E3			; down arrow down
-	call	z,NBJSD1
-	ld	a,b
-	cp	$F3			; down arrow up
-	call	z,NBJSD0
+;	ld	a,b
+;	cp	'E'			; fire button 2
+;	call	z,NBJSF3
+;	call	nz,NBJSF2
+;	ld	a,b
+;	cp	$20			; space bar
+;	call	z,NBJSF1
+;	call	nz,NBJSF0
+;	ld	a,b
+;	cp	$E0			; right arrow down
+;	call	z,NBJSR1
+;	ld	a,b
+;	cp	$F0			; right arrow up
+;	call	z,NBJSR0
+;	ld	a,b
+;	cp	$E1			; left arrow down
+;	call	z,NBJSL1
+;	ld	a,b
+;	cp	$F1			; left arrow up
+;	call	z,NBJSL0
+;	ld	a,b
+;	cp	$E2			; up arrow down
+;	call	z,NBJSU1
+;	ld	a,b
+;	cp	$F2			; up arrow up
+;	call	z,NBJSU0
+;	ld	a,b
+;	cp	$E3			; down arrow down
+;	call	z,NBJSD1
+;	ld	a,b
+;	cp	$F3			; down arrow up
+;	call	z,NBJSD0
 	ld	a,b
 	and	$E0			; mask bits
 	cp	$A0			; looking for 1010.xxxx
@@ -4947,15 +4947,35 @@ NBJSL1:	ld	a,c
 	ld	c,a
 	xor	a
 	ret
-NBJSTX:	ld	a,c
+NBJSTX:	
+;	ld	a,(LSTKEY)
+;	cp	$20
+;	call	z,NBJSTX1
+;	cp	'E'
+;	call	z,NBJSTX2
+;	ld	a,(KBDKEY)
+;	ld	(LSTKEY),a
+	ld	a,c
 	ld	(JSTKST),a
 	pop	bc
+	ret
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+NBJSTX1:
+	ld	a,c
+	or	$10
+	ld	c,a
+	xor	a
+	ret
+NBJSTX2:
+	ld	a,c
+	or	$20
+	ld	c,a
+	xor	a
 	ret
 ;
 ;
 JSTKST:	db	$FF
 JSTKPL:	db	0
-KBCHAR:	db	0
 ;
 CONOUT:	
 ;	push	af
@@ -5527,7 +5547,8 @@ KBDIN:
 	ret	z
 	in	a,(KEYPORT)		; keyboard data
 	ld	(KBDKEY),a
-;	call	CONOUT
+;	call	OUTHEX
+;	call	CRLF
 	ret
 KBDRST:
 	xor	a
@@ -5735,42 +5756,75 @@ NBKBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 ;
 NBKBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	push	bc
-	ld	c,$FF
+;	ld	c,$FF
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-	ld	a,(JSTKST)
-	ld	b,a
-	bit	0,a
-	call	z,NBKBDSETU
-	ld	a,b
-	bit	1,a
-	call	z,NBKBDSETD
-	ld	a,b
-	bit	2,a
-	call	z,NBKBDSETL
-	ld	a,b
-	bit	3,a
-	call	z,NBKBDSETR
-	ld	a,b
-	bit	4,a
-	call	z,NBKBDSETS
+;	ld	a,(JSTKST)
+;	ld	b,a
+;	bit	0,a
+;	call	z,NBKBDSETU
+;	ld	a,b
+;	bit	1,a
+;	call	z,NBKBDSETD
+;	ld	a,b
+;	bit	2,a
+;	call	z,NBKBDSETL
+;	ld	a,b
+;	bit	3,a
+;	call	z,NBKBDSETR
+;	ld	a,b
+;	bit	4,a
+;	call	z,NBKBDSETS
+;	ld	a,(KBDKEY)
+;	cp	$20
+;	call	z,NBKBDSETS
+;	cp	$08
+;	call	z,NBKBDSETDEL
+;	cp	'A'
+;	call	z,NBKBDSETL
+;	cp	'D'
+;	call	z,NBKBDSETR
+;	cp	'W'
+;	call	z,NBKBDSETU
+;	cp	'S'
+;	call	z,NBKBDSETD
+	ld	a,(ROW8)
+	or	$0F
+	ld	c,a
 	ld	a,(KBDKEY)
 	cp	$20
 	call	z,NBKBDSETS
-	cp	$08
-	call	z,NBKBDSETDEL
-	cp	'A'
-	call	z,NBKBDSETL
-	cp	'D'
-	call	z,NBKBDSETR
-	cp	'W'
-	call	z,NBKBDSETU
-	cp	'S'
-	call	z,NBKBDSETD
+	cp	$E0			; right arrow down
+	call	z,NBKBDSETR1
+	cp	$F0			; right arrow up
+	call	z,NBKBDSETR0
+	cp	$E1			; left arrow down
+	call	z,NBKBDSETL1
+	cp	$F1			; left arrow up
+	call	z,NBKBDSETL0
+	cp	$E2			; up arrow down
+	call	z,NBKBDSETU1
+	cp	$F2			; up arrow up
+	call	z,NBKBDSETU0
+	cp	$E3			; down arrow down
+	call	z,NBKBDSETD1
+	cp	$F3			; down arrow up
+	call	z,NBKBDSETD0
+	cp	$E6			; NO button down
+	call	z,NBKBDSETB1
+	cp	$F6			; NO button up
+	call	z,NBKBDSETB0
+	cp	$E7			; YES button down
+	call	z,NBKBDSETA1
+	cp	$F7			; YES button up
+	call	z,NBKBDSETA0
 	ld	a,c
+	ld	(ROW8),a
 ;	call	OUTHEX
 ;	call	CRLF
 	pop	bc
 	ret
+;
+ROW8:	db	$FF
 ;
 NBKBD9:					; 4,3,2,1,0,X,X,X
 ;	in	a,($F0)
@@ -5822,22 +5876,68 @@ NBKBDA:					; .,COMMA,-,9,8,7,6,5
 	ld	a,$FF
 	call	H8KBDBITX
 	ret
-;
-NBKBDSETU:
+; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+NBKBDSETU1:
 	call	KBDRST
 	res	5,c
+	set	6,c
 	ret
-NBKBDSETD:
+NBKBDSETU0:
+	call	KBDRST
+	set	5,c
+	ret
+NBKBDSETD1:
 	call	KBDRST
 	res	6,c
+	set	5,c
 	ret
-NBKBDSETL:
+NBKBDSETD0:
+	call	KBDRST
+	set	6,c
+	ret
+NBKBDSETL1:
 	call	KBDRST
 	res	4,c
+	set	7,c
 	ret
-NBKBDSETR:
+NBKBDSETL0:
+	call	KBDRST
+	set	4,c
+	ret
+NBKBDSETR1:
 	call	KBDRST
 	res	7,c
+	set	4,c
+	ret
+NBKBDSETR0:
+	call	KBDRST
+	set	7,c
+	ret
+; trigger A down
+NBKBDSETA1:
+	ld	a,(JSTKST)
+	and	$EF
+	ld	(JSTKST),a
+	xor	a
+	ret
+NBKBDSETA0:
+	ld	a,(JSTKST)
+	or	$10
+	ld	(JSTKST),a
+	xor	a
+	ret
+; trigger B down
+NBKBDSETB1:
+	ld	a,(JSTKST)
+	and	$DF
+	ld	(JSTKST),a
+	xor	a
+	ret
+NBKBDSETB0:
+	ld	a,(JSTKST)
+	or	$20
+	ld	(JSTKST),a
+	xor	a
 	ret
 NBKBDSETS:
 	call	KBDRST
@@ -5886,4 +5986,5 @@ H8KBDBITX:
 ;
 KBDCNT:	db	0
 KBDKEY:	db	0
+LSTKEY:	db	0
 ;
