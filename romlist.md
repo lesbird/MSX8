@@ -392,7 +392,6 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   SEAHU456.ROM   Sea Hunter (Europe).rom
  Y   SENJY458.ROM   Senjyo (Japan).rom
  N4  SEWER459.ROM   Sewer Sam (Japan).rom
-===
  Y   SHOUG460.ROM   Shougi (Japan).rom
  N4  SHOUG461.ROM   Shougi 2 (Japan).rom
  N0  SHOUG462.ROM   Shougi Game (Japan).rom
@@ -414,7 +413,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N0  SPARK479.ROM   Sparkie (Japan).rom
  Y   SPELU480.ROM   Spelunker (Japan).rom
  N8  SPIDE481.ROM   Spider, The (Japan).rom
- Y?  SQUAR483.ROM   Square Dancer (Japan).rom
+ Y   SQUAR483.ROM   Square Dancer (Japan).rom
  Y   SQUIS484.ROM   Squish'em (Japan).rom
  Y   STARB485.ROM   Star Blazer (Japan).rom
  N0  STARC486.ROM   Star Command (Japan).rom
@@ -430,7 +429,8 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N0  SUPER496.ROM   Super Billiards (Japan).rom
  YP? SUPER499.ROM   Super Boy I (Korea) (Unl).rom
  YP? SUPER500.ROM   Super Boy II (Korea) (Unl).rom
- YP? SUPER501.ROM   Super Bubble Bobble (Korea) (Unl).rom
+ YP  SUPER501.ROM   Super Bubble Bobble (Korea) (Unl).rom
+===
  YP? SUPER502.ROM   Super Cobra (Japan).rom
  YP  SUPER503.ROM   Super Columns (Japan).rom
  YP  SUPER504.ROM   Super Cross Force (Europe).rom
