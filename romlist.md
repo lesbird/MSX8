@@ -350,19 +350,18 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP? PICOP406.ROM   Pico Pico (Japan).rom
  Y   PICTU407.ROM   Picture Puzzle (Japan).rom
  Y?  PILLB408.ROM   Pillbox (Japan).rom
-===
  Y?  PINEA410.ROM   Pine Applin (Japan).rom
  YP? PINGB411.ROM   Pingball Maker (Japan).rom
  YP  PINKY412.ROM   Pinky Chase (Japan).rom
- Y?  PIPIJ413.ROM   Pipi (Japan).rom
+ Y   PIPIJ413.ROM   Pipi (Japan).rom
  Y   PIPPO414.ROM   Pippols (Japan).rom
  YP  PITFA415.ROM   Pitfall II - Lost Caverns (Japan).rom
- N8  PITFA416.ROM   Pitfall! (Japan).rom
+ NP8 PITFA416.ROM   Pitfall! (Japan).rom
  Y   PLAYB417.ROM   Play Ball (Japan).rom
  N4  POINY418.ROM   Poiny X Senryosakusen - Operation Thanksgiving (Japan).rom
  Y   POLIC419.ROM   Police Story, The (Japan).rom
  YP  POOYA420.ROM   Pooyan (Japan).rom
- Y?  POPPA421.ROM   Poppaq the Fish (Japan).rom
+ Y   POPPA421.ROM   Poppaq the Fish (Japan).rom
  N4  PROFE423.ROM   Professional Baseball (Japan).rom
  YP? PROFE424.ROM   Professional Mahjong (Japan).rom
  Y   PROTE425.ROM   Protector, The (Japan).rom
@@ -372,7 +371,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   QUEEN430.ROM   Queen's Golf (Japan).rom
  Y   RAIDO432.ROM   Raid on Bungeling Bay (Japan).rom
  Y   RALLY433.ROM   Rally-X (Japan).rom
- Y?  RAMBO434.ROM   Rambo (Japan).rom
+ YP? RAMBO434.ROM   Rambo (Japan).rom
  YP? REALT435.ROM   Real Tennis (Japan).rom
  Y   REDZO436.ROM   Red Zone (Japan).rom
  N0  RENJU438.ROM   Renju & Ojama Dogs (Japan).rom
@@ -380,11 +379,11 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  N0  RIVER440.ROM   River Raid (Japan).rom
  Y   ROADF441.ROM   Road Fighter (Japan).rom
  Y   ROBOF443.ROM   Robofrog (Japan).rom
- YP? ROCKN444.ROM   Rock'n Bolt (Japan).rom
+ NP8 ROCKN444.ROM   Rock'n Bolt (Japan).rom
  Y   ROGER445.ROM   Roger Rubbish (Europe).rom
  Y?  ROLLE446.ROM   Roller Ball (Japan).rom
  N0  ROTOR447.ROM   Rotors (Japan).rom
- YP? SASAJ450.ROM   Sasa (Japan).rom
+ YP  SASAJ450.ROM   Sasa (Japan).rom
  Y?  SAURU451.ROM   Saurus Land (Japan).rom
  Y   SCARL452.ROM   Scarlet 7 - The Mightiest Women (Japan).rom
  Y   SCION453.ROM   Scion (Japan).rom
@@ -393,6 +392,7 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   SEAHU456.ROM   Sea Hunter (Europe).rom
  Y   SENJY458.ROM   Senjyo (Japan).rom
  N4  SEWER459.ROM   Sewer Sam (Japan).rom
+===
  Y   SHOUG460.ROM   Shougi (Japan).rom
  N4  SHOUG461.ROM   Shougi 2 (Japan).rom
  N0  SHOUG462.ROM   Shougi Game (Japan).rom
