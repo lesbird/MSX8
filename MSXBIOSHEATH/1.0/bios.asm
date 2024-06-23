@@ -5697,37 +5697,38 @@ H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 ;
 H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	push	bc
-	ld	c,$FF
+;	ld	c,$FF
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-	call	H8JSTK
-	ld	b,a
-	bit	0,a
-	call	z,H8KBDSETU
-	ld	a,b
-	bit	1,a
-	call	z,H8KBDSETD
-	ld	a,b
-	bit	2,a
-	call	z,H8KBDSETL
-	ld	a,b
-	bit	3,a
-	call	z,H8KBDSETR
-	ld	a,b
-	bit	4,a
-	call	z,H8KBDSETS
+;	call	H8JSTK
+;	ld	b,a
+;	bit	0,a
+;	call	z,H8KBDSETU
+;	ld	a,b
+;	bit	1,a
+;	call	z,H8KBDSETD
+;	ld	a,b
+;	bit	2,a
+;	call	z,H8KBDSETL
+;	ld	a,b
+;	bit	3,a
+;	call	z,H8KBDSETR
+;	ld	a,b
+;	bit	4,a
+;	call	z,H8KBDSETS
+	ld	c,$FF
 	ld	a,(KBDKEY)
 	cp	$20
-	call	z,H8KBDSETS
+	call	z,KBDSETS
 	cp	$08
-	call	z,H8KBDSETDEL
+	call	z,KBDSETDEL
 	cp	'A'
-	call	z,H8KBDSETL
+	call	z,KBDSETL1
 	cp	'D'
-	call	z,H8KBDSETR
+	call	z,KBDSETR1
 	cp	'W'
-	call	z,H8KBDSETU
+	call	z,KBDSETU1
 	cp	'S'
-	call	z,H8KBDSETD
+	call	z,KBDSETD1
 	ld	a,c
 	call	OUTHEX
 	call	CRLF
@@ -5784,28 +5785,74 @@ H8KBDA:					; .,COMMA,-,9,8,7,6,5
 	ld	a,$FF
 	call	H8KBDBITX
 	ret
-;
-H8KBDSETU:
+; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+KBDSETU1:
 	call	KBDRST
 	res	5,c
+	set	6,c
 	ret
-H8KBDSETD:
+KBDSETU0:
+	call	KBDRST
+	set	5,c
+	ret
+KBDSETD1:
 	call	KBDRST
 	res	6,c
+	set	5,c
 	ret
-H8KBDSETL:
+KBDSETD0:
+	call	KBDRST
+	set	6,c
+	ret
+KBDSETL1:
 	call	KBDRST
 	res	4,c
+	set	7,c
 	ret
-H8KBDSETR:
+KBDSETL0:
+	call	KBDRST
+	set	4,c
+	ret
+KBDSETR1:
 	call	KBDRST
 	res	7,c
+	set	4,c
 	ret
-H8KBDSETS:
+KBDSETR0:
+	call	KBDRST
+	set	7,c
+	ret
+; trigger A down
+KBDSETA1:
+;	ld	a,(JSTKST)
+;	and	$EF
+;	ld	(JSTKST),a
+	xor	a
+	ret
+KBDSETA0:
+;	ld	a,(JSTKST)
+;	or	$10
+;	ld	(JSTKST),a
+	xor	a
+	ret
+; trigger B down
+KBDSETB1:
+;	ld	a,(JSTKST)
+;	and	$DF
+;	ld	(JSTKST),a
+	xor	a
+	ret
+KBDSETB0:
+;	ld	a,(JSTKST)
+;	or	$20
+;	ld	(JSTKST),a
+	xor	a
+	ret
+KBDSETS:
 	call	KBDRST
 	res	0,c
 	ret
-H8KBDSETDEL:
+KBDSETDEL:
 	call	KBDRST
 	res	3,c
 	ret
