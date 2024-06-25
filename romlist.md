@@ -430,34 +430,34 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  YP? SUPER499.ROM   Super Boy I (Korea) (Unl).rom
  YP? SUPER500.ROM   Super Boy II (Korea) (Unl).rom
  YP  SUPER501.ROM   Super Bubble Bobble (Korea) (Unl).rom
-===
- YP? SUPER502.ROM   Super Cobra (Japan).rom
+ NP4 SUPER502.ROM   Super Cobra (Japan).rom
  YP  SUPER503.ROM   Super Columns (Japan).rom
  YP  SUPER504.ROM   Super Cross Force (Europe).rom
  Y   SUPER505.ROM   Super Drinker (Japan).rom
  YP  SUPER506.ROM   Super Golf (Japan).rom
- Y?  SUPER508.ROM   Super Pachinko (Japan).rom
+ NP8 SUPER508.ROM   Super Pachinko (Japan).rom
  Y   SUPER510.ROM   Super Snake (Japan).rom
  Y   SUPER511.ROM   Super Soccer (Japan).rom
  Y   SUPER512.ROM   Super Tennis (Japan).rom
- N4  SUPER513.ROM   Super Tripper (Spain).rom
+ NP4 SUPER513.ROM   Super Tripper (Spain).rom
  YP  SWEET514.ROM   Sweet Acorn (Japan).rom
- Y?  SWING515.ROM   Swing (Japan).rom
+ N4  SWING515.ROM   Swing (Japan).rom
  Y   TANKB517.ROM   Tank Battalion (Japan).rom
  Y   TATIC518.ROM   Tatica (Japan).rom
  Y   TAWAR519.ROM   Tawara-kun (Japan).rom
- Y?  TEARO520.ROM   Tear of Nile (Japan).rom
- YP? TELEB521.ROM   Telebunnie (Japan).rom
+ Y   TEARO520.ROM   Tear of Nile (Japan).rom
+ NP8 TELEB521.ROM   Telebunnie (Japan).rom
  Y   TENSA522.ROM   Tensai Rabbian Daifunsen (Japan).rom
  Y?  TENSI523.ROM   Tensidachino Gogo (Japan).rom
  YP  TENSI524.ROM   Tension (Spain).rom
- N8  TETRA525.ROM   Tetra Horror (Japan).rom
+ NP8 TETRA525.ROM   Tetra Horror (Japan).rom
  Y   TETRI526.ROM   Tetris (Korea) (Unl).rom
- N8  TETSU527.ROM   Tetsuman (Japan).rom
+ NP8 TETSU527.ROM   Tetsuman (Japan).rom
  Y   THEXD528.ROM   Thexder (Japan).rom
  Y?  THUND529.ROM   Thunder Ball (Japan).rom
  N6  THUND530.ROM   Thunderbolt (Japan).rom
- YP? TIMEP531.ROM   Time Pilot (Japan).rom
+ YP  TIMEP531.ROM   Time Pilot (Japan).rom
+===
  YP  TOPPL534.ROM   Topple Zip (Japan).rom
  Y   TOPRO533.ROM   Top Roller! (Japan).rom
  Y   TRACK535.ROM   Track & Field 1 (Europe).rom
