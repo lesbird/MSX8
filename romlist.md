@@ -1,4 +1,4 @@
-# 387 WORKING GAMES
+# 379 LOADING GAMES OUT OF 481 ROMS
 Some require keyboard support and/or 2 joystick buttons. They are marked with a '?' in the list below<br>
 Some require the patcher (MSX8P.COM). They are marked with a 'P' in the list below<br>
 Some don't work at all. They are marked with a 'N' in the list below<br>
@@ -7,7 +7,7 @@ Some don't work at all. They are marked with a 'N' in the list below<br>
 
 Y = (271) WORKS
 YP= ( 55) USE MSX8P (PATCHER VERSION NEEDED DUE TO DIRECT VDP/PSG WRITES INSTEAD OF GOING THROUGH THE BIOS)
-? = RUNS BUT NOT PLAYABLE - POSSIBLY REQUIRES TWO BUTTON JOYSTICK
+? = ( 53) RUNS BUT NOT PLAYABLE - POSSIBLY REQUIRES TWO BUTTON JOYSTICK OR UNSUPPORTED KEYBOARD CONTROLS
 N = DOES NOT WORK
 
 STAT SHORT NAME     LONG NAME (481 ROMS)
