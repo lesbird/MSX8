@@ -554,7 +554,7 @@ bios.asm:
     19                                  DEFC    VDPCTL = $99
     20                                  DEFC    PSGCTL = $A0
     21                          	DEFC	PSGDAT = $A1
-    22                          	DEFC	PSGRIN = $A2
+    22                          	DEFC	PSGRIN = $A1
     23                          	DEFC	CONPORT = $80
     24                          ; Declare some external symbols defined in MSX-BASIC.
     25                                  EXTERN  ASPCT1
@@ -3678,7 +3678,7 @@ bios.asm:
   2693  1299  3e0e                      ld      a,$0E
   2694  129b  d3a0                      out     (PSGCTL),a
   2695  129d  0e00                      ld      c,$00
-  2696  129f  dba2              A129F:  in      a,(PSGRIN)
+  2696  129f  dba1              A129F:  in      a,(PSGRIN)
   2697  12a1  a0                        and     b
   2698  12a2  2805                      jr      z,A12A9
   2699  12a4  0c                        inc     c
@@ -3810,7 +3810,7 @@ bios.asm:
   2825  1375  57                        ld      d,a
   2826  1376  3e0f                      ld      a,$0F
   2827  1378  d3a0                      out     (PSGCTL),a
-  2828  137a  dba2                      in      a,(PSGRIN)
+  2828  137a  dba1                      in      a,(PSGRIN)
   2829  137c  a5                        and     l
   2830  137d  b2                        or      d
   2831  137e  b4                        or      h
@@ -4977,12 +4977,12 @@ bios.asm:
   3982  1abf  57                        ld      d,a                     ; min. size of startbit
   3983  1ac0  cd6f04            A1AC0:  call    A046F                   ; BREAKX
   3984  1ac3  d8                        ret     c                       ; break, quit
-  3985  1ac4  dba2                      in      a,(PSGRIN)
+  3985  1ac4  dba1                      in      a,(PSGRIN)
   3986  1ac6  07                        rlca
   3987  1ac7  30f7                      jr      nc,A1AC0                ; wait for high
   3988  1ac9  cd6f04            A1AC9:  call    A046F                   ; BREAKX
   3989  1acc  d8                        ret     c                       ; break, quit
-  3990  1acd  dba2                      in      a,(PSGRIN)
+  3990  1acd  dba1                      in      a,(PSGRIN)
   3991  1acf  07                        rlca
   3992  1ad0  38f7                      jr      c,A1AC9                 ; wait for low
   3993  1ad2  1e00                      ld      e,$00
@@ -5016,7 +5016,7 @@ bios.asm:
   4021  1b03  3aa5fc            A1B03:  ld      a,(WINWID)
   4022  1b06  47                        ld      b,a
   4023  1b07  0e00                      ld      c,$00
-  4024  1b09  dba2              A1B09:  in      a,(PSGRIN)
+  4024  1b09  dba1              A1B09:  in      a,(PSGRIN)
   4025  1b0b  ab                        xor     e
   4026  1b0c  f2171b                    jp      p,A1B17
   4027  1b0f  7b                        ld      a,e
@@ -5040,7 +5040,7 @@ bios.asm:
   4045  1b23  0e00              A1B23:  ld      c,$00
   4046  1b25  0c                A1B25:  inc     c
   4047  1b26  280a                      jr      z,A1B32
-  4048  1b28  dba2                      in      a,(PSGRIN)
+  4048  1b28  dba1                      in      a,(PSGRIN)
   4049  1b2a  ab                        xor     e
   4050  1b2b  f2251b                    jp      p,A1B25
   4051  1b2e  7b                        ld      a,e
@@ -5053,7 +5053,7 @@ bios.asm:
   4058                          ;
   4059  1b34  cd6f04            A1B34:  call    A046F                   ; BREAKX
   4060  1b37  d8                        ret     c                       ; break, quit
-  4061  1b38  dba2                      in      a,(PSGRIN)
+  4061  1b38  dba1                      in      a,(PSGRIN)
   4062  1b3a  07                        rlca
   4063  1b3b  38f7                      jr      c,A1B34                 ; wait until casinput = 0
   4064  1b3d  1e00                      ld      e,$00
@@ -6038,152 +6038,153 @@ bios.asm:
   4758                          ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
   4759                          ; for now just read the keyboard until joysticks are here
   4760  2733  c5                RCJSTK:	push	bc
-  4761  2734  cd9327            	call	RCJSTKTMR
-  4762  2737  3aa927            	ld	a,(RCJSTKST)
+  4761  2734  cd9527            	call	RCJSTKTMR
+  4762  2737  3aab27            	ld	a,(RCJSTKST)
   4763                          ;	or	$F0	; reset button 1 and 2
   4764  273a  4f                	ld	c,a
-  4765  273b  cdf427            	call	CONIN
+  4765  273b  cdf627            	call	CONIN
   4766  273e  b7                	or	a
-  4767  273f  281e              	jr	z,RCJSTKX
-  4768  2741  fe44              	cp	'D'
-  4769  2743  cc6527            	call	z,RCJSTKR
-  4770  2746  fe41              	cp	'A'
-  4771  2748  cc6d27            	call	z,RCJSTKL
-  4772  274b  fe57              	cp	'W'
-  4773  274d  cc7527            	call	z,RCJSTKU
-  4774  2750  fe53              	cp	'S'
-  4775  2752  cc7d27            	call	z,RCJSTKD
-  4776  2755  fe20              	cp	' '
-  4777  2757  cc8527            	call	z,RCJSTK1
-  4778  275a  fe45              	cp	'E'
-  4779  275c  cc8c27            	call	z,RCJSTK2
-  4780                          RCJSTKX:
-  4781  275f  79                	ld	a,c
-  4782  2760  32a927            	ld	(RCJSTKST),a
-  4783  2763  c1                	pop	bc
-  4784  2764  c9                	ret
-  4785                          RCJSTKR:
-  4786  2765  79                	ld	a,c
-  4787  2766  e6f7              	and	$F7
-  4788  2768  f604              	or	$04
-  4789  276a  4f                	ld	c,a
-  4790  276b  1836              	jr	RCJSTKRST
-  4791                          RCJSTKL:
-  4792  276d  79                	ld	a,c
-  4793  276e  e6fb              	and	$FB
-  4794  2770  f608              	or	$08
-  4795  2772  4f                	ld	c,a
-  4796  2773  182e              	jr	RCJSTKRST
-  4797                          RCJSTKU:
-  4798  2775  79                	ld	a,c
-  4799  2776  e6fe              	and	$FE
-  4800  2778  f602              	or	$02
-  4801  277a  4f                	ld	c,a
-  4802  277b  1826              	jr	RCJSTKRST
-  4803                          RCJSTKD:
-  4804  277d  79                	ld	a,c
-  4805  277e  e6fd              	and	$FD
-  4806  2780  f601              	or	$01
-  4807  2782  4f                	ld	c,a
-  4808  2783  181e              	jr	RCJSTKRST
-  4809                          RCJSTK1:
-  4810  2785  79                	ld	a,c
-  4811  2786  e6ef              	and	$EF
-  4812  2788  f620              	or	$20
-  4813  278a  4f                	ld	c,a
-  4814  278b  c9                	ret
-  4815                          RCJSTK2:
-  4816  278c  79                	ld	a,c
-  4817  278d  e6df              	and	$DF
-  4818  278f  f610              	or	$10
-  4819  2791  4f                	ld	c,a
-  4820  2792  c9                	ret
-  4821                          RCJSTKTMR:
-  4822  2793  3aa827            	ld	a,(RCJSTKCNT)
-  4823  2796  3c                	inc	a
-  4824  2797  e60f              	and	$0F
-  4825  2799  32a827            	ld	(RCJSTKCNT),a
-  4826  279c  c0                	ret	nz
-  4827  279d  3eff              	ld	a,$FF	; reset stick state every 16 frames if idle
-  4828  279f  32a927            	ld	(RCJSTKST),a
-  4829  27a2  c9                	ret
-  4830                          RCJSTKRST:
-  4831  27a3  af                	xor	a
-  4832  27a4  32a827            	ld	(RCJSTKCNT),a
-  4833  27a7  c9                	ret
-  4834                          ;
-  4835                          RCJSTKCNT:
-  4836  27a8  00                	db	$00
-  4837                          RCJSTKST:
-  4838  27a9  ff                	db	$FF
-  4839                          ;
-  4840  27aa  c9                CONOUT:	ret
-  4841  27ab  f5                CONPRT:	push	af
-  4842  27ac  af                	xor	a
-  4843  27ad  d380              	out	(CONPORT),a
-  4844  27af  db80              CONOUL:	in	a,(CONPORT)
-  4845  27b1  e604              	and	$04
-  4846  27b3  28fa              	jr	z,CONOUL
-  4847  27b5  f1                	pop	af
-  4848  27b6  d381              	out	(CONPORT+1),a
-  4849  27b8  c9                	ret
-  4850                          ;
-  4851                          CONPRTS:
-  4852  27b9  7e                	ld	a,(HL)
-  4853  27ba  b7                	or	a
-  4854  27bb  c8                	ret	z
-  4855  27bc  cdab27            	call	CONPRT
-  4856  27bf  23                	inc	HL
-  4857  27c0  18f7              	jr	CONPRTS
-  4858                          ;
-  4859  27c2  f5                OUTHEX:	push	af
-  4860  27c3  e5                	push	hl
-  4861  27c4  d5                	push	de
-  4862  27c5  f5                	push	af
-  4863  27c6  e6f0              	and	$F0
-  4864  27c8  1f                	rra
-  4865  27c9  1f                	rra
-  4866  27ca  1f                	rra
-  4867  27cb  1f                	rra
-  4868  27cc  21ff27            	ld	hl,HEXTBL
-  4869  27cf  5f                	ld	e,a
-  4870  27d0  1600              	ld	d,0
-  4871  27d2  19                	add	hl,de
-  4872  27d3  7e                	ld	a,(hl)
-  4873  27d4  cdaa27            	call	CONOUT
-  4874  27d7  f1                	pop	af
-  4875  27d8  e60f              	and	$0F
-  4876  27da  21ff27            	ld	hl,HEXTBL
-  4877  27dd  5f                	ld	e,a
-  4878  27de  19                	add	hl,de
-  4879  27df  7e                	ld	a,(hl)
-  4880  27e0  cdaa27            	call	CONOUT
-  4881  27e3  d1                	pop	de
-  4882  27e4  e1                	pop	hl
-  4883  27e5  f1                	pop	af
-  4884  27e6  c9                	ret
-  4885                          ;
-  4886  27e7  f5                CRLF:	push	af
-  4887  27e8  3e0d              	ld	a,0DH
-  4888  27ea  cdaa27            	call	CONOUT
-  4889  27ed  3e0a              	ld	a,0AH
-  4890  27ef  cdaa27            	call	CONOUT
-  4891  27f2  f1                	pop	af
-  4892  27f3  c9                	ret
-  4893                          ;
-  4894  27f4  af                CONIN:	xor	a
-  4895  27f5  d380              	out	(CONPORT),a
-  4896  27f7  db80              	in	a,(CONPORT)
-  4897  27f9  e601              	and	$01
-  4898  27fb  c8                	ret	z
-  4899  27fc  db81              	in	a,(CONPORT+1)
-  4900  27fe  c9                	ret
-  4901                          ;
-  4902  27ff  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
+  4767  273f  2820              	jr	z,RCJSTKX
+  4768  2741  e6df              	and	$DF	; force upper case
+  4769  2743  fe44              	cp	'D'
+  4770  2745  cc6727            	call	z,RCJSTKR
+  4771  2748  fe41              	cp	'A'
+  4772  274a  cc6f27            	call	z,RCJSTKL
+  4773  274d  fe57              	cp	'W'
+  4774  274f  cc7727            	call	z,RCJSTKU
+  4775  2752  fe53              	cp	'S'
+  4776  2754  cc7f27            	call	z,RCJSTKD
+  4777  2757  fe20              	cp	' '
+  4778  2759  cc8727            	call	z,RCJSTK1
+  4779  275c  fe45              	cp	'E'
+  4780  275e  cc8e27            	call	z,RCJSTK2
+  4781                          RCJSTKX:
+  4782  2761  79                	ld	a,c
+  4783  2762  32ab27            	ld	(RCJSTKST),a
+  4784  2765  c1                	pop	bc
+  4785  2766  c9                	ret
+  4786                          RCJSTKR:
+  4787  2767  79                	ld	a,c
+  4788  2768  e6f7              	and	$F7
+  4789  276a  f604              	or	$04
+  4790  276c  4f                	ld	c,a
+  4791  276d  1836              	jr	RCJSTKRST
+  4792                          RCJSTKL:
+  4793  276f  79                	ld	a,c
+  4794  2770  e6fb              	and	$FB
+  4795  2772  f608              	or	$08
+  4796  2774  4f                	ld	c,a
+  4797  2775  182e              	jr	RCJSTKRST
+  4798                          RCJSTKU:
+  4799  2777  79                	ld	a,c
+  4800  2778  e6fe              	and	$FE
+  4801  277a  f602              	or	$02
+  4802  277c  4f                	ld	c,a
+  4803  277d  1826              	jr	RCJSTKRST
+  4804                          RCJSTKD:
+  4805  277f  79                	ld	a,c
+  4806  2780  e6fd              	and	$FD
+  4807  2782  f601              	or	$01
+  4808  2784  4f                	ld	c,a
+  4809  2785  181e              	jr	RCJSTKRST
+  4810                          RCJSTK1:
+  4811  2787  79                	ld	a,c
+  4812  2788  e6ef              	and	$EF
+  4813  278a  f620              	or	$20
+  4814  278c  4f                	ld	c,a
+  4815  278d  c9                	ret
+  4816                          RCJSTK2:
+  4817  278e  79                	ld	a,c
+  4818  278f  e6df              	and	$DF
+  4819  2791  f610              	or	$10
+  4820  2793  4f                	ld	c,a
+  4821  2794  c9                	ret
+  4822                          RCJSTKTMR:
+  4823  2795  3aaa27            	ld	a,(RCJSTKCNT)
+  4824  2798  3c                	inc	a
+  4825  2799  e60f              	and	$0F
+  4826  279b  32aa27            	ld	(RCJSTKCNT),a
+  4827  279e  c0                	ret	nz
+  4828  279f  3eff              	ld	a,$FF	; reset stick state every 16 frames if idle
+  4829  27a1  32ab27            	ld	(RCJSTKST),a
+  4830  27a4  c9                	ret
+  4831                          RCJSTKRST:
+  4832  27a5  af                	xor	a
+  4833  27a6  32aa27            	ld	(RCJSTKCNT),a
+  4834  27a9  c9                	ret
+  4835                          ;
+  4836                          RCJSTKCNT:
+  4837  27aa  00                	db	$00
+  4838                          RCJSTKST:
+  4839  27ab  ff                	db	$FF
+  4840                          ;
+  4841  27ac  c9                CONOUT:	ret
+  4842  27ad  f5                CONPRT:	push	af
+  4843  27ae  af                	xor	a
+  4844  27af  d380              	out	(CONPORT),a
+  4845  27b1  db80              CONOUL:	in	a,(CONPORT)
+  4846  27b3  e604              	and	$04
+  4847  27b5  28fa              	jr	z,CONOUL
+  4848  27b7  f1                	pop	af
+  4849  27b8  d381              	out	(CONPORT+1),a
+  4850  27ba  c9                	ret
+  4851                          ;
+  4852                          CONPRTS:
+  4853  27bb  7e                	ld	a,(HL)
+  4854  27bc  b7                	or	a
+  4855  27bd  c8                	ret	z
+  4856  27be  cdad27            	call	CONPRT
+  4857  27c1  23                	inc	HL
+  4858  27c2  18f7              	jr	CONPRTS
+  4859                          ;
+  4860  27c4  f5                OUTHEX:	push	af
+  4861  27c5  e5                	push	hl
+  4862  27c6  d5                	push	de
+  4863  27c7  f5                	push	af
+  4864  27c8  e6f0              	and	$F0
+  4865  27ca  1f                	rra
+  4866  27cb  1f                	rra
+  4867  27cc  1f                	rra
+  4868  27cd  1f                	rra
+  4869  27ce  210128            	ld	hl,HEXTBL
+  4870  27d1  5f                	ld	e,a
+  4871  27d2  1600              	ld	d,0
+  4872  27d4  19                	add	hl,de
+  4873  27d5  7e                	ld	a,(hl)
+  4874  27d6  cdac27            	call	CONOUT
+  4875  27d9  f1                	pop	af
+  4876  27da  e60f              	and	$0F
+  4877  27dc  210128            	ld	hl,HEXTBL
+  4878  27df  5f                	ld	e,a
+  4879  27e0  19                	add	hl,de
+  4880  27e1  7e                	ld	a,(hl)
+  4881  27e2  cdac27            	call	CONOUT
+  4882  27e5  d1                	pop	de
+  4883  27e6  e1                	pop	hl
+  4884  27e7  f1                	pop	af
+  4885  27e8  c9                	ret
+  4886                          ;
+  4887  27e9  f5                CRLF:	push	af
+  4888  27ea  3e0d              	ld	a,0DH
+  4889  27ec  cdac27            	call	CONOUT
+  4890  27ef  3e0a              	ld	a,0AH
+  4891  27f1  cdac27            	call	CONOUT
+  4892  27f4  f1                	pop	af
+  4893  27f5  c9                	ret
+  4894                          ;
+  4895  27f6  af                CONIN:	xor	a
+  4896  27f7  d380              	out	(CONPORT),a
+  4897  27f9  db80              	in	a,(CONPORT)
+  4898  27fb  e601              	and	$01
+  4899  27fd  c8                	ret	z
+  4900  27fe  db81              	in	a,(CONPORT+1)
+  4901  2800  c9                	ret
+  4902                          ;
+  4903  2801  3031323334353637  HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
               3839414243444546  
-  4903                          ;
-  4904                          ; Pad to $2900
-  4905  280f  0000000000000000          DEFS    $2900 - ASMPC
+  4904                          ;
+  4905                          ; Pad to $2900
+  4906  2811  0000000000000000          DEFS    $2900 - ASMPC
               0000000000000000  
               0000000000000000  
               0000000000000000  
@@ -6212,523 +6213,522 @@ bios.asm:
               0000000000000000  
               0000000000000000  
               0000000000000000  
-              0000000000000000  
-              00                
-  4906                          ; PATCH DIRECT PSG/VDP I/O
-  4907                          ; ENTER HL=START ADR, DE=NUM BYTES
-  4908                          ; RETURN A=NUM PATCHES
-  4909                          PATCOM:
-  4910  2900  7e                	LD	A,(HL)
-  4911  2901  23                	INC	HL
-  4912  2902  fedb              	CP	$DB	; IN OPCODE
-  4913  2904  cc1a29            	CALL	Z,PATCOM1
-  4914  2907  fed3              	CP	$D3	; OUT OPCODE
-  4915  2909  cc1a29            	CALL	Z,PATCOM1
-  4916  290c  feed              	CP	$ED	; OUTI OPCODE
-  4917  290e  cc9529            	CALL	Z,PATCOME
-  4918  2911  1b                	DEC	DE
-  4919  2912  7a                	LD	A,D
-  4920  2913  b3                	OR	E
-  4921  2914  20ea              	JR	NZ,PATCOM
-  4922  2916  3acb29            	LD	A,(PATCNT)
-  4923  2919  c9                	RET
-  4924                          PATCOM1:
-  4925  291a  7e                	LD	A,(HL)
-  4926  291b  e5                	PUSH	HL
-  4927  291c  fea0              	CP	$A0
-  4928  291e  cc4629            	CALL	Z,PATCA0
-  4929  2921  fea1              	CP	$A1
-  4930  2923  cc5b29            	CALL	Z,PATCA1
-  4931  2926  fea2              	CP	$A2
-  4932  2928  cc7029            	CALL	Z,PATCA2
-  4933  292b  fea8              	CP	$A8
-  4934  292d  cc7829            	CALL	Z,PATCA8
-  4935  2930  fea9              	CP	$A9
-  4936  2932  cc8029            	CALL	Z,PATCA9
-  4937  2935  feaa              	CP	$AA
-  4938  2937  cc7829            	CALL	Z,PATCA8
-  4939  293a  fe98              	CP	$98
-  4940  293c  cc8929            	CALL	Z,PATC98
-  4941  293f  fe99              	CP	$99
-  4942  2941  cc8f29            	CALL	Z,PATC99
-  4943  2944  e1                	POP	HL
-  4944  2945  c9                	RET
-  4945                          ;
-  4946  2946  2b                PATCA0:	DEC	HL
-  4947  2947  7e                	LD	A,(HL)
-  4948  2948  fed3              	CP	$D3	; OUT
-  4949  294a  2807              	JR	Z,PATCA0O
-  4950  294c  23                	INC	HL
-  4951  294d  3ea0              	LD	A,PSGCTL
-  4952  294f  77                	LD	(HL),A
-  4953  2950  c3c229            	JP	PATCHED
-  4954                          ; RST 28
-  4955                          PATCA0O:
-  4956  2953  36ef              	LD	(HL),$EF ; RST 28
-  4957  2955  23                	INC	HL
-  4958  2956  3600              	LD	(HL),0	; NOP
-  4959  2958  c3c229            	JP	PATCHED
-  4960                          ;
-  4961  295b  2b                PATCA1:	DEC	HL
-  4962  295c  7e                	LD	A,(HL)
-  4963  295d  fed3              	CP	$D3	; OUT
-  4964  295f  2807              	JR	Z,PATCA1O
-  4965  2961  23                	INC	HL
-  4966  2962  3ea1              	LD	A,PSGDAT
-  4967  2964  77                	LD	(HL),A
-  4968  2965  c3c229            	JP	PATCHED
-  4969                          ; RST 30
-  4970                          PATCA1O:
-  4971  2968  36f7              	LD	(HL),$F7 ; RST 30
-  4972  296a  23                	INC	HL
-  4973  296b  3600              	LD	(HL),0	; NOP
-  4974  296d  c3c229            	JP	PATCHED
-  4975                          ; LOOK FOR AND PATCH JOYSTICK FUNCTION
-  4976                          ; OUT 0A0H,A
-  4977                          ; IN A,0A2H
-  4978                          ; CHANGES TO
-  4979                          ; CALL 00D5H
-  4980                          ; CPL
-  4981                          PATCA2:
-  4982  2970  3600              	LD	(HL),0	; NOP
-  4983  2972  2b                	DEC	HL
-  4984  2973  36df              	LD	(HL),$DF ; RST 18
-  4985  2975  c3c229            	JP	PATCHED
-  4986                          PATCA8:
-  4987  2978  2b                	DEC	HL
-  4988  2979  af                	XOR	A
-  4989  297a  77                	LD	(HL),A	; NOP
-  4990  297b  23                	INC	HL
-  4991  297c  77                	LD	(HL),A	; NOP
-  4992  297d  c3c229            	JP	PATCHED
-  4993                          ; KEYBOARD INPUT PATCH
-  4994                          PATCA9:
-  4995  2980  2b                	DEC	HL
-  4996  2981  364f              	LD	(HL),$4F ; LD C,A
-  4997  2983  23                	INC	HL
-  4998  2984  36df              	LD	(HL),$DF ; RST 10
-  4999  2986  c3c229            	JP	PATCHED
-  5000                          PATC98:
-  5001  2989  3e98              	LD	A,VDPDAT
-  5002  298b  77                	LD	(HL),A
-  5003  298c  c3c229            	JP	PATCHED
-  5004                          PATC99:
-  5005  298f  3e99              	LD	A,VDPCTL
-  5006  2991  77                	LD	(HL),A
-  5007  2992  c3c229            	JP	PATCHED
-  5008                          PATCOME:
-  5009  2995  e5                	PUSH	HL
-  5010  2996  d5                	PUSH	DE
-  5011  2997  1e20              	LD	E,$20	; CHECK ONLY 32 BYTES BACK
-  5012                          PATCOME1:
-  5013  2999  7e                	LD	A,(HL)
-  5014  299a  fea3              	CP	$A3	; OUTI OPCODE
-  5015  299c  2021              	JR	NZ,PATCOMEX
-  5016                          PATCOME1A:
-  5017  299e  2b                	DEC	HL
-  5018  299f  7e                	LD	A,(HL)
-  5019  29a0  fe0e              	CP	$0E	; LOOKING FOR LD C,<N>
-  5020  29a2  2805              	JR	Z,PATCOME2
-  5021  29a4  1d                	DEC	E
-  5022  29a5  20f7              	JR	NZ,PATCOME1A
-  5023  29a7  1816              	JR	PATCOMEX
-  5024                          PATCOME2:
-  5025  29a9  23                	INC	HL
-  5026  29aa  7e                	LD	A,(HL)
-  5027  29ab  fea0              	CP	$A0
-  5028  29ad  cc4629            	CALL	Z,PATCA0
-  5029  29b0  fea1              	CP	$A1
-  5030  29b2  cc5b29            	CALL	Z,PATCA1
-  5031                          ;	CP	$A2
-  5032                          ;	CALL	Z,PATCA2
-  5033  29b5  fe98              	CP	$98
-  5034  29b7  cc8929            	CALL	Z,PATC98
-  5035  29ba  fe99              	CP	$99
-  5036  29bc  cc8f29            	CALL	Z,PATC99
-  5037                          PATCOMEX:
-  5038  29bf  d1                	POP	DE
-  5039  29c0  e1                	POP	HL
-  5040  29c1  c9                	RET
-  5041                          PATCHED:
-  5042  29c2  3acb29            	LD	A,(PATCNT)
-  5043  29c5  3c                	INC	A
-  5044  29c6  32cb29            	LD	(PATCNT),A
-  5045  29c9  af                	XOR	A
-  5046  29ca  c9                	RET
-  5047                          ;
-  5048  29cb  00                PATCNT:	DB	0
-  5049                          ;
-  5050                          ; Pad to $2A00
-  5051  29cc  0000000000000000          DEFS    $2A00 - ASMPC
+              00000000000000    
+  4907                          ; PATCH DIRECT PSG/VDP I/O
+  4908                          ; ENTER HL=START ADR, DE=NUM BYTES
+  4909                          ; RETURN A=NUM PATCHES
+  4910                          PATCOM:
+  4911  2900  7e                	LD	A,(HL)
+  4912  2901  23                	INC	HL
+  4913  2902  fedb              	CP	$DB	; IN OPCODE
+  4914  2904  cc1a29            	CALL	Z,PATCOM1
+  4915  2907  fed3              	CP	$D3	; OUT OPCODE
+  4916  2909  cc1a29            	CALL	Z,PATCOM1
+  4917  290c  feed              	CP	$ED	; OUTI OPCODE
+  4918  290e  cc9529            	CALL	Z,PATCOME
+  4919  2911  1b                	DEC	DE
+  4920  2912  7a                	LD	A,D
+  4921  2913  b3                	OR	E
+  4922  2914  20ea              	JR	NZ,PATCOM
+  4923  2916  3acb29            	LD	A,(PATCNT)
+  4924  2919  c9                	RET
+  4925                          PATCOM1:
+  4926  291a  7e                	LD	A,(HL)
+  4927  291b  e5                	PUSH	HL
+  4928  291c  fea0              	CP	$A0
+  4929  291e  cc4629            	CALL	Z,PATCA0
+  4930  2921  fea1              	CP	$A1
+  4931  2923  cc5b29            	CALL	Z,PATCA1
+  4932  2926  fea2              	CP	$A2
+  4933  2928  cc7029            	CALL	Z,PATCA2
+  4934  292b  fea8              	CP	$A8
+  4935  292d  cc7829            	CALL	Z,PATCA8
+  4936  2930  fea9              	CP	$A9
+  4937  2932  cc8029            	CALL	Z,PATCA9
+  4938  2935  feaa              	CP	$AA
+  4939  2937  cc7829            	CALL	Z,PATCA8
+  4940  293a  fe98              	CP	$98
+  4941  293c  cc8929            	CALL	Z,PATC98
+  4942  293f  fe99              	CP	$99
+  4943  2941  cc8f29            	CALL	Z,PATC99
+  4944  2944  e1                	POP	HL
+  4945  2945  c9                	RET
+  4946                          ;
+  4947  2946  2b                PATCA0:	DEC	HL
+  4948  2947  7e                	LD	A,(HL)
+  4949  2948  fed3              	CP	$D3	; OUT
+  4950  294a  2807              	JR	Z,PATCA0O
+  4951  294c  23                	INC	HL
+  4952  294d  3ea0              	LD	A,PSGCTL
+  4953  294f  77                	LD	(HL),A
+  4954  2950  c3c229            	JP	PATCHED
+  4955                          ; RST 28
+  4956                          PATCA0O:
+  4957  2953  36ef              	LD	(HL),$EF ; RST 28
+  4958  2955  23                	INC	HL
+  4959  2956  3600              	LD	(HL),0	; NOP
+  4960  2958  c3c229            	JP	PATCHED
+  4961                          ;
+  4962  295b  2b                PATCA1:	DEC	HL
+  4963  295c  7e                	LD	A,(HL)
+  4964  295d  fed3              	CP	$D3	; OUT
+  4965  295f  2807              	JR	Z,PATCA1O
+  4966  2961  23                	INC	HL
+  4967  2962  3ea1              	LD	A,PSGDAT
+  4968  2964  77                	LD	(HL),A
+  4969  2965  c3c229            	JP	PATCHED
+  4970                          ; RST 30
+  4971                          PATCA1O:
+  4972  2968  36f7              	LD	(HL),$F7 ; RST 30
+  4973  296a  23                	INC	HL
+  4974  296b  3600              	LD	(HL),0	; NOP
+  4975  296d  c3c229            	JP	PATCHED
+  4976                          ; LOOK FOR AND PATCH JOYSTICK FUNCTION
+  4977                          ; OUT 0A0H,A
+  4978                          ; IN A,0A2H
+  4979                          ; CHANGES TO
+  4980                          ; CALL 00D5H
+  4981                          ; CPL
+  4982                          PATCA2:
+  4983  2970  3600              	LD	(HL),0	; NOP
+  4984  2972  2b                	DEC	HL
+  4985  2973  36df              	LD	(HL),$DF ; RST 18
+  4986  2975  c3c229            	JP	PATCHED
+  4987                          PATCA8:
+  4988  2978  2b                	DEC	HL
+  4989  2979  af                	XOR	A
+  4990  297a  77                	LD	(HL),A	; NOP
+  4991  297b  23                	INC	HL
+  4992  297c  77                	LD	(HL),A	; NOP
+  4993  297d  c3c229            	JP	PATCHED
+  4994                          ; KEYBOARD INPUT PATCH
+  4995                          PATCA9:
+  4996  2980  2b                	DEC	HL
+  4997  2981  364f              	LD	(HL),$4F ; LD C,A
+  4998  2983  23                	INC	HL
+  4999  2984  36df              	LD	(HL),$DF ; RST 10
+  5000  2986  c3c229            	JP	PATCHED
+  5001                          PATC98:
+  5002  2989  3e98              	LD	A,VDPDAT
+  5003  298b  77                	LD	(HL),A
+  5004  298c  c3c229            	JP	PATCHED
+  5005                          PATC99:
+  5006  298f  3e99              	LD	A,VDPCTL
+  5007  2991  77                	LD	(HL),A
+  5008  2992  c3c229            	JP	PATCHED
+  5009                          PATCOME:
+  5010  2995  e5                	PUSH	HL
+  5011  2996  d5                	PUSH	DE
+  5012  2997  1e20              	LD	E,$20	; CHECK ONLY 32 BYTES BACK
+  5013                          PATCOME1:
+  5014  2999  7e                	LD	A,(HL)
+  5015  299a  fea3              	CP	$A3	; OUTI OPCODE
+  5016  299c  2021              	JR	NZ,PATCOMEX
+  5017                          PATCOME1A:
+  5018  299e  2b                	DEC	HL
+  5019  299f  7e                	LD	A,(HL)
+  5020  29a0  fe0e              	CP	$0E	; LOOKING FOR LD C,<N>
+  5021  29a2  2805              	JR	Z,PATCOME2
+  5022  29a4  1d                	DEC	E
+  5023  29a5  20f7              	JR	NZ,PATCOME1A
+  5024  29a7  1816              	JR	PATCOMEX
+  5025                          PATCOME2:
+  5026  29a9  23                	INC	HL
+  5027  29aa  7e                	LD	A,(HL)
+  5028  29ab  fea0              	CP	$A0
+  5029  29ad  cc4629            	CALL	Z,PATCA0
+  5030  29b0  fea1              	CP	$A1
+  5031  29b2  cc5b29            	CALL	Z,PATCA1
+  5032                          ;	CP	$A2
+  5033                          ;	CALL	Z,PATCA2
+  5034  29b5  fe98              	CP	$98
+  5035  29b7  cc8929            	CALL	Z,PATC98
+  5036  29ba  fe99              	CP	$99
+  5037  29bc  cc8f29            	CALL	Z,PATC99
+  5038                          PATCOMEX:
+  5039  29bf  d1                	POP	DE
+  5040  29c0  e1                	POP	HL
+  5041  29c1  c9                	RET
+  5042                          PATCHED:
+  5043  29c2  3acb29            	LD	A,(PATCNT)
+  5044  29c5  3c                	INC	A
+  5045  29c6  32cb29            	LD	(PATCNT),A
+  5046  29c9  af                	XOR	A
+  5047  29ca  c9                	RET
+  5048                          ;
+  5049  29cb  00                PATCNT:	DB	0
+  5050                          ;
+  5051                          ; Pad to $2A00
+  5052  29cc  0000000000000000          DEFS    $2A00 - ASMPC
               0000000000000000  
               0000000000000000  
               0000000000000000  
               0000000000000000  
               0000000000000000  
               00000000          
-  5052                          ; FILL IN DEFAULT VALUES FOR WORKSPACE AREA
-  5053                          ; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
-  5054  2a00  219afd            	LD	HL,$FD9A
-  5055  2a03  013002            	LD	BC,$0230
-  5056                          FILLC9:
-  5057  2a06  3ec9              	LD	A,$C9
-  5058  2a08  77                	LD	(HL),A
-  5059  2a09  23                	INC	HL
-  5060  2a0a  0b                	DEC	BC
-  5061  2a0b  79                	LD	A,C
-  5062  2a0c  b0                	OR	B
-  5063  2a0d  20f7              	JR	NZ,FILLC9
-  5064                          COPYF3:
-  5065  2a0f  218c26            	LD	HL,TOF380
-  5066  2a12  1180f3            	LD	DE,$F380
-  5067  2a15  019000            	LD	BC,$0090
-  5068                          COPYF3L:
-  5069  2a18  7e                	LD	A,(HL)
-  5070  2a19  23                	INC	HL
-  5071  2a1a  12                	LD	(DE),A
-  5072  2a1b  13                	INC	DE
-  5073  2a1c  0b                	DEC	BC
-  5074  2a1d  79                	LD	A,C
-  5075  2a1e  b0                	OR	B
-  5076  2a1f  20f7              	JR	NZ,COPYF3L
-  5077                          ; NOW PATCH HIGH MEMORY AREAS WITH DEFAULT VALUES
-  5078                          ; THESE VALUES WERE TAKEN FROM MSX REDBOOK
-  5079  2a21  2168f1            	LD	HL,$F168
-  5080  2a24  2272f6            	LD	(MEMSIZ),HL
-  5081  2a27  21a0f0            	LD	HL,$F0A0
-  5082  2a2a  2274f6            	LD	(STKTOP),HL
-  5083  2a2d  210180            	LD	HL,$8001
-  5084  2a30  2276f6            	LD	(TXTTAB),HL
-  5085  2a33  217af6            	LD	HL,$F67A
-  5086  2a36  2278f6            	LD	(TEMPPT),HL
-  5087  2a39  2168f1            	LD	HL,$F168
-  5088  2a3c  229bf6            	LD	(FRETOP),HL
-  5089  2a3f  219ef0            	LD	HL,$F09E
-  5090  2a42  22b1f6            	LD	(SAVSTK),HL
-  5091  2a45  210380            	LD	HL,$8003
-  5092  2a48  22c2f6            	LD	(VARTAB),HL
-  5093  2a4b  22c4f6            	LD	(ARYTAB),HL
-  5094  2a4e  22c6f6            	LD	(STREND),HL
-  5095  2a51  210080            	LD	HL,$8000
-  5096  2a54  22c8f6            	LD	(DATPTR),HL
-  5097  2a57  011a00            	LD	BC,26
-  5098  2a5a  21caf6            	LD	HL,DEFTBL
-  5099                          DEFTBL0:
-  5100  2a5d  3608              	LD	(HL),08H
-  5101  2a5f  23                	INC	HL
-  5102  2a60  0d                	DEC	C
-  5103  2a61  20fa              	JR	NZ,DEFTBL0
-  5104  2a63  21e4f6            	LD	HL,$F6E4
-  5105  2a66  224cf7            	LD	(PRMPRV),HL
-  5106  2a69  3e01              	LD	A,1
-  5107  2a6b  325ff8            	LD	(MAXFIL),A
-  5108  2a6e  216af1            	LD	HL,$F16A
-  5109  2a71  2260f8            	LD	(FILTAB),HL
-  5110  2a74  2177f1            	LD	HL,$F177
-  5111  2a77  2262f8            	LD	(NULBUF),HL
-  5112  2a7a  af                	XOR	A
-  5113  2a7b  321ff9            	LD	(CGPNT),A
-  5114  2a7e  21bf1b            	LD	HL,$1BBF
-  5115  2a81  2220f9            	LD	(CGPNT+1),HL
-  5116  2a84  210008            	LD	HL,$0800
-  5117  2a87  2224f9            	LD	(CGPBAS),HL
-  5118  2a8a  210038            	LD	HL,$3800
-  5119  2a8d  2226f9            	LD	(PATBAS),HL
-  5120  2a90  21001b            	LD	HL,$1B00
-  5121  2a93  2228f9            	LD	(ATRBAS),HL
-  5122  2a96  3e80              	LD	A,$80
-  5123  2a98  322cf9            	LD	(CMASK),A
-  5124  2a9b  210080            	LD	HL,$8000
-  5125  2a9e  2248fc            	LD	(BOTTOM),HL
-  5126  2aa1  2180f3            	LD	HL,$F380
-  5127  2aa4  224afc            	LD	(HIMEM),HL
-  5128  2aa7  c9                	RET
-  5129                          ;
-  5130                          OUT0A0:
-  5131  2aa8  d3a0              	OUT	(PSGCTL),A
-  5132  2aaa  32ae2a            	LD	(PSGREG),A
-  5133                          ;	PUSH	AF
-  5134                          ;	LD	A,'2'
-  5135                          ;	CALL	CONOUT
-  5136                          ;	POP	AF
-  5137  2aad  c9                	RET
-  5138                          ;
-  5139  2aae  00                PSGREG:	DB	0
-  5140                          ;
-  5141  2aaf  f5                OUT0A1:	PUSH	AF
-  5142                          ;	LD	A,'3'
-  5143                          ;	CALL	CONOUT
-  5144  2ab0  3aae2a            	LD	A,(PSGREG)
-  5145  2ab3  fe07              	CP	$07
-  5146  2ab5  280e              	JR	Z,OUT0A17
-  5147  2ab7  fe0e              	CP	$0E
-  5148  2ab9  2808              	JR	Z,OUT0A1X
-  5149  2abb  fe0f              	CP	$0F
-  5150  2abd  2804              	JR	Z,OUT0A1X
-  5151  2abf  f1                	POP	AF
-  5152  2ac0  d3a1              	OUT	(PSGDAT),A
-  5153  2ac2  c9                	RET
-  5154                          OUT0A1X:
-  5155  2ac3  f1                	POP	AF
-  5156  2ac4  c9                	RET
-  5157                          OUT0A17:
-  5158  2ac5  f1                	POP	AF
-  5159  2ac6  e63f              	AND	$3F
-  5160  2ac8  f640              	OR	$40
-  5161  2aca  d3a1              	OUT	(PSGDAT),A
-  5162  2acc  c9                	RET
-  5163                          ;
-  5164                          ; Pad to $2B00
-  5165  2acd  0000000000000000          DEFS    $2B00 - ASMPC
+  5053                          ; FILL IN DEFAULT VALUES FOR WORKSPACE AREA
+  5054                          ; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
+  5055  2a00  219afd            	LD	HL,$FD9A
+  5056  2a03  013002            	LD	BC,$0230
+  5057                          FILLC9:
+  5058  2a06  3ec9              	LD	A,$C9
+  5059  2a08  77                	LD	(HL),A
+  5060  2a09  23                	INC	HL
+  5061  2a0a  0b                	DEC	BC
+  5062  2a0b  79                	LD	A,C
+  5063  2a0c  b0                	OR	B
+  5064  2a0d  20f7              	JR	NZ,FILLC9
+  5065                          COPYF3:
+  5066  2a0f  218c26            	LD	HL,TOF380
+  5067  2a12  1180f3            	LD	DE,$F380
+  5068  2a15  019000            	LD	BC,$0090
+  5069                          COPYF3L:
+  5070  2a18  7e                	LD	A,(HL)
+  5071  2a19  23                	INC	HL
+  5072  2a1a  12                	LD	(DE),A
+  5073  2a1b  13                	INC	DE
+  5074  2a1c  0b                	DEC	BC
+  5075  2a1d  79                	LD	A,C
+  5076  2a1e  b0                	OR	B
+  5077  2a1f  20f7              	JR	NZ,COPYF3L
+  5078                          ; NOW PATCH HIGH MEMORY AREAS WITH DEFAULT VALUES
+  5079                          ; THESE VALUES WERE TAKEN FROM MSX REDBOOK
+  5080  2a21  2168f1            	LD	HL,$F168
+  5081  2a24  2272f6            	LD	(MEMSIZ),HL
+  5082  2a27  21a0f0            	LD	HL,$F0A0
+  5083  2a2a  2274f6            	LD	(STKTOP),HL
+  5084  2a2d  210180            	LD	HL,$8001
+  5085  2a30  2276f6            	LD	(TXTTAB),HL
+  5086  2a33  217af6            	LD	HL,$F67A
+  5087  2a36  2278f6            	LD	(TEMPPT),HL
+  5088  2a39  2168f1            	LD	HL,$F168
+  5089  2a3c  229bf6            	LD	(FRETOP),HL
+  5090  2a3f  219ef0            	LD	HL,$F09E
+  5091  2a42  22b1f6            	LD	(SAVSTK),HL
+  5092  2a45  210380            	LD	HL,$8003
+  5093  2a48  22c2f6            	LD	(VARTAB),HL
+  5094  2a4b  22c4f6            	LD	(ARYTAB),HL
+  5095  2a4e  22c6f6            	LD	(STREND),HL
+  5096  2a51  210080            	LD	HL,$8000
+  5097  2a54  22c8f6            	LD	(DATPTR),HL
+  5098  2a57  011a00            	LD	BC,26
+  5099  2a5a  21caf6            	LD	HL,DEFTBL
+  5100                          DEFTBL0:
+  5101  2a5d  3608              	LD	(HL),08H
+  5102  2a5f  23                	INC	HL
+  5103  2a60  0d                	DEC	C
+  5104  2a61  20fa              	JR	NZ,DEFTBL0
+  5105  2a63  21e4f6            	LD	HL,$F6E4
+  5106  2a66  224cf7            	LD	(PRMPRV),HL
+  5107  2a69  3e01              	LD	A,1
+  5108  2a6b  325ff8            	LD	(MAXFIL),A
+  5109  2a6e  216af1            	LD	HL,$F16A
+  5110  2a71  2260f8            	LD	(FILTAB),HL
+  5111  2a74  2177f1            	LD	HL,$F177
+  5112  2a77  2262f8            	LD	(NULBUF),HL
+  5113  2a7a  af                	XOR	A
+  5114  2a7b  321ff9            	LD	(CGPNT),A
+  5115  2a7e  21bf1b            	LD	HL,$1BBF
+  5116  2a81  2220f9            	LD	(CGPNT+1),HL
+  5117  2a84  210008            	LD	HL,$0800
+  5118  2a87  2224f9            	LD	(CGPBAS),HL
+  5119  2a8a  210038            	LD	HL,$3800
+  5120  2a8d  2226f9            	LD	(PATBAS),HL
+  5121  2a90  21001b            	LD	HL,$1B00
+  5122  2a93  2228f9            	LD	(ATRBAS),HL
+  5123  2a96  3e80              	LD	A,$80
+  5124  2a98  322cf9            	LD	(CMASK),A
+  5125  2a9b  210080            	LD	HL,$8000
+  5126  2a9e  2248fc            	LD	(BOTTOM),HL
+  5127  2aa1  2180f3            	LD	HL,$F380
+  5128  2aa4  224afc            	LD	(HIMEM),HL
+  5129  2aa7  c9                	RET
+  5130                          ;
+  5131                          OUT0A0:
+  5132  2aa8  d3a0              	OUT	(PSGCTL),A
+  5133  2aaa  32ae2a            	LD	(PSGREG),A
+  5134                          ;	PUSH	AF
+  5135                          ;	LD	A,'2'
+  5136                          ;	CALL	CONOUT
+  5137                          ;	POP	AF
+  5138  2aad  c9                	RET
+  5139                          ;
+  5140  2aae  00                PSGREG:	DB	0
+  5141                          ;
+  5142  2aaf  f5                OUT0A1:	PUSH	AF
+  5143                          ;	LD	A,'3'
+  5144                          ;	CALL	CONOUT
+  5145  2ab0  3aae2a            	LD	A,(PSGREG)
+  5146  2ab3  fe07              	CP	$07
+  5147  2ab5  280e              	JR	Z,OUT0A17
+  5148  2ab7  fe0e              	CP	$0E
+  5149  2ab9  2808              	JR	Z,OUT0A1X
+  5150  2abb  fe0f              	CP	$0F
+  5151  2abd  2804              	JR	Z,OUT0A1X
+  5152  2abf  f1                	POP	AF
+  5153  2ac0  d3a1              	OUT	(PSGDAT),A
+  5154  2ac2  c9                	RET
+  5155                          OUT0A1X:
+  5156  2ac3  f1                	POP	AF
+  5157  2ac4  c9                	RET
+  5158                          OUT0A17:
+  5159  2ac5  f1                	POP	AF
+  5160  2ac6  e63f              	AND	$3F
+  5161  2ac8  f640              	OR	$40
+  5162  2aca  d3a1              	OUT	(PSGDAT),A
+  5163  2acc  c9                	RET
+  5164                          ;
+  5165                          ; Pad to $2B00
+  5166  2acd  0000000000000000          DEFS    $2B00 - ASMPC
               0000000000000000  
               0000000000000000  
               0000000000000000  
               0000000000000000  
               0000000000000000  
               000000            
-  5166                          ;
-  5167                          GAMECRACKS:
-  5168                          ; PATCH ELEVATOR ACTION (HACK)
-  5169  2b00  3a1640            	LD	A,($4016)
-  5170  2b03  fecd              	CP	$CD
-  5171  2b05  2033              	JR	NZ,GAMECR2
-  5172  2b07  3a1740            	LD	A,($4017)
-  5173  2b0a  fe59              	CP	$59
-  5174  2b0c  202c              	JR	NZ,GAMECR2
-  5175  2b0e  3a1840            	LD	A,($4018)
-  5176  2b11  fe4d              	CP	$4D
-  5177  2b13  2025              	JR	NZ,GAMECR2
-  5178  2b15  21262b            	LD	HL,ELEVMSG
-  5179  2b18  cdb927            	CALL	CONPRTS
-  5180  2b1b  af                	XOR	A
-  5181  2b1c  321640            	LD	($4016),A
-  5182  2b1f  321740            	LD	($4017),A
-  5183  2b22  321840            	LD	($4018),A
-  5184  2b25  c9                	RET
-  5185                          ELEVMSG:
-  5186  2b26  0d0a454c45564154  	DB	$0D,$0A,"ELEVATOR ACTION",$0D,$0A,0
+  5167                          ;
+  5168                          GAMECRACKS:
+  5169                          ; PATCH ELEVATOR ACTION (HACK)
+  5170  2b00  3a1640            	LD	A,($4016)
+  5171  2b03  fecd              	CP	$CD
+  5172  2b05  2033              	JR	NZ,GAMECR2
+  5173  2b07  3a1740            	LD	A,($4017)
+  5174  2b0a  fe59              	CP	$59
+  5175  2b0c  202c              	JR	NZ,GAMECR2
+  5176  2b0e  3a1840            	LD	A,($4018)
+  5177  2b11  fe4d              	CP	$4D
+  5178  2b13  2025              	JR	NZ,GAMECR2
+  5179  2b15  21262b            	LD	HL,ELEVMSG
+  5180  2b18  cdbb27            	CALL	CONPRTS
+  5181  2b1b  af                	XOR	A
+  5182  2b1c  321640            	LD	($4016),A
+  5183  2b1f  321740            	LD	($4017),A
+  5184  2b22  321840            	LD	($4018),A
+  5185  2b25  c9                	RET
+  5186                          ELEVMSG:
+  5187  2b26  0d0a454c45564154  	DB	$0D,$0A,"ELEVATOR ACTION",$0D,$0A,0
               4f5220414354494f  
               4e0d0a00          
-  5187                          GAMECR2:
-  5188                          ; THEXDER PATCH (HACK)
-  5189  2b3a  3aaf48            	LD	A,($48AF)
-  5190  2b3d  fe36              	CP	$36
-  5191  2b3f  201a              	JR	NZ,GAMECR3
-  5192  2b41  214f2b            	LD	HL,THEXMSG
-  5193  2b44  cdb927            	CALL	CONPRTS
-  5194  2b47  af                	XOR	A
-  5195  2b48  32af48            	LD	($48AF),A
-  5196  2b4b  32b048            	LD	($48B0),A
-  5197  2b4e  c9                	RET
-  5198                          THEXMSG:
-  5199  2b4f  0d0a544845584445  	DB	$0D,$0A,"THEXDER",$0D,$0A,0
+  5188                          GAMECR2:
+  5189                          ; THEXDER PATCH (HACK)
+  5190  2b3a  3aaf48            	LD	A,($48AF)
+  5191  2b3d  fe36              	CP	$36
+  5192  2b3f  201a              	JR	NZ,GAMECR3
+  5193  2b41  214f2b            	LD	HL,THEXMSG
+  5194  2b44  cdbb27            	CALL	CONPRTS
+  5195  2b47  af                	XOR	A
+  5196  2b48  32af48            	LD	($48AF),A
+  5197  2b4b  32b048            	LD	($48B0),A
+  5198  2b4e  c9                	RET
+  5199                          THEXMSG:
+  5200  2b4f  0d0a544845584445  	DB	$0D,$0A,"THEXDER",$0D,$0A,0
               520d0a00          
-  5200                          GAMECR3:
-  5201                          ; KINGS VALLEY PATCH (HACK)
-  5202  2b5b  3a3f40            	LD	A,($403F)
-  5203  2b5e  fee4              	CP	$E4
-  5204  2b60  202c              	JR	NZ,GAMECR4
-  5205  2b62  3a4040            	LD	A,($4040)
-  5206  2b65  fe40              	CP	$40
-  5207  2b67  2025              	JR	NZ,GAMECR4
-  5208  2b69  217d2b            	LD	HL,KINGMSG
-  5209  2b6c  cdb927            	CALL	CONPRTS
-  5210  2b6f  af                	XOR	A
-  5211  2b70  323f40            	LD	($403F),A
-  5212  2b73  324040            	LD	($4040),A
-  5213  2b76  329e40            	LD	($409E),A
-  5214  2b79  329f40            	LD	($409F),A
-  5215  2b7c  c9                	RET
-  5216                          KINGMSG:
-  5217  2b7d  0d0a4b494e475320  	DB	$0D,$0A,"KINGS VALLEY",$0D,$0A,0
+  5201                          GAMECR3:
+  5202                          ; KINGS VALLEY PATCH (HACK)
+  5203  2b5b  3a3f40            	LD	A,($403F)
+  5204  2b5e  fee4              	CP	$E4
+  5205  2b60  202c              	JR	NZ,GAMECR4
+  5206  2b62  3a4040            	LD	A,($4040)
+  5207  2b65  fe40              	CP	$40
+  5208  2b67  2025              	JR	NZ,GAMECR4
+  5209  2b69  217d2b            	LD	HL,KINGMSG
+  5210  2b6c  cdbb27            	CALL	CONPRTS
+  5211  2b6f  af                	XOR	A
+  5212  2b70  323f40            	LD	($403F),A
+  5213  2b73  324040            	LD	($4040),A
+  5214  2b76  329e40            	LD	($409E),A
+  5215  2b79  329f40            	LD	($409F),A
+  5216  2b7c  c9                	RET
+  5217                          KINGMSG:
+  5218  2b7d  0d0a4b494e475320  	DB	$0D,$0A,"KINGS VALLEY",$0D,$0A,0
               56414c4c45590d0a  
               00                
-  5218                          GAMECR4:
-  5219                          ; ARKANOID PATCH (HACK)
-  5220  2b8e  3afc42            	LD	A,($42FC)
-  5221  2b91  fe3e              	CP	$3E
-  5222  2b93  2027              	JR	NZ,GAMECR5
-  5223  2b95  3afd42            	LD	A,($42FD)
-  5224  2b98  fe0e              	CP	$0E
-  5225  2b9a  2020              	JR	NZ,GAMECR5
-  5226  2b9c  3afe42            	LD	A,($42FE)
-  5227  2b9f  fed3              	CP	$D3
-  5228  2ba1  2019              	JR	NZ,GAMECR5
-  5229  2ba3  21af2b            	LD	HL,ARKAMSG
-  5230  2ba6  cdb927            	CALL	CONPRTS
-  5231  2ba9  3ec9              	LD	A,$C9
-  5232  2bab  32fc42            	LD	($42FC),A
-  5233  2bae  c9                	RET
-  5234                          ARKAMSG:
-  5235  2baf  0d0a41524b414e4f  	DB	$0D,$0A,"ARKANOID",$0D,$0A,0
+  5219                          GAMECR4:
+  5220                          ; ARKANOID PATCH (HACK)
+  5221  2b8e  3afc42            	LD	A,($42FC)
+  5222  2b91  fe3e              	CP	$3E
+  5223  2b93  2027              	JR	NZ,GAMECR5
+  5224  2b95  3afd42            	LD	A,($42FD)
+  5225  2b98  fe0e              	CP	$0E
+  5226  2b9a  2020              	JR	NZ,GAMECR5
+  5227  2b9c  3afe42            	LD	A,($42FE)
+  5228  2b9f  fed3              	CP	$D3
+  5229  2ba1  2019              	JR	NZ,GAMECR5
+  5230  2ba3  21af2b            	LD	HL,ARKAMSG
+  5231  2ba6  cdbb27            	CALL	CONPRTS
+  5232  2ba9  3ec9              	LD	A,$C9
+  5233  2bab  32fc42            	LD	($42FC),A
+  5234  2bae  c9                	RET
+  5235                          ARKAMSG:
+  5236  2baf  0d0a41524b414e4f  	DB	$0D,$0A,"ARKANOID",$0D,$0A,0
               49440d0a00        
-  5236                          GAMECR5:
-  5237                          ; GOONIES PATCH (22,1C,41) (22,29,41) (CB,B6)
-  5238  2bbc  3a2240            	LD	A,($4022)
-  5239  2bbf  fe22              	CP	$22
-  5240  2bc1  203a              	JR	NZ,GAMECR6
-  5241  2bc3  3a2340            	LD	A,($4023)
-  5242  2bc6  fe1c              	CP	$1C
-  5243  2bc8  2033              	JR	NZ,GAMECR6
-  5244  2bca  3a2440            	LD	A,($4024)
-  5245  2bcd  fe41              	CP	$41
-  5246  2bcf  202c              	JR	NZ,GAMECR6
-  5247  2bd1  21f12b            	LD	HL,GOONMSG
-  5248  2bd4  cdb927            	CALL	CONPRTS
-  5249  2bd7  af                	XOR	A
-  5250  2bd8  322240            	LD	($4022),A
-  5251  2bdb  322340            	LD	($4023),A
-  5252  2bde  322440            	LD	($4024),A
-  5253  2be1  325040            	LD	($4050),A
-  5254  2be4  325140            	LD	($4051),A
-  5255  2be7  325240            	LD	($4052),A
-  5256  2bea  32b840            	LD	($40B8),A
-  5257  2bed  32b940            	LD	($40B9),A
-  5258  2bf0  c9                	RET
-  5259                          GOONMSG:
-  5260  2bf1  0d0a474f4f4e4945  	DB	$0D,$0A,"GOONIES",$0D,$0A,0
+  5237                          GAMECR5:
+  5238                          ; GOONIES PATCH (22,1C,41) (22,29,41) (CB,B6)
+  5239  2bbc  3a2240            	LD	A,($4022)
+  5240  2bbf  fe22              	CP	$22
+  5241  2bc1  203a              	JR	NZ,GAMECR6
+  5242  2bc3  3a2340            	LD	A,($4023)
+  5243  2bc6  fe1c              	CP	$1C
+  5244  2bc8  2033              	JR	NZ,GAMECR6
+  5245  2bca  3a2440            	LD	A,($4024)
+  5246  2bcd  fe41              	CP	$41
+  5247  2bcf  202c              	JR	NZ,GAMECR6
+  5248  2bd1  21f12b            	LD	HL,GOONMSG
+  5249  2bd4  cdbb27            	CALL	CONPRTS
+  5250  2bd7  af                	XOR	A
+  5251  2bd8  322240            	LD	($4022),A
+  5252  2bdb  322340            	LD	($4023),A
+  5253  2bde  322440            	LD	($4024),A
+  5254  2be1  325040            	LD	($4050),A
+  5255  2be4  325140            	LD	($4051),A
+  5256  2be7  325240            	LD	($4052),A
+  5257  2bea  32b840            	LD	($40B8),A
+  5258  2bed  32b940            	LD	($40B9),A
+  5259  2bf0  c9                	RET
+  5260                          GOONMSG:
+  5261  2bf1  0d0a474f4f4e4945  	DB	$0D,$0A,"GOONIES",$0D,$0A,0
               530d0a00          
-  5261                          GAMECR6:
-  5262                          ; GUARDIC PATCH (EA,6B) (90,6F) (24,5F) (7A,40) (6B,6A)
-  5263  2bfd  3a3a44            	LD	A,($443A)
-  5264  2c00  feea              	CP	$EA
-  5265  2c02  203a              	JR	NZ,GAMECR7
-  5266  2c04  3a3b44            	LD	A,($443B)
-  5267  2c07  fe6b              	CP	$6B
-  5268  2c09  2033              	JR	NZ,GAMECR7
-  5269  2c0b  21322c            	LD	HL,GUARMSG
-  5270  2c0e  cdb927            	CALL	CONPRTS
-  5271  2c11  3e33              	LD	A,$33
-  5272  2c13  323a44            	LD	($443A),A
-  5273  2c16  323b44            	LD	($443B),A
-  5274  2c19  32375f            	LD	($5F37),A
-  5275  2c1c  32385f            	LD	($5F38),A
-  5276  2c1f  327560            	LD	($6075),A
-  5277  2c22  327660            	LD	($6076),A
-  5278  2c25  32ef60            	LD	($60EF),A
-  5279  2c28  32f060            	LD	($60F0),A
-  5280  2c2b  326f6a            	LD	($6A6F),A
-  5281  2c2e  32706a            	LD	($6A70),A
-  5282  2c31  c9                	RET
-  5283                          GUARMSG:
-  5284  2c32  0d0a475541524449  	DB	$0D,$0A,"GUARDIC",$0D,$0A,0
+  5262                          GAMECR6:
+  5263                          ; GUARDIC PATCH (EA,6B) (90,6F) (24,5F) (7A,40) (6B,6A)
+  5264  2bfd  3a3a44            	LD	A,($443A)
+  5265  2c00  feea              	CP	$EA
+  5266  2c02  203a              	JR	NZ,GAMECR7
+  5267  2c04  3a3b44            	LD	A,($443B)
+  5268  2c07  fe6b              	CP	$6B
+  5269  2c09  2033              	JR	NZ,GAMECR7
+  5270  2c0b  21322c            	LD	HL,GUARMSG
+  5271  2c0e  cdbb27            	CALL	CONPRTS
+  5272  2c11  3e33              	LD	A,$33
+  5273  2c13  323a44            	LD	($443A),A
+  5274  2c16  323b44            	LD	($443B),A
+  5275  2c19  32375f            	LD	($5F37),A
+  5276  2c1c  32385f            	LD	($5F38),A
+  5277  2c1f  327560            	LD	($6075),A
+  5278  2c22  327660            	LD	($6076),A
+  5279  2c25  32ef60            	LD	($60EF),A
+  5280  2c28  32f060            	LD	($60F0),A
+  5281  2c2b  326f6a            	LD	($6A6F),A
+  5282  2c2e  32706a            	LD	($6A70),A
+  5283  2c31  c9                	RET
+  5284                          GUARMSG:
+  5285  2c32  0d0a475541524449  	DB	$0D,$0A,"GUARDIC",$0D,$0A,0
               430d0a00          
-  5285                          GAMECR7:
-  5286                          ; KNIGHTMARE (22,12,41)
-  5287  2c3e  3a2840            	LD	A,($4028)
-  5288  2c41  fe22              	CP	$22
-  5289  2c43  2043              	JR	NZ,GAMECR8
-  5290  2c45  3a2940            	LD	A,($4029)
-  5291  2c48  fe12              	CP	$12
-  5292  2c4a  203c              	JR	NZ,GAMECR8
-  5293  2c4c  3a2a40            	LD	A,($402A)
-  5294  2c4f  fe41              	CP	$41
-  5295  2c51  2035              	JR	NZ,GAMECR8
-  5296  2c53  21792c            	LD	HL,KNIGMSG
-  5297  2c56  cdb927            	CALL	CONPRTS
-  5298  2c59  af                	XOR	A
-  5299  2c5a  322840            	LD	($4028),A
-  5300  2c5d  322940            	LD	($4029),A
-  5301  2c60  322a40            	LD	($402A),A
-  5302  2c63  325540            	LD	($4055),A
-  5303  2c66  325640            	LD	($4056),A
-  5304  2c69  325740            	LD	($4057),A
-  5305  2c6c  32cc40            	LD	($40CC),A
-  5306  2c6f  32cd40            	LD	($40CD),A
-  5307  2c72  32ce40            	LD	($40CE),A
-  5308  2c75  32cf40            	LD	($40CF),A
-  5309  2c78  c9                	RET
-  5310                          KNIGMSG:
-  5311  2c79  0d0a4b4e49474854  	DB	$0D,$0A,"KNIGHTMARE",$0D,$0A,0
+  5286                          GAMECR7:
+  5287                          ; KNIGHTMARE (22,12,41)
+  5288  2c3e  3a2840            	LD	A,($4028)
+  5289  2c41  fe22              	CP	$22
+  5290  2c43  2043              	JR	NZ,GAMECR8
+  5291  2c45  3a2940            	LD	A,($4029)
+  5292  2c48  fe12              	CP	$12
+  5293  2c4a  203c              	JR	NZ,GAMECR8
+  5294  2c4c  3a2a40            	LD	A,($402A)
+  5295  2c4f  fe41              	CP	$41
+  5296  2c51  2035              	JR	NZ,GAMECR8
+  5297  2c53  21792c            	LD	HL,KNIGMSG
+  5298  2c56  cdbb27            	CALL	CONPRTS
+  5299  2c59  af                	XOR	A
+  5300  2c5a  322840            	LD	($4028),A
+  5301  2c5d  322940            	LD	($4029),A
+  5302  2c60  322a40            	LD	($402A),A
+  5303  2c63  325540            	LD	($4055),A
+  5304  2c66  325640            	LD	($4056),A
+  5305  2c69  325740            	LD	($4057),A
+  5306  2c6c  32cc40            	LD	($40CC),A
+  5307  2c6f  32cd40            	LD	($40CD),A
+  5308  2c72  32ce40            	LD	($40CE),A
+  5309  2c75  32cf40            	LD	($40CF),A
+  5310  2c78  c9                	RET
+  5311                          KNIGMSG:
+  5312  2c79  0d0a4b4e49474854  	DB	$0D,$0A,"KNIGHTMARE",$0D,$0A,0
               4d4152450d0a00    
-  5312                          GAMECR8:
-  5313                          ; PIPPOLS (22,C5,40)
-  5314  2c88  3a3340            	LD	A,($4033)
-  5315  2c8b  fe22              	CP	$22
-  5316  2c8d  2031              	JR	NZ,GAMECR9
-  5317  2c8f  3a3440            	LD	A,($4034)
-  5318  2c92  fec5              	CP	$C5
-  5319  2c94  202a              	JR	NZ,GAMECR9
-  5320  2c96  3a3540            	LD	A,($4035)
-  5321  2c99  fe40              	CP	$40
-  5322  2c9b  2023              	JR	NZ,GAMECR9
-  5323  2c9d  21b42c            	LD	HL,PIPPMSG
-  5324  2ca0  cdb927            	CALL	CONPRTS
-  5325  2ca3  af                	XOR	A
-  5326  2ca4  323340            	LD	($4033),A
-  5327  2ca7  323440            	LD	($4034),A
-  5328  2caa  323540            	LD	($4035),A
-  5329  2cad  327940            	LD	($4079),A
-  5330  2cb0  327a40            	LD	($407A),A
-  5331  2cb3  c9                	RET
-  5332                          PIPPMSG:
-  5333  2cb4  0d0a504950504f4c  	DB	$0D,$0A,"PIPPOLS",$0D,$0A,0
+  5313                          GAMECR8:
+  5314                          ; PIPPOLS (22,C5,40)
+  5315  2c88  3a3340            	LD	A,($4033)
+  5316  2c8b  fe22              	CP	$22
+  5317  2c8d  2031              	JR	NZ,GAMECR9
+  5318  2c8f  3a3440            	LD	A,($4034)
+  5319  2c92  fec5              	CP	$C5
+  5320  2c94  202a              	JR	NZ,GAMECR9
+  5321  2c96  3a3540            	LD	A,($4035)
+  5322  2c99  fe40              	CP	$40
+  5323  2c9b  2023              	JR	NZ,GAMECR9
+  5324  2c9d  21b42c            	LD	HL,PIPPMSG
+  5325  2ca0  cdbb27            	CALL	CONPRTS
+  5326  2ca3  af                	XOR	A
+  5327  2ca4  323340            	LD	($4033),A
+  5328  2ca7  323440            	LD	($4034),A
+  5329  2caa  323540            	LD	($4035),A
+  5330  2cad  327940            	LD	($4079),A
+  5331  2cb0  327a40            	LD	($407A),A
+  5332  2cb3  c9                	RET
+  5333                          PIPPMSG:
+  5334  2cb4  0d0a504950504f4c  	DB	$0D,$0A,"PIPPOLS",$0D,$0A,0
               530d0a00          
-  5334                          ; MAGICAL KID WIZ
-  5335                          GAMECR9:
-  5336  2cc0  3a1440            	LD	A,($4014)
-  5337  2cc3  fe32              	CP	$32
-  5338  2cc5  2033              	JR	NZ,GAMECR10
-  5339  2cc7  3a1540            	LD	A,($4015)
-  5340  2cca  fe1c              	CP	$1C
-  5341  2ccc  202c              	JR	NZ,GAMECR10
-  5342  2cce  3a1640            	LD	A,($4016)
-  5343  2cd1  fe40              	CP	$40
-  5344  2cd3  2025              	JR	NZ,GAMECR10
-  5345  2cd5  21e62c            	LD	HL,MAGIMSG
-  5346  2cd8  cdb927            	CALL	CONPRTS
-  5347  2cdb  af                	XOR	A
-  5348  2cdc  321440            	LD	($4014),A
-  5349  2cdf  321540            	LD	($4015),A
-  5350  2ce2  321640            	LD	($4016),A
-  5351  2ce5  c9                	RET
-  5352                          MAGIMSG:
-  5353  2ce6  0d0a4d4147494341  	DB	$0D,$0A,"MAGICAL KID WIZ",$0D,$0A,0
+  5335                          ; MAGICAL KID WIZ
+  5336                          GAMECR9:
+  5337  2cc0  3a1440            	LD	A,($4014)
+  5338  2cc3  fe32              	CP	$32
+  5339  2cc5  2033              	JR	NZ,GAMECR10
+  5340  2cc7  3a1540            	LD	A,($4015)
+  5341  2cca  fe1c              	CP	$1C
+  5342  2ccc  202c              	JR	NZ,GAMECR10
+  5343  2cce  3a1640            	LD	A,($4016)
+  5344  2cd1  fe40              	CP	$40
+  5345  2cd3  2025              	JR	NZ,GAMECR10
+  5346  2cd5  21e62c            	LD	HL,MAGIMSG
+  5347  2cd8  cdbb27            	CALL	CONPRTS
+  5348  2cdb  af                	XOR	A
+  5349  2cdc  321440            	LD	($4014),A
+  5350  2cdf  321540            	LD	($4015),A
+  5351  2ce2  321640            	LD	($4016),A
+  5352  2ce5  c9                	RET
+  5353                          MAGIMSG:
+  5354  2ce6  0d0a4d4147494341  	DB	$0D,$0A,"MAGICAL KID WIZ",$0D,$0A,0
               4c204b4944205749  
               5a0d0a00          
-  5354                          ; TWINBEE (22,95,41)
-  5355                          GAMECR10:
-  5356  2cfa  3a2840            	LD	A,($4028)
-  5357  2cfd  fe22              	CP	$22
-  5358  2cff  2037              	JR	NZ,GAMECR11
-  5359  2d01  3a2940            	LD	A,($4029)
-  5360  2d04  fe95              	CP	$95
-  5361  2d06  2030              	JR	NZ,GAMECR11
-  5362  2d08  3a2a40            	LD	A,($402A)
-  5363  2d0b  fe41              	CP	$41
-  5364  2d0d  2029              	JR	NZ,GAMECR11
-  5365  2d0f  212b2d            	LD	HL,TWINMSG
-  5366  2d12  cdb927            	CALL	CONPRTS
-  5367  2d15  af                	XOR	A
-  5368  2d16  322840            	LD	($4028),A
-  5369  2d19  322940            	LD	($4029),A
-  5370  2d1c  322a40            	LD	($402A),A
-  5371  2d1f  32fe40            	LD	($40FE),A
-  5372  2d22  32ff40            	LD	($40FF),A
-  5373  2d25  3ec9              	LD	A,$C9
-  5374  2d27  325240            	LD	($4052),A
-  5375  2d2a  c9                	RET
-  5376                          TWINMSG:
-  5377  2d2b  0d0a5457494e2042  	DB	$0D,$0A,"TWIN BEE",$0D,$0A,0
+  5355                          ; TWINBEE (22,95,41)
+  5356                          GAMECR10:
+  5357  2cfa  3a2840            	LD	A,($4028)
+  5358  2cfd  fe22              	CP	$22
+  5359  2cff  2037              	JR	NZ,GAMECR11
+  5360  2d01  3a2940            	LD	A,($4029)
+  5361  2d04  fe95              	CP	$95
+  5362  2d06  2030              	JR	NZ,GAMECR11
+  5363  2d08  3a2a40            	LD	A,($402A)
+  5364  2d0b  fe41              	CP	$41
+  5365  2d0d  2029              	JR	NZ,GAMECR11
+  5366  2d0f  212b2d            	LD	HL,TWINMSG
+  5367  2d12  cdbb27            	CALL	CONPRTS
+  5368  2d15  af                	XOR	A
+  5369  2d16  322840            	LD	($4028),A
+  5370  2d19  322940            	LD	($4029),A
+  5371  2d1c  322a40            	LD	($402A),A
+  5372  2d1f  32fe40            	LD	($40FE),A
+  5373  2d22  32ff40            	LD	($40FF),A
+  5374  2d25  3ec9              	LD	A,$C9
+  5375  2d27  325240            	LD	($4052),A
+  5376  2d2a  c9                	RET
+  5377                          TWINMSG:
+  5378  2d2b  0d0a5457494e2042  	DB	$0D,$0A,"TWIN BEE",$0D,$0A,0
               45450d0a00        
-  5378                          ; FROGGER (06, A8)
-  5379                          GAMECR11:
-  5380  2d38  3a5c41            	LD	A,($415C)
-  5381  2d3b  fe06              	CP	$06
-  5382  2d3d  201f              	JR	NZ,GAMECR12
-  5383  2d3f  3a5d41            	LD	A,($415D)
-  5384  2d42  fea8              	CP	$A8
-  5385  2d44  2018              	JR	NZ,GAMECR12
-  5386  2d46  21522d            	LD	HL,FROGMSG
-  5387  2d49  cdb927            	CALL	CONPRTS
-  5388  2d4c  3e28              	LD	A,$28
-  5389  2d4e  325d41            	LD	($415D),A
-  5390  2d51  c9                	RET
-  5391                          FROGMSG:
-  5392  2d52  0d0a46524f474745  	DB	$0D,$0A,"FROGGER",$0D,$0A,0
+  5379                          ; FROGGER (06, A8)
+  5380                          GAMECR11:
+  5381  2d38  3a5c41            	LD	A,($415C)
+  5382  2d3b  fe06              	CP	$06
+  5383  2d3d  201f              	JR	NZ,GAMECR12
+  5384  2d3f  3a5d41            	LD	A,($415D)
+  5385  2d42  fea8              	CP	$A8
+  5386  2d44  2018              	JR	NZ,GAMECR12
+  5387  2d46  21522d            	LD	HL,FROGMSG
+  5388  2d49  cdbb27            	CALL	CONPRTS
+  5389  2d4c  3e28              	LD	A,$28
+  5390  2d4e  325d41            	LD	($415D),A
+  5391  2d51  c9                	RET
+  5392                          FROGMSG:
+  5393  2d52  0d0a46524f474745  	DB	$0D,$0A,"FROGGER",$0D,$0A,0
               520d0a00          
-  5393                          ;
-  5394                          GAMECR12:
-  5395  2d5e  c9                	RET
-  5396                          ;
-  5397                          
+  5394                          ;
+  5395                          GAMECR12:
+  5396  2d5e  c9                	RET
+  5397                          ;
+  5398                          

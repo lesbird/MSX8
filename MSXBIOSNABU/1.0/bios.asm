@@ -4983,22 +4983,25 @@ CONOUT:
 ;	cp	$6F
 ;	jr	nz,CONOUX
 ;	pop	af
-CONPRT:	push	af
-CONOUL:	in	a,(CONPORT+5)
-	and	$20
-	jr	z,CONOUL
-	pop	af
-	out	(CONPORT),a
-	ret
-CONOUX:	pop	af
+CONPRT:	
+;	push	af
+;CONOUL:	
+;	in	a,(CONPORT+5)
+;	and	$20
+;	jr	z,CONOUL
+;	pop	af
+;	out	(CONPORT),a
+;	ret
+;CONOUX:
+;	pop	af
 	ret
 ;
 CONPRTS:
-	ld	a,(HL)
+	ld	a,(hl)
 	or	a
 	ret	z
 	call	CONPRT
-	inc	HL
+	inc	hl
 	jr	CONPRTS
 ;
 OUTHEX:	push	af

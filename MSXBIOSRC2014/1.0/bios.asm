@@ -19,7 +19,7 @@
         DEFC    VDPCTL = $99
         DEFC    PSGCTL = $A0
 	DEFC	PSGDAT = $A1
-	DEFC	PSGRIN = $A2
+	DEFC	PSGRIN = $A1
 	DEFC	CONPORT = $80
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
