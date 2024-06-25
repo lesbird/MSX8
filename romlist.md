@@ -457,14 +457,13 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y?  THUND529.ROM   Thunder Ball (Japan).rom
  N6  THUND530.ROM   Thunderbolt (Japan).rom
  YP  TIMEP531.ROM   Time Pilot (Japan).rom
-===
  YP  TOPPL534.ROM   Topple Zip (Japan).rom
  Y   TOPRO533.ROM   Top Roller! (Japan).rom
  Y   TRACK535.ROM   Track & Field 1 (Europe).rom
  Y   TRACK536.ROM   Track & Field 2 (Europe).rom
  Y   TRAFF537.ROM   Traffic (Japan).rom
  N0  TRIAL538.ROM   Trial Ski (Japan).rom
- Y?  TRICK539.ROM   Trick Boy (Japan).rom
+ Y   TRICK539.ROM   Trick Boy (Japan).rom
  YP  TRITO540.ROM   Tritorn (Japan).rom
  N0  TRUMP541.ROM   Trumpaid (Japan).rom
  N8  TURBO543.ROM   Turboat (Japan).rom
@@ -473,14 +472,14 @@ STAT SHORT NAME     LONG NAME (481 ROMS)
  Y   TZRGR546.ROM   TZR - Grand Prix Rider (Japan).rom
  Y   ULTRA547.ROM   Ultraman (Japan).rom
  YP? VENUS549.ROM   Venus Fire (Japan).rom
- YP? VIDEO550.ROM   Video Hustler (Japan).rom
- Y?  VOLGU551.ROM   Volguard (Japan).rom
+ NP4 VIDEO550.ROM   Video Hustler (Japan).rom
+ Y   VOLGU551.ROM   Volguard (Japan).rom
  Y   WARPW552.ROM   Warp & Warp (Japan).rom
  YP  WARRO553.ROM   Warroid (Japan).rom
  Y?  WATER554.ROM   Water Driver (Japan).rom
  Y   WONDE556.ROM   Wonder Boy (Japan).rom
- N4  WRANG557.ROM   Wrangler (Spain).rom
- N4  WRECK558.ROM   Wreck, The (Europe).rom
+ NP4 WRANG557.ROM   Wrangler (Spain).rom
+ NP4 WRECK558.ROM   Wreck, The (Europe).rom
  YP  XYXOL559.ROM   Xyxolog (Japan).rom
  N8  YABYU560.ROM   Yab Yum (Netherlands).rom
  Y   YELLO561.ROM   Yellow Submarine (Japan).rom
