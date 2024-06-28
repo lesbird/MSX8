@@ -14,12 +14,12 @@
         INCLUDE "const.def"
         INCLUDE "msx.def"
 
-; Define VDP/PSG ports for RCBus TMS9918 graphics board and RCBus AY3 audio card set to MSX I/O ports
+; Define VDP/PSG ports for RCBus MSX GRAPHICS/SOUND AND JOYSTICK MODULE
         DEFC    VDPDAT = $98
         DEFC    VDPCTL = $99
-        DEFC    PSGCTL = $A0
-	DEFC	PSGDAT = $A1
-	DEFC	PSGRIN = $A1
+        DEFC    PSGCTL = $A1
+	DEFC	PSGDAT = $A0
+	DEFC	PSGRIN = $A0
 	DEFC	CONPORT = $80
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
@@ -188,7 +188,8 @@ RDSLT: 	jp      A01B6                   ; $000C
 
         defs    $0010-$,0
 
-CHRGTR: jp      A2686                   ; $0010
+CHRGTR: jp	RCKBD
+;	jp      A2686                   ; $0010
 
         defs    $0014-$,0
 
@@ -401,20 +402,39 @@ C01AD:  INC     D
         RET
         ENDIF
 
-A01B6:  call    A027E                   ; make masks
+A01B6:  
+;	call    A027E                   ; make masks
+	nop
+	nop
+	nop
 
         IF      SLOTFIX = 1
-        jp      m,C016F
+;        jp      m,C016F
+	nop
+	nop
+	nop
         ELSE
-        jp      m,A01C6                 ; expanded slot, handle
+;        jp      m,A01C6                 ; expanded slot, handle
+	nop
+	nop
+	nop
         ENDIF
 
-        in      a,($A8)
-        ld      d,a
-        and     c                       ; clear slot of page
-        or      b                       ; set new slot
-        call    RDPRIM                  ; read byte
-        ld      a,e
+;        in      a,($A8)
+	nop
+	nop
+;        ld      d,a
+	nop
+;        and     c                       ; clear slot of page
+	nop
+;        or      b                       ; set new slot
+	nop
+;        call    RDPRIM                  ; read byte
+	nop
+	nop
+	nop
+;        ld      a,e
+	xor	a
         ret
 ;
 A01C6:  push    hl
@@ -2244,30 +2264,59 @@ A0D02:  pop     ix
         ei
         ret
 ;
-A0D12:  in      a,($AA)
-        and     $F0
-        ld      c,a
+A0D12:  
+;	in      a,($AA)
+	nop
+	nop
+;        and     $F0
+	nop
+	nop
+;        ld      c,a
+	nop
         ld      b,11
         ld      hl,NEWKEY
-A0D1C:  ld      a,c
+A0D1C:  
+;	ld      a,c
+	nop
 ;        out     ($AA),a
-	nop
-	nop
+;	nop
+;	nop
+	ld	c,b
 ;        in      a,($A9)
-	nop
-	nop
+;	nop
+;	nop
+	call	RCKBD
         ld      (hl),a
         inc     c
         inc     hl
         djnz    A0D1C                   ; scan keyboard & put in NEWKEY
-        ld      a,(ENSTOP)
-        and     a                       ; Hot break possible ?
-        jr      z,A0D3A                 ; nop, quit
-        ld      a,(NEWKEY+6)
-        cp      11101000b               ; CODE+GRAPH+CTRL+SHIFT pressed ?
-        jr      nz,A0D3A                ; nop, quit
-        ld      ix,J409B                ; start headloop
-        jp      A01FF                   ; with CALBAS
+;        ld      a,(ENSTOP)
+	nop
+	nop
+	nop
+;        and     a                       ; Hot break possible ?
+	nop
+;        jr      z,A0D3A                 ; nop, quit
+	nop
+	nop
+;        ld      a,(NEWKEY+6)
+	nop
+	nop
+	nop
+;        cp      11101000b               ; CODE+GRAPH+CTRL+SHIFT pressed ?
+	nop
+	nop
+;        jr      nz,A0D3A                ; nop, quit
+	nop
+	nop
+;        ld      ix,J409B                ; start headloop
+	nop
+	nop
+	nop
+;        jp      A01FF                   ; with CALBAS
+	nop
+	nop
+	nop
 ;
 A0D3A:  ld      de,OLDKEY+11
         ld      b,11
@@ -2633,11 +2682,11 @@ A1226:  di
 	nop
 ;        out     ($AA),a
 	nop
-	nop
+;	nop
 ;        in      a,($A9)
-	nop
-	nop
-;	call	H8KPAD
+;	nop
+;	nop
+	call	RCKBD
         ei
         ret
 ;
@@ -2914,9 +2963,11 @@ A1452:  ld      c,a
 	nop
 ;        out     ($AA),a
 	nop
-	nop
+;	nop
 ;        in      a,($A9)
-	ld	a,$FF
+;	nop
+;	nop
+	call	RCKBD
         ei
         ret
 ;
@@ -4741,104 +4792,129 @@ TOF380:
 ENF380: defb	0
 ;
 OUTPSG:	out     (PSGCTL),a
-	cp	$07			; port config register
+	cp	$0E			; no writes to reg 14
+	ret	z
+	cp	$0F			; no writes to reg 15
+	ret	z
+	cp	$07
 	jr	nz,OUTPS1
 	ld	a,e
-	and	$3F
+	and	$3F			; I/O port config bits (A,B=input)
 	ld	e,a
-	jr	OUTPS2
-OUTPS1:	cp	$0E			; block port A writes
-	jr	nz,OUTPS2
-	ld	e,$00
-OUTPS2:	ld      a,e
+OUTPS1:	ld      a,e
 	out     (PSGDAT),a
 	ret
 ;
 ; JOYSTICK CODE
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-; for now just read the keyboard until joysticks are here
+; RC VALUES:               FE FD FB F7    DF BF 7F
+; RC FORMAT: 14 - PLAYER 1 UP,DN,LF,RT,XX,B1,B2,B3
+; RC FORMAT: 15 - PLAYER 2 UP,DN,LF,RT,XX,B1,B2,B3
 RCJSTK:	push	bc
-	call	RCJSTKTMR
-	ld	a,(RCJSTKST)
-;	or	$F0	; reset button 1 and 2
-	ld	c,a
-	call	CONIN
-	or	a
-	jr	z,RCJSTKX
-	and	$DF	; force upper case
-	cp	'D'
-	call	z,RCJSTKR
-	cp	'A'
-	call	z,RCJSTKL
-	cp	'W'
-	call	z,RCJSTKU
-	cp	'S'
-	call	z,RCJSTKD
-	cp	' '
-	call	z,RCJSTK1
-	cp	'E'
-	call	z,RCJSTK2
-RCJSTKX:
+;	ld	a,'J'
+;	call	CONOUT
+;	call	H8KPAD
+;	ld	c,a
+	ld	c,$FF			; everything off (1=off, 0=on)
+	ld	a,$0E
+	out	(PSGCTL),a		; select player 1 joystick
+	in	a,(PSGCTL)
+	ld	b,a
+	and	$20			; check trigger
+	jr	nz,H8JST2
 	ld	a,c
-	ld	(RCJSTKST),a
-	pop	bc
-	ret
-RCJSTKR:
+	and	$EF			; TRGA on
+	ld	c,a
+;	jr	H8JST4			; skip up/down if trigger pressed
+H8JST2:	ld	a,b
+	and	$01			; check up
+	jr	nz,H8JST3
+	ld	a,c
+	and	$FE			; UP on
+	ld	c,a
+H8JST3:	ld	a,b
+	and	$02			; check down
+	jr	nz,H8JST4
+	ld	a,c
+	and	$FD			; DWN on
+	ld	c,a
+H8JST4:	ld	a,b
+;	out	(PSGCTL),a
+;	in	a,(PSGCTL)
+;	ld	b,a
+	and	$04			; check left
+	jr	nz,H8JST5
+	ld	a,c
+	and	$FB			; LFT on
+	ld	c,a
+H8JST5:	ld	a,b
+	and	$08			; check right
+	jr	nz,H8JST6
 	ld	a,c
 	and	$F7
-	or	$04
 	ld	c,a
-	jr	RCJSTKRST
-RCJSTKL:
-	ld	a,c
-	and	$FB
-	or	$08
-	ld	c,a
-	jr	RCJSTKRST
-RCJSTKU:
-	ld	a,c
-	and	$FE
-	or	$02
-	ld	c,a
-	jr	RCJSTKRST
-RCJSTKD:
-	ld	a,c
-	and	$FD
-	or	$01
-	ld	c,a
-	jr	RCJSTKRST
-RCJSTK1:
-	ld	a,c
-	and	$EF
-	or	$20
-	ld	c,a
+H8JST6:	
+;	in	a,($F0)
+;	cp	$F0			; 7=TRGA
+;	jr	z,H8JSTA
+;	cp	$CF			; 9=TRGB
+;	jr	nz,H8JSTX
+;H8JSTB:	
+;	ld	a,c
+;	and	$DF
+;	ld	c,a
+;	jr	H8JSTX
+;H8JSTA:	
+;	ld	a,c
+;	and	$EF
+;	ld	c,a
+H8JSTX:	ld	a,c
+;	call	OUTHEX
+;	call	SPACE
+	pop	bc
 	ret
-RCJSTK2:
-	ld	a,c
-	and	$DF
-	or	$10
-	ld	c,a
+; READ H8 KEYPAD
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+; .=0F,#=2F,/=4F,*=6F,-=8F,+=AF
+H8KPAD:	
+;	ld	a,'P'
+;	call	CONOUT
+;	in	a,($F0)
+;	cp	$FA			; 2 DOWN
+;	jr	z,H8KPAD2
+;	cp	$F6			; 4 LEFT
+;	jr	z,H8KPAD4
+;	cp	$F2			; 6 RIGHT
+;	jr	z,H8KPAD6
+;	cp	$EF			; 8 UP
+;	jr	z,H8KPAD8
+;	cp	$F4			; 5 SPACE
+;	jr	z,H8KPAD5
+	ld	a,$FF
 	ret
-RCJSTKTMR:
-	ld	a,(RCJSTKCNT)
-	inc	a
-	and	$0F
-	ld	(RCJSTKCNT),a
-	ret	nz
-	ld	a,$FF	; reset stick state every 16 frames if idle
-	ld	(RCJSTKST),a
+H8KPAD2:
+	ld	a,$FD
 	ret
-RCJSTKRST:
-	xor	a
-	ld	(RCJSTKCNT),a
+H8KPAD4:
+	ld	a,$FB
+	ret
+H8KPAD6:
+	ld	a,$F7
+	ret
+H8KPAD8:
+	ld	a,$FE
+	ret
+H8KPAD5:
+	ld	a,$EF
 	ret
 ;
-RCJSTKCNT:
-	db	$00
-RCJSTKST:
-	db	$FF
-;
-CONOUT:	ret
+CONOUT:	
+;	push	af
+;	in	$F0
+;	cp	$6F
+;	jr	nz,CONOUX
+;	pop	af
 CONPRT:	push	af
 	xor	a
 	out	(CONPORT),a
@@ -4848,6 +4924,9 @@ CONOUL:	in	a,(CONPORT)
 	pop	af
 	out	(CONPORT+1),a
 	ret
+;CONOUX:	
+;	pop	af
+;	ret
 ;
 CONPRTS:
 	ld	a,(HL)
@@ -4891,13 +4970,24 @@ CRLF:	push	af
 	call	CONOUT
 	pop	af
 	ret
+SPACE:	push	af
+	ld	a,' '
+	call	CONOUT
+	pop	af
+	ret
 ;
-CONIN:	xor	a
+CONIN:	
+;	ld	a,'I'
+;	call	CONOUT
+	xor	a
 	out	(CONPORT),a
 	in	a,(CONPORT)
 	and	$01
 	ret	z
 	in	a,(CONPORT+1)
+;CONINX:	
+;	call	OUTHEX
+;	call	CRLF
 	ret
 ;
 HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
@@ -5158,7 +5248,6 @@ OUT0A1X:
 OUT0A17:
 	POP	AF
 	AND	$3F
-	OR	$40
 	OUT	(PSGDAT),A
 	RET
 ;
@@ -5394,4 +5483,424 @@ FROGMSG:
 ;
 GAMECR12:
 	RET
+;
+KBDIN:
+;	ld	a,(KBDCNT)
+;	inc	a
+;	and	$0F
+;	ld	(KBDCNT),a
+;	ret	nz
+	call	CONIN
+	ld	(KBDKEY),a
+;	call	CONPRT
+	ret
+;KBDINX:	
+;	xor	a
+;	ld	(KBDKEY),a
+;	ret
+KBDRST:
+	xor	a
+	ld	(KBDKEY),a
+	ret
+;
+; READ RC KEYBOARD
+; C=ROW NUMBER
+RCKBD:
+	call	KBDIN
+;	ld	a,'K'
+;	call	CONOUT
+	ld	a,c
+;	call	OUTHEX
+;	call	SPACE
+	cp	$00			; 7,6,5,4,3,2,1,0
+	jp	z,H8KBD0
+	cp	$01			; SEMI,],[,\,=,-,9,8
+	jp	z,H8KBD1
+	cp	$02			; B,A, ,/,DOT,COMMA,`,'
+	jp	z,H8KBD2
+	cp	$03			; J,I,H,G,F,E,D,C
+	jp	z,H8KBD3
+	cp	$04			; R,Q,P,O,N,M,L,K
+	jp	z,H8KBD4
+	cp	$05			; Z,Y,X,W,V,U,T,S
+	jp	z,H8KBD5
+	cp	$06			; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	jp	z,H8KBD6
+	cp	$07			; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	jp	z,H8KBD7
+	cp	$08			; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	jp	z,H8KBD8
+	cp	$09			; 4,3,2,1,0,X,X,X
+	jp	z,H8KBD9
+	cp	$0A			; .,COMMA,-,9,8,7,6,5
+	jp	z,H8KBDA
+	ld	a,$FF
+	ret
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+H8KBD0:					; 7,6,5,4,3,2,1,0
+;	in	a,($F0)
+;	cp	$FE			; 0
+;	jp	z,H8KBDBIT1
+;	cp	$FC			; 1
+;	jp	z,H8KBDBIT2
+;	cp	$F8			; 3
+;	jp	z,H8KBDBIT3
+	ld	a,(KBDKEY)
+	cp	'7'
+	jp	z,H8KBDBIT8
+	cp	'6'
+	jp	z,H8KBDBIT7
+	cp	'5'
+	jp	z,H8KBDBIT6
+	cp	'4'
+	jp	z,H8KBDBIT5
+	cp	'3'
+	jp	z,H8KBDBIT4
+	cp	'2'
+	jp	z,H8KBDBIT3
+	cp	'1'
+	jp	z,H8KBDBIT2
+	cp	'0'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD1:					; SEMI,],[,\,=,-,9,8
+	ld	a,(KBDKEY)
+	cp	';'
+	jp	z,H8KBDBIT8
+	cp	']'
+	jp	z,H8KBDBIT7
+	cp	'['
+	jp	z,H8KBDBIT6
+	cp	$5C
+	jp	z,H8KBDBIT5
+	cp	'='
+	jp	z,H8KBDBIT4
+	cp	'-'
+	jp	z,H8KBDBIT3
+	cp	'9'
+	jp	z,H8KBDBIT2
+	cp	'8'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD2:					; B,A,&,/,DOT,COMMA,`,'
+	ld	a,(KBDKEY)
+	cp	'B'
+	jp	z,H8KBDBIT8
+	cp	'A'
+	jp	z,H8KBDBIT7
+	cp	'&'
+	jp	z,H8KBDBIT6
+	cp	'/'
+	jp	z,H8KBDBIT5
+	cp	'.'
+	jp	z,H8KBDBIT4
+	cp	','
+	jp	z,H8KBDBIT3
+	cp	'`'
+	jp	z,H8KBDBIT2
+	cp	$2C
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD3:					; J,I,H,G,F,E,D,C
+	ld	a,(KBDKEY)
+	cp	'J'
+	jp	z,H8KBDBIT8
+	cp	'I'
+	jp	z,H8KBDBIT7
+	cp	'H'
+	jp	z,H8KBDBIT6
+	cp	'G'
+	jp	z,H8KBDBIT5
+	cp	'F'
+	jp	z,H8KBDBIT4
+	cp	'E'
+	jp	z,H8KBDBIT3
+	cp	'D'
+	jp	z,H8KBDBIT2
+	cp	'C'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD4:					; R,Q,P,O,N,M,L,K
+	ld	a,(KBDKEY)
+	cp	'R'
+	jp	z,H8KBDBIT8
+	cp	'Q'
+	jp	z,H8KBDBIT7
+	cp	'P'
+	jp	z,H8KBDBIT6
+	cp	'O'
+	jp	z,H8KBDBIT5
+	cp	'N'
+	jp	z,H8KBDBIT4
+	cp	'M'
+	jp	z,H8KBDBIT3
+	cp	'L'
+	jp	z,H8KBDBIT2
+	cp	'K'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD5:					; Z,Y,X,W,V,U,T,S
+	ld	a,(KBDKEY)
+	cp	'Z'
+	jp	z,H8KBDBIT8
+	cp	'Y'
+	jp	z,H8KBDBIT7
+	cp	'X'
+	jp	z,H8KBDBIT6
+	cp	'W'
+	jp	z,H8KBDBIT5
+	cp	'V'
+	jp	z,H8KBDBIT4
+	cp	'U'
+	jp	z,H8KBDBIT3
+	cp	'T'
+	jp	z,H8KBDBIT2
+	cp	'S'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD6:					; F3,F2,F1,CODE,CAP,GRAPH,CTRL,SHIFT
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
+	ld	a,(KBDKEY)
+	cp	$0D
+	jp	z,H8KBDBIT8
+;	cp	$1B
+;	jp	z,H8KBDBIT7
+	cp	$08
+	jp	z,H8KBDBIT6
+;	cp	$1B
+;	jp	z,H8KBDBIT5
+	cp	$09
+	jp	z,H8KBDBIT4
+	cp	$1B
+	jp	z,H8KBDBIT3
+;	cp	$1B
+;	jp	z,H8KBDBIT2
+;	cp	$1B
+;	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+	push	bc
+;	ld	c,$FF
+; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+;	call	H8JSTK
+;	ld	b,a
+;	bit	0,a
+;	call	z,H8KBDSETU
+;	ld	a,b
+;	bit	1,a
+;	call	z,H8KBDSETD
+;	ld	a,b
+;	bit	2,a
+;	call	z,H8KBDSETL
+;	ld	a,b
+;	bit	3,a
+;	call	z,H8KBDSETR
+;	ld	a,b
+;	bit	4,a
+;	call	z,H8KBDSETS
+	ld	c,$FF
+	ld	a,(KBDKEY)
+	cp	$20
+	call	z,KBDSETS
+	cp	$08
+	call	z,KBDSETDEL
+	cp	'A'
+	call	z,KBDSETL1
+	cp	'D'
+	call	z,KBDSETR1
+	cp	'W'
+	call	z,KBDSETU1
+	cp	'S'
+	call	z,KBDSETD1
+	ld	a,c
+;	call	OUTHEX
+;	call	CRLF
+	pop	bc
+	ret
+; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
+H8KBD9:					; 4,3,2,1,0,X,X,X
+;	in	a,($F0)
+;	cp	$FE			; 0
+;	jp	z,H8KBDBIT4
+;	cp	$FC			; 1
+;	jp	z,H8KBDBIT5
+;	cp	$F8			; 3
+;	jp	z,H8KBDBIT6
+	ld	a,(KBDKEY)
+	cp	'4'
+	jp	z,H8KBDBIT8
+	cp	'3'
+	jp	z,H8KBDBIT7
+	cp	'2'
+	jp	z,H8KBDBIT6
+	cp	'1'
+	jp	z,H8KBDBIT5
+	cp	'0'
+	jp	z,H8KBDBIT4
+;	cp	$1B
+;	jp	z,H8KBDBIT3
+;	cp	$1B
+;	jp	z,H8KBDBIT2
+;	cp	$1B
+;	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+;
+H8KBDA:					; .,COMMA,-,9,8,7,6,5
+	ld	a,(KBDKEY)
+	cp	'.'
+	jp	z,H8KBDBIT8
+	cp	','
+	jp	z,H8KBDBIT7
+	cp	'-'
+	jp	z,H8KBDBIT6
+	cp	'9'
+	jp	z,H8KBDBIT5
+	cp	'8'
+	jp	z,H8KBDBIT4
+	cp	'7'
+	jp	z,H8KBDBIT3
+	cp	'6'
+	jp	z,H8KBDBIT2
+	cp	'5'
+	jp	z,H8KBDBIT1
+	ld	a,$FF
+	call	H8KBDBITX
+	ret
+; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
+KBDSETU1:
+	call	KBDRST
+	res	5,c
+	set	6,c
+	ret
+KBDSETU0:
+	call	KBDRST
+	set	5,c
+	ret
+KBDSETD1:
+	call	KBDRST
+	res	6,c
+	set	5,c
+	ret
+KBDSETD0:
+	call	KBDRST
+	set	6,c
+	ret
+KBDSETL1:
+	call	KBDRST
+	res	4,c
+	set	7,c
+	ret
+KBDSETL0:
+	call	KBDRST
+	set	4,c
+	ret
+KBDSETR1:
+	call	KBDRST
+	res	7,c
+	set	4,c
+	ret
+KBDSETR0:
+	call	KBDRST
+	set	7,c
+	ret
+; trigger A down
+KBDSETA1:
+;	ld	a,(JSTKST)
+;	and	$EF
+;	ld	(JSTKST),a
+	xor	a
+	ret
+KBDSETA0:
+;	ld	a,(JSTKST)
+;	or	$10
+;	ld	(JSTKST),a
+	xor	a
+	ret
+; trigger B down
+KBDSETB1:
+;	ld	a,(JSTKST)
+;	and	$DF
+;	ld	(JSTKST),a
+	xor	a
+	ret
+KBDSETB0:
+;	ld	a,(JSTKST)
+;	or	$20
+;	ld	(JSTKST),a
+	xor	a
+	ret
+KBDSETS:
+	call	KBDRST
+	res	0,c
+	ret
+KBDSETDEL:
+	call	KBDRST
+	res	3,c
+	ret
+;
+H8KBDBIT1:
+	call	KBDRST
+	ld	a,$FE
+	jr	H8KBDBITX
+H8KBDBIT2:
+	call	KBDRST
+	ld	a,$FD
+	jr	H8KBDBITX
+H8KBDBIT3:
+	call	KBDRST
+	ld	a,$FB
+	jr	H8KBDBITX
+H8KBDBIT4:
+	call	KBDRST
+	ld	a,$F7
+	jr	H8KBDBITX
+H8KBDBIT5:
+	call	KBDRST
+	ld	a,$EF
+	jr	H8KBDBITX
+H8KBDBIT6:
+	call	KBDRST
+	ld	a,$DF
+	jr	H8KBDBITX
+H8KBDBIT7:
+	call	KBDRST
+	ld	a,$BF
+	jr	H8KBDBITX
+H8KBDBIT8:
+	call	KBDRST
+	ld	a,$7F
+H8KBDBITX:
+;	call	OUTHEX
+;	call	CRLF
+	ret
+;
+KBDCNT:	db	0
+KBDKEY:	db	0
 ;
