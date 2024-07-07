@@ -4820,12 +4820,11 @@ RCJSTK:	push	bc
 	out	(PSGCTL),a		; select player 1 joystick
 	in	a,(PSGCTL)
 	ld	b,a
-	and	$20			; check trigger
+	and	$20			; button 1
 	jr	nz,H8JST2
 	ld	a,c
 	and	$EF			; TRGA on
 	ld	c,a
-;	jr	H8JST4			; skip up/down if trigger pressed
 H8JST2:	ld	a,b
 	and	$01			; check up
 	jr	nz,H8JST3
@@ -4839,9 +4838,6 @@ H8JST3:	ld	a,b
 	and	$FD			; DWN on
 	ld	c,a
 H8JST4:	ld	a,b
-;	out	(PSGCTL),a
-;	in	a,(PSGCTL)
-;	ld	b,a
 	and	$04			; check left
 	jr	nz,H8JST5
 	ld	a,c
@@ -4853,24 +4849,19 @@ H8JST5:	ld	a,b
 	ld	a,c
 	and	$F7
 	ld	c,a
-H8JST6:	
-;	in	a,($F0)
-;	cp	$F0			; 7=TRGA
-;	jr	z,H8JSTA
-;	cp	$CF			; 9=TRGB
-;	jr	nz,H8JSTX
-;H8JSTB:	
-;	ld	a,c
-;	and	$DF
-;	ld	c,a
-;	jr	H8JSTX
-;H8JSTA:	
-;	ld	a,c
-;	and	$EF
-;	ld	c,a
+H8JST6:	ld	a,b
+	and	$40			; button 2
+	jr	nz,H8JST7
+	ld	a,c
+	and	$BF
+	ld	c,a
+H8JST7:	ld	a,b
+	and	$80			; button 3
+	jr	nz,H8JSTX
+	ld	a,c
+	and	$7F
+	ld	c,a
 H8JSTX:	ld	a,c
-;	call	OUTHEX
-;	call	SPACE
 	pop	bc
 	ret
 ; READ H8 KEYPAD
@@ -5705,52 +5696,34 @@ H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 ;
 H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	push	bc
-;	ld	c,$FF
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-;	call	H8JSTK
-;	ld	b,a
-;	bit	0,a
-;	call	z,H8KBDSETU
-;	ld	a,b
-;	bit	1,a
-;	call	z,H8KBDSETD
-;	ld	a,b
-;	bit	2,a
-;	call	z,H8KBDSETL
-;	ld	a,b
-;	bit	3,a
-;	call	z,H8KBDSETR
-;	ld	a,b
-;	bit	4,a
-;	call	z,H8KBDSETS
+	call	RCJSTK			; joystick simulates arrow keys and spacebar
 	ld	c,$FF
+	ld	b,a
+	bit	0,a
+	call	z,KBDSETU1
+	ld	a,b
+	bit	1,a
+	call	z,KBDSETD1
+	ld	a,b
+	bit	2,a
+	call	z,KBDSETL1
+	ld	a,b
+	bit	3,a
+	call	z,KBDSETR1
+	ld	a,b
+	bit	4,a
+	call	z,KBDSETS
 	ld	a,(KBDKEY)
 	cp	$20
 	call	z,KBDSETS
 	cp	$08
 	call	z,KBDSETDEL
-	cp	'A'
-	call	z,KBDSETL1
-	cp	'D'
-	call	z,KBDSETR1
-	cp	'W'
-	call	z,KBDSETU1
-	cp	'S'
-	call	z,KBDSETD1
 	ld	a,c
-;	call	OUTHEX
-;	call	CRLF
 	pop	bc
 	ret
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
 H8KBD9:					; 4,3,2,1,0,X,X,X
-;	in	a,($F0)
-;	cp	$FE			; 0
-;	jp	z,H8KBDBIT4
-;	cp	$FC			; 1
-;	jp	z,H8KBDBIT5
-;	cp	$F8			; 3
-;	jp	z,H8KBDBIT6
 	ld	a,(KBDKEY)
 	cp	'4'
 	jp	z,H8KBDBIT8
