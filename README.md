@@ -30,7 +30,7 @@ This repository contains the source code for the CP/M program buildable with the
 >LOAD MSX8
 ```
 
-Also included in this repo is a customized FULL MSX BIOS rom that addresses the Heathkit Color Graphics card ports rather than the MSX VDP/PSG ports. The customized MSX BIOS can be built with Z80ASM included as part of the z88dk tools. Just run the make file with the paramters as follows:
+Also included in this repo is a customized FULL MSX BIOS rom that addresses the Heathkit Color Graphics card, NABU and RC2014 ports rather than the MSX VDP/PSG ports. The customized MSX BIOS can be built with Z80ASM included as part of the z88dk tools. Just run the make file with the paramters as follows:
 
 ```
 >make TARGETS=us
