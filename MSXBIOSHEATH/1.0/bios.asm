@@ -4815,7 +4815,6 @@ H8JSTK:	push	bc
 	call	CONOUT
 	call	H8KPAD
 	ld	c,a
-;	ld	c,$FF			; everything off (1=off, 0=on)
 	ld	a,$0E
 	out	(PSGCTL),a
 	in	a,(PSGCTL)
@@ -4866,10 +4865,13 @@ H8JSTA:	ld	a,c
 	and	$EF
 	ld	c,a
 H8JSTX:	ld	a,c
+	ld	(JSTKST),a
 	call	OUTHEX
 	call	SPACE
 	pop	bc
 	ret
+;
+JSTKST:	db	0
 ; READ H8 KEYPAD
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
@@ -5470,7 +5472,39 @@ GAMECR11:
 FROGMSG:
 	DB	$0D,$0A,"FROGGER",$0D,$0A,0
 ;
+; ALCAZAR (32, 1C, 93)
 GAMECR12:
+	LD	A,($837D)
+	CP	$32
+	JR	NZ,GAMECR13
+	LD	A,($837E)
+	CP	$1C
+	JR	NZ,GAMECR13
+	LD	A,($837F)
+	CP	$93
+	JR	NZ,GAMECR13
+	LD	HL,ALCAMSG
+	CALL	CONPRTS
+	XOR	A
+	LD	($837D),A
+	LD	($837E),A
+	LD	($837F),A
+	LD	($92EE),A
+	LD	($92EF),A
+	LD	($92F0),A
+	LD	($AE3C),A
+	LD	($AE3D),A
+	LD	($AE3E),A
+	LD	($AE4F),A
+	LD	($AE50),A
+	LD	($AE51),A
+	LD	($BD9D),A
+	LD	($BD9E),A
+	LD	($BD9F),A
+	RET
+ALCAMSG:
+	DB	$0D,$0A,"ALCAZAR",$0D,$0A,0
+GAMECR13:
 	RET
 ;
 KBDIN:
@@ -5499,6 +5533,7 @@ KBDRST:
 ; C=ROW NUMBER
 H8KBD:
 	call	KBDIN
+	call	CRLF
 	ld	a,'K'
 	call	CONOUT
 	ld	a,c
@@ -5697,41 +5732,31 @@ H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 ;
 H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	push	bc
-;	ld	c,$FF
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-;	call	H8JSTK
-;	ld	b,a
-;	bit	0,a
-;	call	z,H8KBDSETU
-;	ld	a,b
-;	bit	1,a
-;	call	z,H8KBDSETD
-;	ld	a,b
-;	bit	2,a
-;	call	z,H8KBDSETL
-;	ld	a,b
-;	bit	3,a
-;	call	z,H8KBDSETR
-;	ld	a,b
-;	bit	4,a
-;	call	z,H8KBDSETS
+	ld	a,(JSTKST)
 	ld	c,$FF
+	ld	b,a
+	bit	0,a
+	call	z,KBDSETU1
+	ld	a,b
+	bit	1,a
+	call	z,KBDSETD1
+	ld	a,b
+	bit	2,a
+	call	z,KBDSETL1
+	ld	a,b
+	bit	3,a
+	call	z,KBDSETR1
+	ld	a,b
+	bit	4,a
+	call	z,KBDSETS
 	ld	a,(KBDKEY)
 	cp	$20
 	call	z,KBDSETS
 	cp	$08
 	call	z,KBDSETDEL
-	cp	'A'
-	call	z,KBDSETL1
-	cp	'D'
-	call	z,KBDSETR1
-	cp	'W'
-	call	z,KBDSETU1
-	cp	'S'
-	call	z,KBDSETD1
 	ld	a,c
 	call	OUTHEX
-	call	CRLF
 	pop	bc
 	ret
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF

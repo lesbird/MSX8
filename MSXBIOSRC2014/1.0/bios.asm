@@ -17,9 +17,16 @@
 ; Define VDP/PSG ports for RCBus MSX GRAPHICS/SOUND AND JOYSTICK MODULE
         DEFC    VDPDAT = $98
         DEFC    VDPCTL = $99
+	DEFC	PSGMSX = 0
+IF PSGMSX = 1
+        DEFC    PSGCTL = $A0
+	DEFC	PSGDAT = $A1
+	DEFC	PSGRIN = $A2
+ELSE
         DEFC    PSGCTL = $A1
 	DEFC	PSGDAT = $A0
-	DEFC	PSGRIN = $A0
+	DEFC	PSGRIN = $A1
+ENDIF
 	DEFC	CONPORT = $80
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
@@ -4862,8 +4869,12 @@ H8JST7:	ld	a,b
 	and	$7F
 	ld	c,a
 H8JSTX:	ld	a,c
+	ld	(JSTKST),a
 	pop	bc
 	ret
+;
+JSTKST:	db	$FF
+;
 ; READ H8 KEYPAD
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 ; 0=FE,1=FC,2=FA,3=F8,4=F6,5=F4,6=F2,7=F0,8=EF,9=CF
@@ -5697,23 +5708,23 @@ H8KBD7:					; CR,SEL,BS,STOP,TAB,ESC,F5,F4
 H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 	push	bc
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
-	call	RCJSTK			; joystick simulates arrow keys and spacebar
+;	ld	a,(JSTKST)
 	ld	c,$FF
-	ld	b,a
-	bit	0,a
-	call	z,KBDSETU1
-	ld	a,b
-	bit	1,a
-	call	z,KBDSETD1
-	ld	a,b
-	bit	2,a
-	call	z,KBDSETL1
-	ld	a,b
-	bit	3,a
-	call	z,KBDSETR1
-	ld	a,b
-	bit	4,a
-	call	z,KBDSETS
+;	ld	b,a
+;	bit	0,a
+;	call	z,KBDSETU1
+;	ld	a,b
+;	bit	1,a
+;	call	z,KBDSETD1
+;	ld	a,b
+;	bit	2,a
+;	call	z,KBDSETL1
+;	ld	a,b
+;	bit	3,a
+;	call	z,KBDSETR1
+;	ld	a,b
+;	bit	4,a
+;	call	z,KBDSETS
 	ld	a,(KBDKEY)
 	cp	$20
 	call	z,KBDSETS
