@@ -8,8 +8,7 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
 [MSX8 FOR NABU - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8NABU.zip) the CP/M launcher and customized MSX BIOS for the NABU Personal Computer.
 
-[MSX8 FOR RC2014 - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with the unmodified MSX GRAPHICS board with default I/O ports (PSGCTL @ $A1)<br>
-[MSX8 FOR RC2014 MSX PORTS - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014MSX.zip) with the modified MSX GRAPHICS board using MSX I/O ports (PSGCTL @ $A0)<br>
+[MSX8 FOR RC2014 - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with the modified MSX GRAPHICS board using MSX I/O ports (PSGCTL @ $A0)<br>
 Also check out my new [MSX GRAPHICS/SOUND AND JOYSTICK MODULE](https://github.com/sebhc/sebhc/wiki/RCBUSMSX) for RCBus
 
 [MSXROMS.ZIP - 6MB](https://drive.google.com/file/d/1CPUKjfRxF2Sq3ZCcoAHj1XeqptBqdim3/view?usp=sharing) 481 ROMs all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
@@ -20,7 +19,7 @@ Launch games as shown below
 ```
 >MSX8 PACMAN.ROM
 ```
-MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an [HA8-3 Color Graphics Card](https://github.com/sebhc/sebhc/wiki/HA-8-3) (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K (a clone of the HA8-3).
+MSX8 is a CP/M program that loads a customized MSX BIOS rom file and a MSX ROM game and then launches it. This program was designed to work with the Heathkit H8 computer with an [HA8-3 Color Graphics Card](https://github.com/sebhc/sebhc/wiki/HA-8-3) (TMS9918 and AY3-8910) or with my own H8-8-3 Color Graphics card with a F18A on a Tang Nano 9K (a clone of the HA8-3). It is portable across many platforms including NABU and RC2014.
 
 This repository contains the source code for the CP/M program buildable with the standard CP/M ASM program as follows:
 
@@ -31,7 +30,7 @@ This repository contains the source code for the CP/M program buildable with the
 >LOAD MSX8
 ```
 
-Also included in this repo is a customized FULL MSX BIOS rom that addresses the Heathkit Color Graphics card, NABU and RC2014 ports rather than the MSX VDP/PSG ports. The customized MSX BIOS can be built with Z80ASM included as part of the z88dk tools. Just run the make file with the paramters as follows:
+Also included in this repo is a customized FULL MSX BIOS rom that addresses the Heathkit Color Graphics card, NABU and RC2014 ports. The customized MSX BIOS can be built with Z80ASM included as part of this project. Just run the make file with the paramters as follows:
 
 ```
 >make TARGETS=us
@@ -69,7 +68,7 @@ Be careful when modifying the BIOS.ASM code. Adding code could offset the memory
 
 Adding code to the END of BIOS.ASM is fine, as I did with the joystick code, it's code that preceeds label A2689 that needs to stay in alignment.
 
-When MSX8 is launched it jumps to high memory (0xC000) and then will look for and load the custom MSX BIOS called "msx-us.rom". This custom BIOS is loaded to a temporary address at 0x0100 up to 0x3FFF (16K). MSX8 will then load the GAME ROM that is passed as a parameter on the CP/M command line as follows:
+When MSX8 is launched it jumps to high memory (0xC000) and then will look for and load the custom MSX BIOS called "msx-us.rom". This custom BIOS is loaded to a temporary address at 0x0100 up to 0x3FFF (roughly 16K). MSX8 will then load the GAME ROM that is passed as a parameter on the CP/M command line like this:
 
 ```
 A0>MSX8 GALAGA.ROM
