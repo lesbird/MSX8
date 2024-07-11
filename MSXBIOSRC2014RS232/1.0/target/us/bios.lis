@@ -6141,13 +6141,13 @@ bios.asm:
   4861  2768  e640              	and	$40			; button 2
   4862  276a  2004              	jr	nz,H8JST7
   4863  276c  79                	ld	a,c
-  4864  276d  e6bf              	and	$BF
+  4864  276d  e6df              	and	$DF
   4865  276f  4f                	ld	c,a
   4866  2770  78                H8JST7:	ld	a,b
   4867  2771  e680              	and	$80			; button 3
   4868  2773  2004              	jr	nz,H8JSTX
   4869  2775  79                	ld	a,c
-  4870  2776  e67f              	and	$7F
+  4870  2776  e6bf              	and	$BF
   4871  2778  4f                	ld	c,a
   4872  2779  79                H8JSTX:	ld	a,c
   4873  277a  327f27            	ld	(JSTKST),a
@@ -6323,68 +6323,68 @@ bios.asm:
   5010  2900  7e                	LD	A,(HL)
   5011  2901  23                	INC	HL
   5012  2902  fedb              	CP	$DB	; IN OPCODE
-  5013  2904  cc1a29            	CALL	Z,PATCOM1
+  5013  2904  cc1529            	CALL	Z,PATCOM1
   5014  2907  fed3              	CP	$D3	; OUT OPCODE
-  5015  2909  cc1a29            	CALL	Z,PATCOM1
-  5016  290c  feed              	CP	$ED	; OUTI OPCODE
-  5017  290e  cc9529            	CALL	Z,PATCOME
-  5018  2911  1b                	DEC	DE
-  5019  2912  7a                	LD	A,D
-  5020  2913  b3                	OR	E
-  5021  2914  20ea              	JR	NZ,PATCOM
-  5022  2916  3acb29            	LD	A,(PATCNT)
-  5023  2919  c9                	RET
+  5015  2909  cc1529            	CALL	Z,PATCOM1
+  5016                          ;	CP	$ED	; OUTI OPCODE
+  5017                          ;	CALL	Z,PATCOME
+  5018  290c  1b                	DEC	DE
+  5019  290d  7a                	LD	A,D
+  5020  290e  b3                	OR	E
+  5021  290f  20ef              	JR	NZ,PATCOM
+  5022  2911  3abc29            	LD	A,(PATCNT)
+  5023  2914  c9                	RET
   5024                          PATCOM1:
-  5025  291a  7e                	LD	A,(HL)
-  5026  291b  e5                	PUSH	HL
-  5027  291c  fea0              	CP	$A0
-  5028  291e  cc4629            	CALL	Z,PATCA0
-  5029  2921  fea1              	CP	$A1
-  5030  2923  cc5b29            	CALL	Z,PATCA1
-  5031  2926  fea2              	CP	$A2
-  5032  2928  cc7029            	CALL	Z,PATCA2
-  5033  292b  fea8              	CP	$A8
-  5034  292d  cc7829            	CALL	Z,PATCA8
-  5035  2930  fea9              	CP	$A9
-  5036  2932  cc8029            	CALL	Z,PATCA9
-  5037  2935  feaa              	CP	$AA
-  5038  2937  cc7829            	CALL	Z,PATCA8
-  5039  293a  fe98              	CP	$98
-  5040  293c  cc8929            	CALL	Z,PATC98
-  5041  293f  fe99              	CP	$99
-  5042  2941  cc8f29            	CALL	Z,PATC99
-  5043  2944  e1                	POP	HL
-  5044  2945  c9                	RET
+  5025  2915  7e                	LD	A,(HL)
+  5026  2916  e5                	PUSH	HL
+  5027  2917  fea0              	CP	$A0
+  5028  2919  cc3729            	CALL	Z,PATCA0
+  5029  291c  fea1              	CP	$A1
+  5030  291e  cc4c29            	CALL	Z,PATCA1
+  5031  2921  fea2              	CP	$A2
+  5032  2923  cc6129            	CALL	Z,PATCA2
+  5033  2926  fea8              	CP	$A8
+  5034  2928  cc6929            	CALL	Z,PATCA8
+  5035  292b  fea9              	CP	$A9
+  5036  292d  cc7129            	CALL	Z,PATCA9
+  5037  2930  feaa              	CP	$AA
+  5038  2932  cc6929            	CALL	Z,PATCA8
+  5039                          ;	CP	$98
+  5040                          ;	CALL	Z,PATC98
+  5041                          ;	CP	$99
+  5042                          ;	CALL	Z,PATC99
+  5043  2935  e1                	POP	HL
+  5044  2936  c9                	RET
   5045                          ;
-  5046  2946  2b                PATCA0:	DEC	HL
-  5047  2947  7e                	LD	A,(HL)
-  5048  2948  fed3              	CP	$D3	; OUT
-  5049  294a  2807              	JR	Z,PATCA0O
-  5050  294c  23                	INC	HL
-  5051  294d  3ea0              	LD	A,PSGCTL
-  5052  294f  77                	LD	(HL),A
-  5053  2950  c3c229            	JP	PATCHED
+  5046  2937  2b                PATCA0:	DEC	HL
+  5047  2938  7e                	LD	A,(HL)
+  5048  2939  fed3              	CP	$D3	; OUT
+  5049  293b  2807              	JR	Z,PATCA0O
+  5050  293d  23                	INC	HL
+  5051  293e  3ea0              	LD	A,PSGCTL
+  5052  2940  77                	LD	(HL),A
+  5053  2941  c3b329            	JP	PATCHED
   5054                          ; RST 28
   5055                          PATCA0O:
-  5056  2953  36ef              	LD	(HL),$EF ; RST 28
-  5057  2955  23                	INC	HL
-  5058  2956  3600              	LD	(HL),0	; NOP
-  5059  2958  c3c229            	JP	PATCHED
+  5056  2944  36ef              	LD	(HL),$EF ; RST 28
+  5057  2946  23                	INC	HL
+  5058  2947  3600              	LD	(HL),0	; NOP
+  5059  2949  c3b329            	JP	PATCHED
   5060                          ;
-  5061  295b  2b                PATCA1:	DEC	HL
-  5062  295c  7e                	LD	A,(HL)
-  5063  295d  fed3              	CP	$D3	; OUT
-  5064  295f  2807              	JR	Z,PATCA1O
-  5065  2961  23                	INC	HL
-  5066  2962  3ea1              	LD	A,PSGDAT
-  5067  2964  77                	LD	(HL),A
-  5068  2965  c3c229            	JP	PATCHED
+  5061  294c  2b                PATCA1:	DEC	HL
+  5062  294d  7e                	LD	A,(HL)
+  5063  294e  fed3              	CP	$D3	; OUT
+  5064  2950  2807              	JR	Z,PATCA1O
+  5065  2952  23                	INC	HL
+  5066  2953  3ea1              	LD	A,PSGDAT
+  5067  2955  77                	LD	(HL),A
+  5068  2956  c3b329            	JP	PATCHED
   5069                          ; RST 30
   5070                          PATCA1O:
-  5071  2968  36f7              	LD	(HL),$F7 ; RST 30
-  5072  296a  23                	INC	HL
-  5073  296b  3600              	LD	(HL),0	; NOP
-  5074  296d  c3c229            	JP	PATCHED
+  5071  2959  36f7              	LD	(HL),$F7 ; RST 30
+  5072  295b  23                	INC	HL
+  5073  295c  3600              	LD	(HL),0	; NOP
+  5074  295e  c3b329            	JP	PATCHED
   5075                          ; LOOK FOR AND PATCH JOYSTICK FUNCTION
   5076                          ; OUT 0A0H,A
   5077                          ; IN A,0A2H
@@ -6392,82 +6392,84 @@ bios.asm:
   5079                          ; CALL 00D5H
   5080                          ; CPL
   5081                          PATCA2:
-  5082  2970  3600              	LD	(HL),0	; NOP
-  5083  2972  2b                	DEC	HL
-  5084  2973  36df              	LD	(HL),$DF ; RST 18
-  5085  2975  c3c229            	JP	PATCHED
+  5082  2961  3600              	LD	(HL),0	; NOP
+  5083  2963  2b                	DEC	HL
+  5084  2964  36df              	LD	(HL),$DF ; RST 18
+  5085  2966  c3b329            	JP	PATCHED
   5086                          PATCA8:
-  5087  2978  2b                	DEC	HL
-  5088  2979  af                	XOR	A
-  5089  297a  77                	LD	(HL),A	; NOP
-  5090  297b  23                	INC	HL
-  5091  297c  77                	LD	(HL),A	; NOP
-  5092  297d  c3c229            	JP	PATCHED
+  5087  2969  2b                	DEC	HL
+  5088  296a  af                	XOR	A
+  5089  296b  77                	LD	(HL),A	; NOP
+  5090  296c  23                	INC	HL
+  5091  296d  77                	LD	(HL),A	; NOP
+  5092  296e  c3b329            	JP	PATCHED
   5093                          ; KEYBOARD INPUT PATCH
   5094                          PATCA9:
-  5095  2980  2b                	DEC	HL
-  5096  2981  364f              	LD	(HL),$4F ; LD C,A
-  5097  2983  23                	INC	HL
-  5098  2984  36df              	LD	(HL),$DF ; RST 10
-  5099  2986  c3c229            	JP	PATCHED
+  5095  2971  2b                	DEC	HL
+  5096  2972  364f              	LD	(HL),$4F ; LD C,A
+  5097  2974  23                	INC	HL
+  5098  2975  36df              	LD	(HL),$DF ; RST 10
+  5099  2977  c3b329            	JP	PATCHED
   5100                          PATC98:
-  5101  2989  3e98              	LD	A,VDPDAT
-  5102  298b  77                	LD	(HL),A
-  5103  298c  c3c229            	JP	PATCHED
+  5101  297a  3e98              	LD	A,VDPDAT
+  5102  297c  77                	LD	(HL),A
+  5103  297d  c3b329            	JP	PATCHED
   5104                          PATC99:
-  5105  298f  3e99              	LD	A,VDPCTL
-  5106  2991  77                	LD	(HL),A
-  5107  2992  c3c229            	JP	PATCHED
+  5105  2980  3e99              	LD	A,VDPCTL
+  5106  2982  77                	LD	(HL),A
+  5107  2983  c3b329            	JP	PATCHED
   5108                          PATCOME:
-  5109  2995  e5                	PUSH	HL
-  5110  2996  d5                	PUSH	DE
-  5111  2997  1e20              	LD	E,$20	; CHECK ONLY 32 BYTES BACK
+  5109  2986  e5                	PUSH	HL
+  5110  2987  d5                	PUSH	DE
+  5111  2988  1e20              	LD	E,$20	; CHECK ONLY 32 BYTES BACK
   5112                          PATCOME1:
-  5113  2999  7e                	LD	A,(HL)
-  5114  299a  fea3              	CP	$A3	; OUTI OPCODE
-  5115  299c  2021              	JR	NZ,PATCOMEX
+  5113  298a  7e                	LD	A,(HL)
+  5114  298b  fea3              	CP	$A3	; OUTI OPCODE
+  5115  298d  2021              	JR	NZ,PATCOMEX
   5116                          PATCOME1A:
-  5117  299e  2b                	DEC	HL
-  5118  299f  7e                	LD	A,(HL)
-  5119  29a0  fe0e              	CP	$0E	; LOOKING FOR LD C,<N>
-  5120  29a2  2805              	JR	Z,PATCOME2
-  5121  29a4  1d                	DEC	E
-  5122  29a5  20f7              	JR	NZ,PATCOME1A
-  5123  29a7  1816              	JR	PATCOMEX
+  5117  298f  2b                	DEC	HL
+  5118  2990  7e                	LD	A,(HL)
+  5119  2991  fe0e              	CP	$0E	; LOOKING FOR LD C,<N>
+  5120  2993  2805              	JR	Z,PATCOME2
+  5121  2995  1d                	DEC	E
+  5122  2996  20f7              	JR	NZ,PATCOME1A
+  5123  2998  1816              	JR	PATCOMEX
   5124                          PATCOME2:
-  5125  29a9  23                	INC	HL
-  5126  29aa  7e                	LD	A,(HL)
-  5127  29ab  fea0              	CP	$A0
-  5128  29ad  cc4629            	CALL	Z,PATCA0
-  5129  29b0  fea1              	CP	$A1
-  5130  29b2  cc5b29            	CALL	Z,PATCA1
+  5125  299a  23                	INC	HL
+  5126  299b  7e                	LD	A,(HL)
+  5127  299c  fea0              	CP	$A0
+  5128  299e  cc3729            	CALL	Z,PATCA0
+  5129  29a1  fea1              	CP	$A1
+  5130  29a3  cc4c29            	CALL	Z,PATCA1
   5131                          ;	CP	$A2
   5132                          ;	CALL	Z,PATCA2
-  5133  29b5  fe98              	CP	$98
-  5134  29b7  cc8929            	CALL	Z,PATC98
-  5135  29ba  fe99              	CP	$99
-  5136  29bc  cc8f29            	CALL	Z,PATC99
+  5133  29a6  fe98              	CP	$98
+  5134  29a8  cc7a29            	CALL	Z,PATC98
+  5135  29ab  fe99              	CP	$99
+  5136  29ad  cc8029            	CALL	Z,PATC99
   5137                          PATCOMEX:
-  5138  29bf  d1                	POP	DE
-  5139  29c0  e1                	POP	HL
-  5140  29c1  c9                	RET
+  5138  29b0  d1                	POP	DE
+  5139  29b1  e1                	POP	HL
+  5140  29b2  c9                	RET
   5141                          PATCHED:
-  5142  29c2  3acb29            	LD	A,(PATCNT)
-  5143  29c5  3c                	INC	A
-  5144  29c6  32cb29            	LD	(PATCNT),A
-  5145  29c9  af                	XOR	A
-  5146  29ca  c9                	RET
+  5142  29b3  3abc29            	LD	A,(PATCNT)
+  5143  29b6  3c                	INC	A
+  5144  29b7  32bc29            	LD	(PATCNT),A
+  5145  29ba  af                	XOR	A
+  5146  29bb  c9                	RET
   5147                          ;
-  5148  29cb  00                PATCNT:	DB	0
+  5148  29bc  00                PATCNT:	DB	0
   5149                          ;
   5150                          ; Pad to $2A00
-  5151  29cc  0000000000000000          DEFS    $2A00 - ASMPC
+  5151  29bd  0000000000000000          DEFS    $2A00 - ASMPC
               0000000000000000  
               0000000000000000  
               0000000000000000  
               0000000000000000  
               0000000000000000  
-              00000000          
+              0000000000000000  
+              0000000000000000  
+              000000            
   5152                          ; FILL IN DEFAULT VALUES FOR WORKSPACE AREA
   5153                          ; SETUP UPPER MEMORY HOOKS WITH RET OPCODES
   5154  2a00  219afd            	LD	HL,$FD9A

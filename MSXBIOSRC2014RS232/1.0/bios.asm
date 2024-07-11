@@ -4861,13 +4861,13 @@ H8JST6:	ld	a,b
 	and	$40			; button 2
 	jr	nz,H8JST7
 	ld	a,c
-	and	$BF
+	and	$DF
 	ld	c,a
 H8JST7:	ld	a,b
 	and	$80			; button 3
 	jr	nz,H8JSTX
 	ld	a,c
-	and	$7F
+	and	$BF
 	ld	c,a
 H8JSTX:	ld	a,c
 	ld	(JSTKST),a
@@ -5013,8 +5013,8 @@ PATCOM:
 	CALL	Z,PATCOM1
 	CP	$D3	; OUT OPCODE
 	CALL	Z,PATCOM1
-	CP	$ED	; OUTI OPCODE
-	CALL	Z,PATCOME
+;	CP	$ED	; OUTI OPCODE
+;	CALL	Z,PATCOME
 	DEC	DE
 	LD	A,D
 	OR	E
@@ -5036,10 +5036,10 @@ PATCOM1:
 	CALL	Z,PATCA9
 	CP	$AA
 	CALL	Z,PATCA8
-	CP	$98
-	CALL	Z,PATC98
-	CP	$99
-	CALL	Z,PATC99
+;	CP	$98
+;	CALL	Z,PATC98
+;	CP	$99
+;	CALL	Z,PATC99
 	POP	HL
 	RET
 ;
