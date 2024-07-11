@@ -17,7 +17,7 @@
 ; Define VDP/PSG ports for RCBus MSX GRAPHICS/SOUND AND JOYSTICK MODULE
         DEFC    VDPDAT = $98
         DEFC    VDPCTL = $99
-	DEFC	PSGMSX = 0
+	DEFC	PSGMSX = 1
 IF PSGMSX = 1
         DEFC    PSGCTL = $A0
 	DEFC	PSGDAT = $A1
@@ -28,6 +28,7 @@ ELSE
 	DEFC	PSGRIN = $A1
 ENDIF
 	DEFC	CONPORT = $80
+	DEFC	RS232	= 0	; 0=SIO/2 .. 1=16550
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
         EXTERN  ASPCT2
@@ -4912,11 +4913,15 @@ H8KPAD5:
 	ret
 ;
 CONOUT:	
-;	push	af
-;	in	$F0
-;	cp	$6F
-;	jr	nz,CONOUX
-;	pop	af
+IF RS232 = 1
+CONPRT:	push	af
+CONOUL:	in	a,(CONPORT+5)
+	and	$20
+	jr	z,CONOUL
+	pop	af
+	out	(CONPORT),a
+	ret
+ELSE
 CONPRT:	push	af
 	xor	a
 	out	(CONPORT),a
@@ -4926,9 +4931,7 @@ CONOUL:	in	a,(CONPORT)
 	pop	af
 	out	(CONPORT+1),a
 	ret
-;CONOUX:	
-;	pop	af
-;	ret
+ENDIF
 ;
 CONPRTS:
 	ld	a,(HL)
@@ -4978,19 +4981,23 @@ SPACE:	push	af
 	pop	af
 	ret
 ;
+IF RS232 = 1
 CONIN:	
-;	ld	a,'I'
-;	call	CONOUT
+	in	a,(CONPORT+5)
+	and	$01
+	ret	z
+	in	a,(CONPORT)
+	ret
+ELSE
+CONIN:	
 	xor	a
 	out	(CONPORT),a
 	in	a,(CONPORT)
 	and	$01
 	ret	z
 	in	a,(CONPORT+1)
-;CONINX:	
-;	call	OUTHEX
-;	call	CRLF
 	ret
+ENDIF
 ;
 HEXTBL:	db	$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$41,$42,$43,$44,$45,$46
 ;
