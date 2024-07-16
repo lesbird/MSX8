@@ -196,7 +196,7 @@ RDSLT: 	jp      A01B6                   ; $000C
 
         defs    $0010-$,0
 
-CHRGTR: jp	RCKBD
+CHRGTR: jp	RCKBD10
 ;	jp      A2686                   ; $0010
 
         defs    $0014-$,0
@@ -205,7 +205,7 @@ WRSLT:  jp      A01D1                   ; $0014
 
         defs    $0018-$,0
 
-OUTDO:  jp	RCJSTK
+OUTDO:  jp	RCJSTK18
 	;jp      A1B45                   ; $0018
 
         defs    $001C-$,0
@@ -2278,18 +2278,17 @@ A0D12:
 	nop
 ;        and     $F0
 	nop
-	nop
-;        ld      c,a
-	nop
+;	nop
+	xor	a
+        ld      c,a
         ld      b,11
         ld      hl,NEWKEY
 A0D1C:  
 ;	ld      a,c
 	nop
 ;        out     ($AA),a
+	nop
 ;	nop
-;	nop
-	ld	c,b
 ;        in      a,($A9)
 ;	nop
 ;	nop
@@ -2686,8 +2685,9 @@ A1226:  di
 	nop
 	nop
 ;        add     a,$08
-	nop
-	nop
+;	nop
+;	nop
+	ld	c,$08
 ;        out     ($AA),a
 	nop
 ;	nop
@@ -4813,6 +4813,10 @@ OUTPS1:	ld      a,e
 	out     (PSGDAT),a
 	ret
 ;
+RCJSTK18:
+	call	RCJSTK
+	ret
+;
 ; JOYSTICK CODE
 ; MSX FORMAT: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
 ; RC VALUES:               FE FD FB F7    DF BF 7F
@@ -5026,13 +5030,13 @@ PATCOM1:
 	PUSH	HL
 	CP	$A0
 	CALL	Z,PATCA0
-;	CP	$A1
-;	CALL	Z,PATCA1
-;	CP	$A2
-;	CALL	Z,PATCA2
+	CP	$A1
+	CALL	Z,PATCA1
+	CP	$A2	; JOYSTICK
+	CALL	Z,PATCA2
 	CP	$A8
 	CALL	Z,PATCA8
-	CP	$A9
+	CP	$A9	; KEYBOARD
 	CALL	Z,PATCA9
 	CP	$AA
 	CALL	Z,PATCA8
@@ -5047,10 +5051,12 @@ PATCA0:	DEC	HL
 	LD	A,(HL)
 	CP	$D3	; OUT
 	JR	Z,PATCA0O
-	INC	HL
-	LD	A,PSGCTL
-	LD	(HL),A
-	JP	PATCHED
+;	INC	HL
+;	LD	A,PSGCTL
+;	LD	(HL),A
+;	JP	PATCHED
+	XOR	A
+	RET
 ; RST 28
 PATCA0O:
 	LD	(HL),$EF ; RST 28
@@ -5062,10 +5068,12 @@ PATCA1:	DEC	HL
 	LD	A,(HL)
 	CP	$D3	; OUT
 	JR	Z,PATCA1O
-	INC	HL
-	LD	A,PSGDAT
-	LD	(HL),A
-	JP	PATCHED
+;	INC	HL
+;	LD	A,PSGDAT
+;	LD	(HL),A
+;	JP	PATCHED
+	XOR	A
+	RET
 ; RST 30
 PATCA1O:
 	LD	(HL),$F7 ; RST 30
@@ -5076,8 +5084,7 @@ PATCA1O:
 ; OUT 0A0H,A
 ; IN A,0A2H
 ; CHANGES TO
-; CALL 00D5H
-; CPL
+; RST 18
 PATCA2:
 	LD	(HL),0	; NOP
 	DEC	HL
@@ -5090,10 +5097,11 @@ PATCA8:
 	INC	HL
 	LD	(HL),A	; NOP
 	JP	PATCHED
-; KEYBOARD INPUT PATCH
+; KEYBOARD INPUT PATCH - IN A,(0A9H)
 PATCA9:
 	DEC	HL
-	LD	(HL),$4F ; LD C,A
+;	LD	(HL),$4F ; LD C,A
+	LD	(HL),0	; NOP
 	INC	HL
 	LD	(HL),$DF ; RST 10
 	JP	PATCHED
@@ -5512,6 +5520,9 @@ KBDRST:
 	ld	(KBDKEY),a
 	ret
 ;
+RCKBD10:
+	call	RCKBD
+	ret
 ; READ RC KEYBOARD
 ; C=ROW NUMBER
 RCKBD:
