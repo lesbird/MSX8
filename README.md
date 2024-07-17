@@ -3,7 +3,8 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
 <b>IMPORTANT NOTICE</b>
 - Heathkit users will need to jumper the VDP interrupt to INT3 on the graphics card so that the games get the 60HZ video refresh that they need to work. Follow this link: [GFX BOARD INT](https://github.com/lesbird/MSX8#graphics-board-setup)
-
+- RC2014 users will need (1) RomWBW module, (2) TMS9918 module, (3) YM/AY sound module, (4) SIO/2 module OR replace the TMS9918 and YM/AY sound module with my [MSX GRAPHICS/SOUND/JOYSTICK](https://github.com/sebhc/sebhc/wiki/RCBUSMSX) module
+  
 [MSX8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer. Copy these to a CP/M drive on your Heatkit computer.
 
 [MSX8 FOR NABU - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8NABU.zip) the CP/M launcher and customized MSX BIOS for the NABU Personal Computer.
