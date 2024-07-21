@@ -4873,7 +4873,8 @@ H8JST7:	ld	a,b
 	ld	a,c
 	and	$BF
 	ld	c,a
-H8JSTX:	ld	a,c
+H8JSTX:	call	KBDJSTK
+	ld	a,c
 	ld	(JSTKST),a
 	pop	bc
 	ret
@@ -5501,23 +5502,19 @@ FROGMSG:
 GAMECR12:
 	RET
 ;
-KBDIN:
-;	ld	a,(KBDCNT)
-;	inc	a
-;	and	$0F
-;	ld	(KBDCNT),a
-;	ret	nz
-	call	CONIN
-	ld	(KBDKEY),a
-;	call	CONPRT
+KBDIN:	call	CONIN
+	jr	nz,KBDINX
+	ld	a,(KBDCNT)
+	inc	a
+	and	$1F
+	ld	(KBDCNT),a
+	ld	a,(KBDKEY)
+	ret	nz
+KBDINX:	ld	(KBDKEY),a
 	ret
-;KBDINX:	
+KBDRST:
 ;	xor	a
 ;	ld	(KBDKEY),a
-;	ret
-KBDRST:
-	xor	a
-	ld	(KBDKEY),a
 	ret
 ;
 RCKBD10:
@@ -5744,6 +5741,14 @@ H8KBD8:					; RGT,DWN,UP,LFT,DEL,INS,HOME,SPC
 ;	bit	4,a
 ;	call	z,KBDSETS
 	ld	a,(KBDKEY)
+	cp	'W'
+	call	z,H8KBDBIT6
+	cp	'A'
+	call	z,H8KBDBIT5
+	cp	'S'
+	call	z,H8KBDBIT7
+	cp	'D'
+	call	z,H8KBDBIT8
 	cp	$20
 	call	z,KBDSETS
 	cp	$08
@@ -5832,31 +5837,34 @@ KBDSETR0:
 	call	KBDRST
 	set	7,c
 	ret
-; trigger A down
-KBDSETA1:
-;	ld	a,(JSTKST)
-;	and	$EF
-;	ld	(JSTKST),a
-	xor	a
+; handle WASD controls
+; JSTK BITS: CAS,KBD,TRGB,TRGA,RGT,LFT,DWN,UP
+KBDJSTK:
+	call	KBDIN
+	cp	'W'
+	call	z,KBDJUP
+	cp	'S'
+	call	z,KBDJDN
+	cp	'A'
+	call	z,KBDJLF
+	cp	'D'
+	call	z,KBDJRT
 	ret
-KBDSETA0:
-;	ld	a,(JSTKST)
-;	or	$10
-;	ld	(JSTKST),a
-	xor	a
+KBDJUP:	ld	a,c
+	and	$FE
+	ld	c,a
 	ret
-; trigger B down
-KBDSETB1:
-;	ld	a,(JSTKST)
-;	and	$DF
-;	ld	(JSTKST),a
-	xor	a
+KBDJDN:	ld	a,c
+	and	$FD
+	ld	c,a
 	ret
-KBDSETB0:
-;	ld	a,(JSTKST)
-;	or	$20
-;	ld	(JSTKST),a
-	xor	a
+KBDJLF:	ld	a,c
+	and	$FB
+	ld	c,a
+	ret
+KBDJRT:	ld	a,c
+	and	$F7
+	ld	c,a
 	ret
 KBDSETS:
 	call	KBDRST

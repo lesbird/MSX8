@@ -15,11 +15,11 @@
         INCLUDE "msx.def"
 
 ; Define VDP/PSG ports for Heathkit graphics board
-        DEFC    VDPDAT = $B8
-        DEFC    VDPCTL = $B9
-        DEFC    PSGCTL = $BB
-	DEFC	PSGDAT = $BA
-	DEFC	PSGRIN = $BA
+        DEFC    VDPDAT = $98
+        DEFC    VDPCTL = $99
+        DEFC    PSGCTL = $A0
+	DEFC	PSGDAT = $A1
+	DEFC	PSGRIN = $A2
 	DEFC	CONPORT = $E8
 ; Declare some external symbols defined in MSX-BASIC.
         EXTERN  ASPCT1
@@ -4819,12 +4819,13 @@ H8JSTK:	push	bc
 	out	(PSGCTL),a
 	in	a,(PSGCTL)
 	ld	b,a
-	and	$03			; check trigger
+;	and	$03			; check trigger
+	and	$20
 	jr	nz,H8JST2
 	ld	a,c
 	and	$EF			; TRGA on
 	ld	c,a
-	jr	H8JST4			; skip up/down if trigger pressed
+;	jr	H8JST4			; skip up/down if trigger pressed
 H8JST2:	ld	a,b
 	and	$01			; check up
 	jr	nz,H8JST3
@@ -4837,33 +4838,43 @@ H8JST3:	ld	a,b
 	ld	a,c
 	and	$FD			; DWN on
 	ld	c,a
-H8JST4:	ld	a,$0F
-	out	(PSGCTL),a
-	in	a,(PSGCTL)
-	ld	b,a
-	and	$01			; check left
+H8JST4:
+;	ld	a,$0F
+;	out	(PSGCTL),a
+;	in	a,(PSGCTL)
+;	ld	b,a
+	ld	a,b
+;	and	$01			; check left
+	and	$04
 	jr	nz,H8JST5
 	ld	a,c
 	and	$FB			; LFT on
 	ld	c,a
 H8JST5:	ld	a,b
-	and	$02			; check right
+;	and	$02			; check right
+	and	$08
 	jr	nz,H8JST6
 	ld	a,c
-	and	$F7
+	and	$F7			; RIGHT on
 	ld	c,a
-H8JST6:	in	a,($F0)
-	cp	$F0			; 7=TRGA
-	jr	z,H8JSTA
-	cp	$CF			; 9=TRGB
+H8JST6:	ld	a,b
+	and	$40
 	jr	nz,H8JSTX
-H8JSTB:	ld	a,c
+	ld	a,c
 	and	$DF
 	ld	c,a
-	jr	H8JSTX
-H8JSTA:	ld	a,c
-	and	$EF
-	ld	c,a
+;H8JST6:	in	a,($F0)
+;	cp	$F0			; 7=TRGA
+;	jr	z,H8JSTA
+;	cp	$CF			; 9=TRGB
+;	jr	nz,H8JSTX
+;H8JSTB:	ld	a,c
+;	and	$DF
+;	ld	c,a
+;	jr	H8JSTX
+;H8JSTA:	ld	a,c
+;	and	$EF
+;	ld	c,a
 H8JSTX:	ld	a,c
 	ld	(JSTKST),a
 	call	OUTHEX
