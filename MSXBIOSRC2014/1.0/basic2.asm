@@ -12629,6 +12629,7 @@ I7F1B:  DEFB    " Bytes free"
 
 
 I7F27:
+
         PHASE   VARWRK
 
 RDPRIM: OUT     ($A8),A
@@ -12747,6 +12748,7 @@ ASPCT2: defw    $0100
 ENDPRG: defb    ':'
 
         DEPHASE
+
 
 ;       Bugfix          check for zero length devicenames (e.g. ":xxx" filenames)
 ;       Inputs          ________________________

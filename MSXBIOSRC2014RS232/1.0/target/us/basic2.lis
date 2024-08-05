@@ -13230,170 +13230,172 @@ basic2.asm:
  12629                          
  12630                          
  12631                          I7F27:
- 12632                                  PHASE   VARWRK
- 12633                          
- 12634  f380  d3a8              RDPRIM: OUT     ($A8),A
- 12635  f382  5e                        LD      E,(HL)
- 12636  f383  1803                      JR      J7F2F
- 12637                          
- 12638  f385  d3a8              WRPRIM: OUT     ($A8),A
- 12639  f387  73                        LD      (HL),E
- 12640  f388  7a                J7F2F:  LD      A,D
- 12641  f389  d3a8                      OUT     ($A8),A
- 12642  f38b  c9                        RET
- 12643                          
- 12644  f38c  d3a8              CLPRIM: OUT     ($A8),A
- 12645  f38e  08                        EX      AF,AF'
- 12646  f38f  cd98f3                    CALL    CLPRM1
- 12647  f392  08                        EX      AF,AF'
- 12648  f393  f1                        POP     AF
- 12649  f394  d3a8                      OUT     ($A8),A
- 12650  f396  08                        EX      AF,AF'
- 12651  f397  c9                        RET
- 12652                          
- 12653                          CLPRM1:
- 12654  f398  dde9                      JP      (IX)
- 12655                          
- 12656  f39a  2c0e              USRTAB: defw    C475A                   ; illegal function call
- 12657  f39c  2c0e                      defw    C475A                   ; illegal function call
- 12658  f39e  2c0e                      defw    C475A                   ; illegal function call
- 12659  f3a0  2c0e                      defw    C475A                   ; illegal function call
- 12660  f3a2  2c0e                      defw    C475A                   ; illegal function call
- 12661  f3a4  2c0e                      defw    C475A                   ; illegal function call
- 12662  f3a6  2c0e                      defw    C475A                   ; illegal function call
- 12663  f3a8  2c0e                      defw    C475A                   ; illegal function call
- 12664  f3aa  2c0e                      defw    C475A                   ; illegal function call
- 12665  f3ac  2c0e                      defw    C475A                   ; illegal function call
- 12666                          
- 12667                          LINL40:
- 12668                                  IF BASVER = 0
- 12669                                  defb    39
- 12670                                  ELSE
- 12671  f3ae  25                        defb    37
- 12672                                  ENDIF
- 12673                          
- 12674  f3af  1d                LINL32: defb    29
- 12675                          
- 12676  f3b0  1d                LINLEN: defb    29
- 12677                          
- 12678  f3b1  18                CRTCNT: defb    24
- 12679                          
- 12680  f3b2  0e                CLMLST: defb    14
- 12681                          
- 12682  f3b3  0000              TXTNAM: defw    0
- 12683  f3b5  0000              TXTCOL: defw    0
- 12684  f3b7  0008              TXTCGP: defw    $0800
- 12685  f3b9  0000              TXTATR: defw    0
- 12686  f3bb  0000              TXTPAT: defw    0
- 12687                          
- 12688  f3bd  0018              T32NAM: defw    $1800
- 12689  f3bf  0020              T32COL: defw    $2000
- 12690  f3c1  0000              T32CGP: defw    0
- 12691  f3c3  001b              T32ATR: defw    $1B00
- 12692  f3c5  0038              T32PAT: defw    $3800
- 12693                          
- 12694  f3c7  0018              GRPNAM: defw    $1800
- 12695  f3c9  0020              GRPCOL: defw    $2000
- 12696  f3cb  0000              GRPCGP: defw    0
- 12697  f3cd  001b              GRPATR: defw    $1B00
- 12698  f3cf  0038              GRPPAT: defw    $3800
- 12699                          
- 12700  f3d1  0008              MLTNAM: defw    $0800
- 12701  f3d3  0000              MLTCOL: defw    0
- 12702  f3d5  0000              MLTCGP: defw    0
- 12703  f3d7  001b              MLTATR: defw    $1B00
- 12704  f3d9  0038              MLTPAT: defw    $3800
- 12705                          
- 12706  f3db  01                CLIKSW: defb    1
- 12707  f3dc  01                CSRY:   defb    1
- 12708  f3dd  01                CSRX:   defb    1
- 12709  f3de  00                CNSDFG: defb    0
- 12710                          
- 12711  f3df  00                RG0SAV: defb    $00
- 12712  f3e0  e0                RG1SAV: defb    $E0
- 12713  f3e1  00                RG2SAV: defb    $00
- 12714  f3e2  00                RG3SAV: defb    $00
- 12715  f3e3  00                RG4SAV: defb    $00
- 12716  f3e4  00                RG5SAV: defb    $00
- 12717  f3e5  00                RG6SAV: defb    $00
- 12718  f3e6  00                RG7SAV: defb    $00
- 12719  f3e7  00                STATFL: defb    $00
- 12720  f3e8  ff                TRGFLG: defb    $FF
- 12721  f3e9  0f                FORCLR: defb    15
- 12722  f3ea  04                BAKCLR: defb    4
- 12723                          
- 12724                          BDRCLR:
- 12725                                  IF BASVER = 0
- 12726                                  defb    7
- 12727                                  ELSE
- 12728  f3eb  04                        defb    4
- 12729                                  ENDIF
- 12730                          
- 12731  f3ec  c30000            MAXUPD: jp      0
- 12732  f3ef  c30000            MINUPD: jp      0
- 12733  f3f2  0f                ATRBYT: defb    15
- 12734  f3f3  59f9              QUEUES: defw    QUETAB
- 12735  f3f5  ff                FRCNEW: defb    $FF
- 12736  f3f6  01                SCNCNT: defb    1
- 12737  f3f7  32                REPCNT: defb    50
- 12738  f3f8  f0fb              PUTPNT: defw    KEYBUF
- 12739  f3fa  f0fb              GETPNT: defw    KEYBUF
- 12740  f3fc  535c262d0f        CS1200: defb    $53,$5C,$26,$2D,$0F
- 12741  f401  252d0e161f        CS2400: defb    $25,$2D,$0E,$16,$1F
- 12742  f406  535c                      defb    $53,$5C
- 12743  f408  262d                      defb    $26,$2D
- 12744  f40a  0f                        defb    $0F
- 12745  f40b  0001              ASPCT1: defw    $0100
- 12746  f40d  0001              ASPCT2: defw    $0100
- 12747  f40f  3a                ENDPRG: defb    ':'
- 12748                          
- 12749                                  DEPHASE
- 12750                          
- 12751                          ;       Bugfix          check for zero length devicenames (e.g. ":xxx" filenames)
- 12752                          ;       Inputs          ________________________
- 12753                          ;       Outputs         ________________________
- 12754                          
- 12755                                  IF      NDEVFIX = 1
+ 12632                          
+ 12633                                  PHASE   VARWRK
+ 12634                          
+ 12635  f380  d3a8              RDPRIM: OUT     ($A8),A
+ 12636  f382  5e                        LD      E,(HL)
+ 12637  f383  1803                      JR      J7F2F
+ 12638                          
+ 12639  f385  d3a8              WRPRIM: OUT     ($A8),A
+ 12640  f387  73                        LD      (HL),E
+ 12641  f388  7a                J7F2F:  LD      A,D
+ 12642  f389  d3a8                      OUT     ($A8),A
+ 12643  f38b  c9                        RET
+ 12644                          
+ 12645  f38c  d3a8              CLPRIM: OUT     ($A8),A
+ 12646  f38e  08                        EX      AF,AF'
+ 12647  f38f  cd98f3                    CALL    CLPRM1
+ 12648  f392  08                        EX      AF,AF'
+ 12649  f393  f1                        POP     AF
+ 12650  f394  d3a8                      OUT     ($A8),A
+ 12651  f396  08                        EX      AF,AF'
+ 12652  f397  c9                        RET
+ 12653                          
+ 12654                          CLPRM1:
+ 12655  f398  dde9                      JP      (IX)
+ 12656                          
+ 12657  f39a  2c0e              USRTAB: defw    C475A                   ; illegal function call
+ 12658  f39c  2c0e                      defw    C475A                   ; illegal function call
+ 12659  f39e  2c0e                      defw    C475A                   ; illegal function call
+ 12660  f3a0  2c0e                      defw    C475A                   ; illegal function call
+ 12661  f3a2  2c0e                      defw    C475A                   ; illegal function call
+ 12662  f3a4  2c0e                      defw    C475A                   ; illegal function call
+ 12663  f3a6  2c0e                      defw    C475A                   ; illegal function call
+ 12664  f3a8  2c0e                      defw    C475A                   ; illegal function call
+ 12665  f3aa  2c0e                      defw    C475A                   ; illegal function call
+ 12666  f3ac  2c0e                      defw    C475A                   ; illegal function call
+ 12667                          
+ 12668                          LINL40:
+ 12669                                  IF BASVER = 0
+ 12670                                  defb    39
+ 12671                                  ELSE
+ 12672  f3ae  25                        defb    37
+ 12673                                  ENDIF
+ 12674                          
+ 12675  f3af  1d                LINL32: defb    29
+ 12676                          
+ 12677  f3b0  1d                LINLEN: defb    29
+ 12678                          
+ 12679  f3b1  18                CRTCNT: defb    24
+ 12680                          
+ 12681  f3b2  0e                CLMLST: defb    14
+ 12682                          
+ 12683  f3b3  0000              TXTNAM: defw    0
+ 12684  f3b5  0000              TXTCOL: defw    0
+ 12685  f3b7  0008              TXTCGP: defw    $0800
+ 12686  f3b9  0000              TXTATR: defw    0
+ 12687  f3bb  0000              TXTPAT: defw    0
+ 12688                          
+ 12689  f3bd  0018              T32NAM: defw    $1800
+ 12690  f3bf  0020              T32COL: defw    $2000
+ 12691  f3c1  0000              T32CGP: defw    0
+ 12692  f3c3  001b              T32ATR: defw    $1B00
+ 12693  f3c5  0038              T32PAT: defw    $3800
+ 12694                          
+ 12695  f3c7  0018              GRPNAM: defw    $1800
+ 12696  f3c9  0020              GRPCOL: defw    $2000
+ 12697  f3cb  0000              GRPCGP: defw    0
+ 12698  f3cd  001b              GRPATR: defw    $1B00
+ 12699  f3cf  0038              GRPPAT: defw    $3800
+ 12700                          
+ 12701  f3d1  0008              MLTNAM: defw    $0800
+ 12702  f3d3  0000              MLTCOL: defw    0
+ 12703  f3d5  0000              MLTCGP: defw    0
+ 12704  f3d7  001b              MLTATR: defw    $1B00
+ 12705  f3d9  0038              MLTPAT: defw    $3800
+ 12706                          
+ 12707  f3db  01                CLIKSW: defb    1
+ 12708  f3dc  01                CSRY:   defb    1
+ 12709  f3dd  01                CSRX:   defb    1
+ 12710  f3de  00                CNSDFG: defb    0
+ 12711                          
+ 12712  f3df  00                RG0SAV: defb    $00
+ 12713  f3e0  e0                RG1SAV: defb    $E0
+ 12714  f3e1  00                RG2SAV: defb    $00
+ 12715  f3e2  00                RG3SAV: defb    $00
+ 12716  f3e3  00                RG4SAV: defb    $00
+ 12717  f3e4  00                RG5SAV: defb    $00
+ 12718  f3e5  00                RG6SAV: defb    $00
+ 12719  f3e6  00                RG7SAV: defb    $00
+ 12720  f3e7  00                STATFL: defb    $00
+ 12721  f3e8  ff                TRGFLG: defb    $FF
+ 12722  f3e9  0f                FORCLR: defb    15
+ 12723  f3ea  04                BAKCLR: defb    4
+ 12724                          
+ 12725                          BDRCLR:
+ 12726                                  IF BASVER = 0
+ 12727                                  defb    7
+ 12728                                  ELSE
+ 12729  f3eb  04                        defb    4
+ 12730                                  ENDIF
+ 12731                          
+ 12732  f3ec  c30000            MAXUPD: jp      0
+ 12733  f3ef  c30000            MINUPD: jp      0
+ 12734  f3f2  0f                ATRBYT: defb    15
+ 12735  f3f3  59f9              QUEUES: defw    QUETAB
+ 12736  f3f5  ff                FRCNEW: defb    $FF
+ 12737  f3f6  01                SCNCNT: defb    1
+ 12738  f3f7  32                REPCNT: defb    50
+ 12739  f3f8  f0fb              PUTPNT: defw    KEYBUF
+ 12740  f3fa  f0fb              GETPNT: defw    KEYBUF
+ 12741  f3fc  535c262d0f        CS1200: defb    $53,$5C,$26,$2D,$0F
+ 12742  f401  252d0e161f        CS2400: defb    $25,$2D,$0E,$16,$1F
+ 12743  f406  535c                      defb    $53,$5C
+ 12744  f408  262d                      defb    $26,$2D
+ 12745  f40a  0f                        defb    $0F
+ 12746  f40b  0001              ASPCT1: defw    $0100
+ 12747  f40d  0001              ASPCT2: defw    $0100
+ 12748  f40f  3a                ENDPRG: defb    ':'
+ 12749                          
+ 12750                                  DEPHASE
+ 12751                          
+ 12752                          
+ 12753                          ;       Bugfix          check for zero length devicenames (e.g. ":xxx" filenames)
+ 12754                          ;       Inputs          ________________________
+ 12755                          ;       Outputs         ________________________
  12756                          
- 12757                          ; bugfix for zero length devicename
+ 12757                                  IF      NDEVFIX = 1
  12758                          
- 12759  4689  1189fd            C7FB7:  LD      DE,PROCNM
- 12760  468c  a7                        AND     A
- 12761  468d  c0                        RET     NZ
- 12762  468e  04                        INC     B                       ; use length 1 (name ':' is used)
- 12763  468f  c9                        RET
- 12764                          
- 12765                                  ENDIF
+ 12759                          ; bugfix for zero length devicename
+ 12760                          
+ 12761  4689  1189fd            C7FB7:  LD      DE,PROCNM
+ 12762  468c  a7                        AND     A
+ 12763  468d  c0                        RET     NZ
+ 12764  468e  04                        INC     B                       ; use length 1 (name ':' is used)
+ 12765  468f  c9                        RET
  12766                          
- 12767                                  IF      SLOTFIX = 1
+ 12767                                  ENDIF
  12768                          
- 12769                          M7FBE:  CALL    C7FCB
- 12770                                  LD      E,(HL)
- 12771                                  JR      J7FC8
- 12772                          
- 12773                          M7FC4:  CALL    C7FCB
- 12774                                  LD      (HL),E
- 12775                          J7FC8:  LD      A,B
- 12776                                  JR      J7FD9
- 12777                          
- 12778                          C7FCB:  RRCA
- 12779                                  RRCA
- 12780                                  AND     3
- 12781                                  LD      D,A
- 12782                                  LD      A,(D.FFFF)
- 12783                                  CPL
- 12784                                  LD      B,A
- 12785                                  AND     $FC
- 12786                                  OR      D
- 12787                                  LD      D,A
- 12788                          J7FD9:  LD      (D.FFFF),A
- 12789                                  LD      A,E
- 12790                                  RET
- 12791                          
- 12792                                  ELSE
+ 12769                                  IF      SLOTFIX = 1
+ 12770                          
+ 12771                          M7FBE:  CALL    C7FCB
+ 12772                                  LD      E,(HL)
+ 12773                                  JR      J7FC8
+ 12774                          
+ 12775                          M7FC4:  CALL    C7FCB
+ 12776                                  LD      (HL),E
+ 12777                          J7FC8:  LD      A,B
+ 12778                                  JR      J7FD9
+ 12779                          
+ 12780                          C7FCB:  RRCA
+ 12781                                  RRCA
+ 12782                                  AND     3
+ 12783                                  LD      D,A
+ 12784                                  LD      A,(D.FFFF)
+ 12785                                  CPL
+ 12786                                  LD      B,A
+ 12787                                  AND     $FC
+ 12788                                  OR      D
+ 12789                                  LD      D,A
+ 12790                          J7FD9:  LD      (D.FFFF),A
+ 12791                                  LD      A,E
+ 12792                                  RET
  12793                          
- 12794                          ; Padding of zeroes to fill the page
- 12795  4690  0000000000000000          DEFS    66, 0
+ 12794                                  ELSE
+ 12795                          
+ 12796                          ; Padding of zeroes to fill the page
+ 12797  4690  0000000000000000          DEFS    66, 0
               0000000000000000  
               0000000000000000  
               0000000000000000  
@@ -13402,7 +13404,7 @@ basic2.asm:
               0000000000000000  
               0000000000000000  
               0000              
- 12796                          
- 12797                                  ENDIF
  12798                          
- 12799                          
+ 12799                                  ENDIF
+ 12800                          
+ 12801                          
