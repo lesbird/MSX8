@@ -7,7 +7,7 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
   
 [MSX8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) (MSX version) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer with the newer MSX graphics board. Copy these to a CP/M drive on your Heatkit computer.
 
-[MSX8H8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8H8.zip) (H8 version) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer with an original HA-8-3 or compatible graphics card. Copy these to a CP/M drive on your Heatkit computer.
+[MSX8H8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8H8.zip) (HA8-3 version) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer with an original HA8-3 or compatible graphics card. Copy these to a CP/M drive on your Heatkit computer.
 
 [MSX8 FOR NABU - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8NABU.zip) the CP/M launcher and customized MSX BIOS for the NABU Personal Computer.
 
