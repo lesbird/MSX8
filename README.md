@@ -5,14 +5,16 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 - Heathkit users will need to jumper the VDP interrupt to INT3 on the graphics card so that the games get the 60HZ video refresh that they need to work. Follow this link: [GFX BOARD INT](https://github.com/lesbird/MSX8#graphics-board-setup)
 - RC2014 users will need (1) RomWBW module, (2) TMS9918 module, (3) YM/AY sound module, (4) SIO/2 module OR replace the TMS9918 and YM/AY sound module with my [MSX GRAPHICS/SOUND/JOYSTICK](https://github.com/sebhc/sebhc/wiki/RCBUSMSX) module
   
-[MSX8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) (MSX version) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer with the newer MSX graphics board. Copy these to a CP/M drive on your Heatkit computer.
+[MSX8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8.zip) (MSX version) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer with the MSX graphics board. Copy these to a CP/M drive on your Heatkit computer.
 
 [MSX8H8.ZIP - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8H8.zip) (HA8-3 version) the launcher including ASM source code and MSX-US.ROM for the Heathkit H8 computer with an original HA8-3 or compatible graphics card. Copy these to a CP/M drive on your Heatkit computer.
 
 [MSX8 FOR NABU - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8NABU.zip) the CP/M launcher and customized MSX BIOS for the NABU Personal Computer.
 
-[MSX8 FOR RC2014 - 36KB](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with the modified MSX GRAPHICS board using MSX I/O ports (PSGCTL @ $A0)<br>
-Also check out my new [MSX GRAPHICS/SOUND AND JOYSTICK MODULE](https://github.com/sebhc/sebhc/wiki/RCBUSMSX) for RCBus
+<b>RomWBW version only</b><br>
+[MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with MSX Graphics Sound and Joystick module<br>
+[MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014MKBDSIO2.zip) with MSX Graphics Sound and Joystick module and MSX Omega keyboard<br>
+[MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014MKBDRS232.zip) with MSX Graphics Sound and Joystick module and MSX Omega keyboard and my 16550 RS232 module<br>
 
 [MSXROMS.ZIP - 6MB](https://drive.google.com/file/d/1CPUKjfRxF2Sq3ZCcoAHj1XeqptBqdim3/view?usp=sharing) 481 ROMs all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
 
