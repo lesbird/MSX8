@@ -13,7 +13,7 @@ MSX8 CP/M PROGRAM TO LAUNCH MSX GAME ROMS
 
 <b>RomWBW version only</b><br>
 [MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014.zip) with MSX Graphics Sound and Joystick module<br>
-[MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014MKBDSIO2.zip) with MSX Graphics Sound and Joystick module and MSX Omega keyboard<br>
+[MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014MKBDSIO2.zip) with MSX Graphics Sound and Joystick module and MSX Omega keyboard and SIO2 serial I/O<br>
 [MSX8 FOR RC2014](https://github.com/lesbird/MSX8/blob/main/MSX8RC2014MKBDRS232.zip) with MSX Graphics Sound and Joystick module and MSX Omega keyboard and my 16550 RS232 module<br>
 
 [MSXROMS.ZIP - 6MB](https://drive.google.com/file/d/1CPUKjfRxF2Sq3ZCcoAHj1XeqptBqdim3/view?usp=sharing) 481 ROMs all batch renamed to CP/M friendly 8.3 format. Roms over 32K have been removed.
