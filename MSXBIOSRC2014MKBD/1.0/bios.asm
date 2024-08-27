@@ -200,15 +200,16 @@ CGTABL: dw      T1BBF                   ; $0004
         db      VDPDAT
         db      VDPDAT
 
-SYNCHR: jp      A2683                   ; $0008
+SYNCHR:	jp      A2683                   ; $0008
 
         defs    $000C-$,0
 
-RDSLT:  jp      A01B6                   ; $000C
+RDSLT: 	jp      A01B6                   ; $000C
 
         defs    $0010-$,0
 
-CHRGTR: jp      A2686                   ; $0010
+CHRGTR: jp	KBD10
+;	jp      A2686                   ; $0010
 
         defs    $0014-$,0
 
@@ -216,7 +217,8 @@ WRSLT:  jp      A01D1                   ; $0014
 
         defs    $0018-$,0
 
-OUTDO:  jp      A1B45                   ; $0018
+OUTDO:  jp	JSTK18
+	;jp      A1B45                   ; $0018
 
         defs    $001C-$,0
 
@@ -232,7 +234,8 @@ ENASLT: jp      A025E                   ; $0024
 
         defs    $0028-$,0
 
-GETYPR: jp      A2689                   ; $0028
+GETYPR: jp	OUT0A0
+;	jp      A2689                   ; $0028
 ;
 IDBYT0:                                 ; $002B
         IF      INTHZ = 60
@@ -246,7 +249,8 @@ IDBYT2: DEFB    MSXVER                  ; $002D, MSX version 0 = MSX1
 
         DEFS    $0030-$
 
-CALLF:  jp      A0205                   ; $0030
+CALLF: 	jp	OUT0A1
+;	jp      A0205                   ; $0030
 ;
         DEFS    $0034-$
 
@@ -1449,11 +1453,17 @@ A0861:  call    A046F
         jr      z,A0861
         pop     af
 A086C:  push    af
-        out     ($91),a
+;        out     ($91),a
+	nop
+	nop
         xor     a
-        out     ($90),a
+;        out     ($90),a
+	nop
+	nop
         dec     a
-        out     ($90),a
+;        out     ($90),a
+	nop
+	nop
         pop     af
         and     a
         ret
@@ -2377,17 +2387,25 @@ A10F9:  push    hl
         ret
 ;
 A1102:  di
-        out     (PSGCTL),a
-        push    af
-        ld      a,e
-        out     (PSGDAT),a
+	push	af
+	call	OUTPSG
+;        out     (PSGCTL),a
+;	push    af
+;        ld      a,e
+;        out     (PSGDAT),a
+	nop
+	nop
         ei
         pop     af
         ret
 ;
-A110C:  ld      a,$0E
-A110E:  out     (PSGCTL),a
-        in      a,(PSGRIN)
+;A110C:  ld      a,$0E
+A110C:	nop
+	nop
+;A110E:  out     (PSGCTL),a
+;        in      a,(PSGRIN)
+A110E:	call	JSTK
+	nop
         ret
 ;
 A1113:  xor     a
@@ -2555,7 +2573,10 @@ A120C:  ld      b,a
 ;
 A121B:  and     $AF
         or      $03
-A121F:  out     (PSGDAT),a
+A121F:  
+;	out     (PSGDAT),a
+	nop
+	nop
         call    A110C
         ei
         ret
